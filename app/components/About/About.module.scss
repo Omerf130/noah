@@ -1,0 +1,145 @@
+.aboutWrapper {
+    width: 100%;
+    padding: 80px 20px;
+    direction: rtl;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+.aboutContainer {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+/* ---------- TEXT ---------- */
+.aboutContent {
+    flex: 1;
+    background-image: linear-gradient(130deg,
+            rgba(255, 237, 171, 0.45),
+            rgba(255, 255, 255, 0.9));
+    border-radius: 22px;
+    padding: 35px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-right: 8px solid #500889;
+
+    h2 {
+        color: #500889;
+        font-size: 2rem;
+        margin-bottom: 15px;
+        font-weight: 800;
+    }
+
+    p {
+        color: #333;
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+}
+
+/* ---------- IMAGE ---------- */
+.aboutImage {
+    flex: 0.7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        width: 280px;
+        height: 280px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 6px solid #500889;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        background: white;
+    }
+}
+
+.aboutBtn {
+    display: inline-block;
+    background: #500889;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 10px 20px rgba(80, 8, 137, 0.35);
+    text-decoration: none;
+
+    &:hover {
+        background: white;
+        color: #500889;
+        border: 2px solid #500889;
+        transform: translateY(-2px);
+    }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .aboutWrapper {
+        padding: 60px 15px;
+    }
+
+    .aboutContainer {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .aboutContent {
+        border-right: none;
+        border-bottom: 8px solid #500889;
+        padding: 25px;
+    }
+
+    .aboutContent h2 {
+        font-size: 1.7rem;
+    }
+
+    .aboutContent p {
+        font-size: 1rem;
+    }
+
+    .aboutImage img {
+        width: 220px;
+        height: 220px;
+    }
+}
+
+@media (max-width: 600px) {
+    .aboutWrapper {
+        padding: 40px 10px;
+    }
+
+    .aboutContent {
+        padding: 20px;
+    }
+
+    .aboutContent h2 {
+        font-size: 1.5rem;
+    }
+
+    .aboutContent p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    .aboutImage img {
+        width: 180px;
+        height: 180px;
+    }
+
+    .aboutBtn {
+        padding: 12px 24px;
+        font-size: 1rem;
+    }
+}
+

@@ -1,0 +1,109 @@
+.lessonsWrapper {
+  width: 100%;
+  padding: 90px 20px;
+  direction: rtl;
+  display: flex;
+  justify-content: center;
+}
+
+.lessonsContainer {
+  max-width: 1100px;
+  width: 100%;
+  text-align: right;
+  border-radius: 28px;
+  padding: 45px;
+  border-right: 8px solid #500889;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.18);
+  background-image: linear-gradient(
+    130deg,
+    rgba(255, 237, 171, 0.45),
+    rgba(255, 255, 255, 0.9)
+  );
+}
+
+/* ---------- Header ---------- */
+.lessonsHeader {
+  color: #500889;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  font-weight: 900;
+}
+
+/* ---------- Text ---------- */
+.lessonsContent {
+  color: #333;
+  font-size: 1.15rem;
+  line-height: 1.9;
+  margin-bottom: 35px;
+}
+
+/* ---------- Button ---------- */
+.lessonsBtn {
+  display: inline-block;
+  background: #500889;
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 35px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: .3s ease;
+  box-shadow: 0 12px 28px rgba(80, 8, 137, .35);
+  text-decoration: none;
+
+  &:hover {
+    background: white;
+    color: #500889;
+    border: 2px solid #500889;
+    transform: translateY(-2px);
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .lessonsWrapper {
+    padding: 60px 15px;
+  }
+
+  .lessonsContainer {
+    text-align: center;
+    border-right: none;
+    border-top: 8px solid #500889;
+    padding: 35px;
+  }
+
+  .lessonsHeader {
+    font-size: 1.9rem;
+  }
+
+  .lessonsContent {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .lessonsWrapper {
+    padding: 40px 10px;
+  }
+
+  .lessonsContainer {
+    padding: 25px;
+  }
+
+  .lessonsHeader {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+  }
+
+  .lessonsContent {
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  .lessonsBtn {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+}
+

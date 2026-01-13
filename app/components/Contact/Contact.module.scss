@@ -1,0 +1,176 @@
+.contactWrapper {
+    width: 100%;
+    padding: 90px 20px;
+    direction: rtl;
+    display: flex;
+    justify-content: center;
+
+    background: linear-gradient(135deg,
+            rgba(255, 237, 171, 0.7),
+            rgba(255, 255, 255, 0.9));
+}
+
+.contactContainer {
+    max-width: 1000px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 28px;
+    padding: 45px;
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.18);
+    border-right: 8px solid #500889;
+    direction: rtl;
+}
+
+.contactTitle {
+    color: #500889;
+    font-size: 2.3rem;
+    margin-bottom: 10px;
+    font-weight: 900;
+}
+
+.contactSub {
+    font-size: 1.05rem;
+    color: #555;
+    margin-bottom: 35px;
+}
+
+/* ---------- FORM ---------- */
+.contactForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label {
+        color: #500889;
+        font-weight: 800;
+    }
+
+    input,
+    textarea,
+    select {
+        padding: 12px;
+        border-radius: 12px;
+        border: 2px solid #ddd;
+        background: #fff;
+        font-size: 1rem;
+        outline: none;
+        transition: 0.3s ease;
+
+        &:focus {
+            border-color: #500889;
+            box-shadow: 0 0 10px rgba(80, 8, 137, 0.3);
+        }
+    }
+
+    textarea {
+        height: 120px;
+        resize: none;
+    }
+}
+
+.full {
+    grid-column: span 2;
+}
+
+/* ---------- BUTTON ---------- */
+.contactBtn {
+    grid-column: span 2;
+    background: #500889;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    border-radius: 35px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 0 10px 25px rgba(80, 8, 137, 0.35);
+
+    &:hover {
+        background: white;
+        color: #500889;
+        border: 2px solid #500889;
+        transform: translateY(-2px);
+    }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .contactWrapper {
+        padding: 60px 15px;
+    }
+
+    .contactContainer {
+        padding: 35px;
+        text-align: center;
+        border-right: none;
+        border-top: 8px solid #500889;
+    }
+
+    .contactTitle {
+        font-size: 2rem;
+    }
+
+    .contactForm {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .full,
+    .contactBtn {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .contactWrapper {
+        padding: 40px 10px;
+    }
+
+    .contactContainer {
+        padding: 25px;
+    }
+
+    .contactTitle {
+        font-size: 1.7rem;
+    }
+
+    .contactSub {
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+    }
+
+    .contactForm {
+        gap: 15px;
+    }
+
+    .formGroup {
+        label {
+            font-size: 0.95rem;
+        }
+
+        input,
+        textarea,
+        select {
+            padding: 10px;
+            font-size: 0.95rem;
+        }
+
+        textarea {
+            height: 100px;
+        }
+    }
+
+    .contactBtn {
+        padding: 12px 24px;
+        font-size: 1.1rem;
+    }
+}
+
+
