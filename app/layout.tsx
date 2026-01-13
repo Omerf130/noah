@@ -3,7 +3,7 @@ import './globals.scss'
 import BackgroundWrapper from './components/BackgroundWrapper/BackgroundWrapper'
 
 export const metadata: Metadata = {
-  title: 'נועה - ליווי סטודנטים לסיעוד',
+  title: 'נוח - ליווי סטודנטים לסיעוד',
   description: 'ליווי אישי, שיעורים פרטיים והמלווה הקליני לסטודנטים לסיעוד',
 }
 
