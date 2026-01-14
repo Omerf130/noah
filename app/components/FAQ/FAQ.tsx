@@ -16,16 +16,12 @@ const FAQ = () => {
       answer: 'כן, בהחלט. השירותים מתאימים לכל שלב בתואר – מתחילת הדרך ועד סיום. כל אחד מגיע עם אתגרים שונים, והתהליך מותאם למקום שבו אתם נמצאים.',
     },
     {
-      question: 'זה בזום?',
-      answer: 'השיעורים הפרטיים מתקיימים בזום. הליווי האישי והחוברת יכולים להיות גם בזום וגם פנים אל פנים – לפי מה שמתאים לכם.',
+      question: 'זה מתקיים בזום?',
+      answer: 'נכון לעכשיו השיעורים הפרטיים והליווי מתקיימים בזום.',
     },
     {
       question: 'כמה זמן לוקח לראות שינוי?',
       answer: 'זה תלוי במקום שבו אתם נמצאים ובמה שאתם עובדים עליו. יש סטודנטים שמרגישים שינוי כבר אחרי כמה מפגשים, ויש שצריכים יותר זמן. המטרה היא תהליך מתמשך ולא פתרון מהיר.',
-    },
-    {
-      question: 'איך מתחילים?',
-      answer: 'פשוט שולחים פנייה דרך הטופס או וואטסאפ, ונשב להתייעצות קצרה. נדבר על האתגרים שלכם, על מה אתם מחפשים, ונראה יחד מה מתאים.',
     },
     {
       question: 'האם החוברת מתאימה גם בלי ליווי?',
@@ -34,6 +30,10 @@ const FAQ = () => {
     {
       question: 'אפשר לשלב בין השירותים?',
       answer: 'כן, בהחלט. אפשר לשלב בין השירותים לפי הצורך – למשל, ליווי אישי עם שיעורים פרטיים, או חוברת עם ליווי. נדבר יחד על מה מתאים לכם.',
+    },
+    {
+      question: 'איך מתחילים?',
+      answer: 'פשוט שולחים פנייה דרך הטופס או וואטסאפ, ונשב להתייעצות קצרה. נדבר על האתגרים שלכם, על מה אתם מחפשים, ונראה יחד מה מתאים.',
     },
   ]
 
@@ -45,6 +45,7 @@ const FAQ = () => {
     <section className={styles.faqWrapper} id="faq">
       <div className={styles.faqContainer}>
         <h2 className={styles.sectionTitle}>שאלות נפוצות</h2>
+        <p className={styles.subtitle}>אם עדיין יש ספק – יכול להיות שהתשובה כאן</p>
         <div className={styles.faqList}>
           {faqs.map((faq, index) => (
             <div key={index} className={styles.faqItem}>
@@ -52,6 +53,7 @@ const FAQ = () => {
                 className={styles.faqQuestion}
                 onClick={() => toggleFAQ(index)}
                 aria-expanded={openIndex === index}
+                suppressHydrationWarning
               >
                 <span>{faq.question}</span>
                 <span className={styles.arrow}>{openIndex === index ? '−' : '+'}</span>

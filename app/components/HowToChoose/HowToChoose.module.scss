@@ -1,12 +1,17 @@
-.howItWorksWrapper {
+.howToChooseWrapper {
   width: 100%;
   padding: 80px 20px;
   direction: rtl;
   display: flex;
   justify-content: center;
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 237, 171, 0.3),
+    rgba(255, 255, 255, 0.8)
+  );
 }
 
-.howItWorksContainer {
+.howToChooseContainer {
   max-width: 1200px;
   width: 100%;
 }
@@ -19,59 +24,73 @@
   text-align: center;
 }
 
-.stepsGrid {
+.servicesGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
 }
 
-.stepCard {
+.serviceCard {
   background-image: linear-gradient(
     130deg,
     rgba(255, 237, 171, 0.45),
     rgba(255, 255, 255, 0.9)
   );
   border-radius: 22px;
-  padding: 40px 30px;
+  padding: 35px 30px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   border-top: 6px solid #500889;
   text-align: center;
   transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   &:hover {
     transform: translateY(-5px);
   }
 }
 
-.stepNumber {
-  width: 60px;
-  height: 60px;
-  background: #500889;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
+.serviceTitle {
+  font-size: 1.8rem;
+  color: #500889;
   font-weight: 900;
-  margin: 0 auto 20px;
+  margin-bottom: 15px;
 }
 
-.stepText {
-  font-size: 1.15rem;
-  line-height: 1.9;
+.serviceDescription {
+  font-size: 1.1rem;
+  line-height: 1.8;
   color: #333;
-  margin: 0;
-  text-align: center;
+  margin-bottom: 25px;
+  flex-grow: 1;
+}
 
-  strong {
+.serviceBtn {
+  display: inline-block;
+  background: #500889;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 10px 20px rgba(80, 8, 137, 0.35);
+  text-decoration: none;
+  align-self: center;
+
+  &:hover {
+    background: white;
     color: #500889;
-    font-weight: 800;
+    border: 2px solid #500889;
+    transform: translateY(-2px);
   }
 }
 
 @media (max-width: 900px) {
-  .howItWorksWrapper {
+  .howToChooseWrapper {
     padding: 60px 20px;
   }
 
@@ -80,18 +99,18 @@
     margin-bottom: 40px;
   }
 
-  .stepsGrid {
+  .servicesGrid {
     grid-template-columns: 1fr;
     gap: 25px;
   }
 
-  .stepCard {
+  .serviceCard {
     padding: 30px 25px;
   }
 }
 
 @media (max-width: 600px) {
-  .howItWorksWrapper {
+  .howToChooseWrapper {
     padding: 50px 15px;
   }
 
@@ -100,18 +119,15 @@
     margin-bottom: 30px;
   }
 
-  .stepCard {
+  .serviceCard {
     padding: 25px 20px;
   }
 
-  .stepNumber {
-    width: 50px;
-    height: 50px;
+  .serviceTitle {
     font-size: 1.5rem;
-    margin-bottom: 15px;
   }
 
-  .stepText {
+  .serviceDescription {
     font-size: 1rem;
   }
 }

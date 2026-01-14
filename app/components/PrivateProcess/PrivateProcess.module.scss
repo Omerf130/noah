@@ -35,6 +35,34 @@
   line-height: 1.9;
   color: #333;
   margin-bottom: 35px;
+
+  p {
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.subheading {
+  font-weight: 700;
+  color: #500889;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.bulletList {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+  text-align: right;
+
+  li {
+    margin-bottom: 10px;
+    font-size: 1.15rem;
+    line-height: 1.9;
+  }
 }
 
 /* ---------- Button ---------- */

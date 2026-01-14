@@ -15,35 +15,31 @@
   font-size: 2.5rem;
   color: #500889;
   font-weight: 900;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.subtitle {
-  font-size: 1.1rem;
-  color: #666;
-  text-align: center;
   margin-bottom: 50px;
-  font-style: italic;
+  text-align: center;
 }
 
-.testimonialsGrid {
+.changesGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 30px;
+  margin-bottom: 40px;
 }
 
-.testimonialCard {
+.changeCard {
   background-image: linear-gradient(
     130deg,
     rgba(255, 237, 171, 0.45),
     rgba(255, 255, 255, 0.9)
   );
   border-radius: 22px;
-  padding: 35px 30px;
+  padding: 30px 25px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-  border-top: 6px solid #500889;
-  text-align: center;
+  border-right: 6px solid #500889;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  gap: 20px;
   transition: transform 0.3s ease;
 
   &:hover {
@@ -51,12 +47,38 @@
   }
 }
 
-.testimonialText {
+.iconWrapper {
+  flex-shrink: 0;
+}
+
+.icon {
+  font-size: 2rem;
+  color: #500889;
+  font-weight: 900;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background: rgba(80, 8, 137, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.changeText {
   font-size: 1.15rem;
-  line-height: 1.9;
+  line-height: 1.8;
   color: #333;
   margin: 0;
+  font-weight: 600;
+}
+
+.bottomLine {
+  font-size: 1.1rem;
+  color: #666;
+  text-align: center;
   font-style: italic;
+  margin-top: 30px;
 }
 
 @media (max-width: 900px) {
@@ -68,18 +90,14 @@
     font-size: 2rem;
   }
 
-  .subtitle {
-    font-size: 1rem;
-    margin-bottom: 40px;
-  }
-
-  .testimonialsGrid {
+  .changesGrid {
     grid-template-columns: 1fr;
     gap: 25px;
+    margin-bottom: 30px;
   }
 
-  .testimonialCard {
-    padding: 30px 25px;
+  .changeCard {
+    padding: 25px 20px;
   }
 }
 
@@ -90,19 +108,20 @@
 
   .sectionTitle {
     font-size: 1.7rem;
+    margin-bottom: 40px;
   }
 
-  .subtitle {
-    font-size: 0.95rem;
-    margin-bottom: 30px;
+  .changeCard {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
   }
 
-  .testimonialCard {
-    padding: 25px 20px;
+  .changeText {
+    font-size: 1rem;
   }
 
-  .testimonialText {
+  .bottomLine {
     font-size: 1rem;
   }
 }
-

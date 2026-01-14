@@ -8,15 +8,24 @@ const HowItWorks = () => {
         <div className={styles.stepsGrid}>
           <div className={styles.stepCard}>
             <div className={styles.stepNumber}>1</div>
-            <p className={styles.stepText}>קראתם והתרשמתם מהשירותים</p>
+            <div className={styles.stepText}>
+              <strong>מבינים מה אתם צריכים</strong>
+              <br />קוראים על השירותים ועוצרים רגע לראות מה מרגיש לכם נכון.
+            </div>
           </div>
           <div className={styles.stepCard}>
             <div className={styles.stepNumber}>2</div>
-            <p className={styles.stepText}>שלחתם פנייה ונשב להתייעצות קצרה</p>
+            <div className={styles.stepText}>
+              <strong>פונים להתייעצות</strong>
+              <br />שיחה קצרה כדי לדייק את הצורך שלכם.
+            </div>
           </div>
           <div className={styles.stepCard}>
             <div className={styles.stepNumber}>3</div>
-            <p className={styles.stepText}>נתאים יחד את הדרך שלכם ללמידה ולהתקדמות</p>
+            <div className={styles.stepText}>
+              <strong>יוצאים לדרך מסודרת</strong>
+              <br />עם שיטה, תרגול וכלים שמתאימים לכם.
+            </div>
           </div>
         </div>
       </div>
