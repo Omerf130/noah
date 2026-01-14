@@ -100,6 +100,15 @@
   text-align: right;
 }
 
+.sectionSubtitle {
+  font-size: 1.2rem;
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 40px;
+  text-align: right;
+  font-style: italic;
+}
+
 .contentBox {
   background-image: linear-gradient(
     130deg,
@@ -171,12 +180,117 @@
   border-top: 1px solid #ddd;
 }
 
+/* Two Cards Grid (Yes/No) */
+.twoCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.yesNoCard {
+  background-image: linear-gradient(
+    130deg,
+    rgba(255, 237, 171, 0.45),
+    rgba(255, 255, 255, 0.9)
+  );
+  border-radius: 22px;
+  padding: 35px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-top: 6px solid #500889;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.yesNoCardTitle {
+  font-size: 1.5rem;
+  color: #500889;
+  font-weight: 800;
+  margin-bottom: 25px;
+  text-align: right;
+}
+
+.yesNoList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: right;
+  }
+}
+
+/* Goal Cards Grid */
+.goalCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.goalCard {
+  background-image: linear-gradient(
+    130deg,
+    rgba(255, 237, 171, 0.45),
+    rgba(255, 255, 255, 0.9)
+  );
+  border-radius: 22px;
+  padding: 35px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-top: 6px solid #500889;
+  text-align: right;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.goalCardIcon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  text-align: center;
+  opacity: 0.8;
+}
+
+.goalCardTitle {
+  font-size: 1.6rem;
+  color: #500889;
+  font-weight: 900;
+  margin-bottom: 20px;
+}
+
+.goalCardText {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  margin: 0;
+}
+
 /* Cards Grid */
 .cardsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 30px;
   margin-top: 40px;
+}
+
+.betweenSessionsNote {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.8;
+  text-align: right;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 2px solid rgba(80, 8, 137, 0.2);
+  font-style: italic;
 }
 
 .card {
@@ -290,6 +404,14 @@
 
   .sectionTitle {
     font-size: 2rem;
+  }
+
+  .twoCardsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .goalCardsGrid {
+    grid-template-columns: 1fr;
   }
 
   .cardsGrid {

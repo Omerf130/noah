@@ -14,14 +14,9 @@ export default function PrivateProcessPage() {
             <p className={styles.heroSubtitle}>
               תהליך מובנה של 6 מפגשים שמטרתו לעזור לכם לבנות שגרה, לפתח משמעת עצמית ולחזק ביטחון – לא רק בחומר, אלא בדרך שלכם.
             </p>
-            <div className={styles.heroButtons}>
-              <Link href="/#contact" className={styles.primaryBtn}>
-                צור קשר
-              </Link>
-              <Link href="/#contact" className={styles.secondaryBtn}>
-                בדיקת התאמה קצרה
-              </Link>
-            </div>
+            <Link href="/#contact" className={styles.primaryBtn}>
+              לבירור התאמה
+            </Link>
           </div>
         </section>
 
@@ -44,14 +39,56 @@ export default function PrivateProcessPage() {
         {/* What It Is / What It's Not */}
         <section className={styles.section}>
           <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>מה זה הליווי (ומה זה לא)</h2>
-            <div className={styles.contentBox}>
-              <p className={styles.paragraph}>
-                הליווי האישי הוא תהליך מובנה שמטרתו לעזור לכם לבנות כלים, מסגרות ותהליכים שיחזיקו אתכם לאורך הדרך. זה לא פתרון קסם, זה לא טיפול, וזה לא רק שיעור פרטי. זה שילוב של כלים פרקטיים, מבנה ברור ותמיכה אנושית שמבינה את האתגרים מבפנים.
-              </p>
-              <p className={styles.paragraph}>
-                אנחנו לא מבטיחים הצלחה מובטחת, אבל אנחנו כן מתחייבים להיות שם איתכם בתהליך – גם כשיש נפילות, גם כשיש קושי, וגם כשיש התקדמות קטנה שצריך לזהות ולחזק.
-              </p>
+            <h2 className={styles.sectionTitle}>אז מה זה בעצם ליווי אישי</h2>
+            <p className={styles.sectionSubtitle}>כדי לדעת אם זה מתאים לכם חשוב להבין מה זה כולל וגם מה לא.</p>
+            <div className={styles.twoCardsGrid}>
+              <div className={styles.yesNoCard}>
+                <h3 className={styles.yesNoCardTitle}>מה הליווי האישי כן כולל</h3>
+                <ul className={styles.yesNoList}>
+                  <li>✨ תהליך מובנה שמלווה אותכם לאורך תקופה</li>
+                  <li>✨ עבודה על שגרה, התמדה ותרגול</li>
+                  <li>✨ כלים ללמידה ולהתמודדות עם עומס</li>
+                  <li>✨ ליווי אנושי ותומך בתוך התהליך</li>
+                </ul>
+              </div>
+              <div className={styles.yesNoCard}>
+                <h3 className={styles.yesNoCardTitle}>מה הליווי האישי לא</h3>
+                <ul className={styles.yesNoList}>
+                  <li>✨ זה לא טיפול רגשי</li>
+                  <li>✨ זה לא שיעור פרטי קלאסי</li>
+                  <li>✨ זה לא פתרון קסם או תהליך מיידי</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Goal of Process */}
+        <section className={styles.section}>
+          <div className={styles.container}>
+            <h2 className={styles.sectionTitle}>לאן התהליך מכוון</h2>
+            <div className={styles.goalCardsGrid}>
+              <div className={styles.goalCard}>
+                <div className={styles.goalCardIcon}>📅</div>
+                <h3 className={styles.goalCardTitle}>שגרה</h3>
+                <p className={styles.goalCardText}>
+                  בניית שגרה לא מושלמת אלא כזו שמתאימה לחיים שלכם באמת
+                </p>
+              </div>
+              <div className={styles.goalCard}>
+                <div className={styles.goalCardIcon}>📚</div>
+                <h3 className={styles.goalCardTitle}>תרגול</h3>
+                <p className={styles.goalCardText}>
+                  יכולת לתרגל ולהתקדם לאורך זמן גם כשאין מוטיבציה גבוהה
+                </p>
+              </div>
+              <div className={styles.goalCard}>
+                <div className={styles.goalCardIcon}>💪</div>
+                <h3 className={styles.goalCardTitle}>ביטחון</h3>
+                <p className={styles.goalCardText}>
+                  לדעת לעצור, לדייק ולהמשיך בלי להילחץ מכל שלב.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -77,7 +114,7 @@ export default function PrivateProcessPage() {
         {/* 6 Sessions */}
         <section className={styles.section}>
           <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>איך זה עובד – 6 מפגשים</h2>
+            <h2 className={styles.sectionTitle}>איך נראה התהליך בפועל</h2>
             <p className={styles.introParagraph}>
               כל מפגש נמשך כשעה וחצי, מתקיים פעם בשבוע, ומשלב ליווי אישי עם כלי פרקטי לשבוע הקרוב. המטרה היא שתצאו מכל מפגש עם משהו קונקרטי לעבוד איתו.
             </p>
@@ -130,36 +167,9 @@ export default function PrivateProcessPage() {
                 <p className={styles.cardOutcome}>יוצאים עם: תוכנית המשך אישית וביטחון להמשך הדרך</p>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Goal of Process */}
-        <section className={styles.section}>
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>מה המטרה של התהליך</h2>
-            <div className={styles.contentBox}>
-              <p className={styles.paragraph}>
-                המטרה היא שתצאו עם כלים לדרך – לא רק במקצוע, אלא בכלל. כלים לניהול זמן, למשמעת עצמית, להתמודדות עם קושי, ולחיזוק ביטחון עצמי. המטרה היא שתחושו יציבות יותר, ביטחון יותר, ויכולת להחזיק את הדרך גם כשיש אתגרים.
-              </p>
-              <p className={styles.paragraph}>
-                אנחנו לא מבטיחים הצלחה מובטחת, אבל אנחנו כן מתחייבים להיות שם איתכם בתהליך ולעזור לכם לבנות את הכלים האלה. מה שתעשו איתם אחר כך – זה שלכם.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Between Sessions */}
-        <section className={styles.section}>
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>מה קורה בין המפגשים</h2>
-            <div className={styles.contentBox}>
-              <p className={styles.paragraph}>
-                בין המפגשים יש ליווי ותמיכה – אפשר לשלוח הודעות, לקבל הכוונה, ולשתף בקשיים או בהתקדמות. זה לא מחייב תגובה מיידית, אבל זה כן אומר שיש מי שמבין את האתגרים ומלווה אתכם גם בין המפגשים.
-              </p>
-              <p className={styles.paragraph}>
-                המטרה היא שתחושו שיש לכם מסגרת תומכת, לא רק במפגשים עצמם, אלא גם בימים שביניהם.
-              </p>
-            </div>
+            <p className={styles.betweenSessionsNote}>
+              בין המפגשים יש מקום ליישום ותרגול עצמאי עם זמינות לשאלות והתייעצות לפי הצורך.
+            </p>
           </div>
         </section>
 
@@ -204,7 +214,7 @@ export default function PrivateProcessPage() {
               אם אתם מרגישים שהליווי הזה יכול לעזור לכם, בואו נשוחח. נדבר קצת על האתגרים שלכם, על מה אתם מחפשים, ונראה יחד אם זה המקום הנכון בשבילכם.
             </p>
             <Link href="/#contact" className={styles.primaryBtn}>
-              צור קשר
+              לבירור התאמה
             </Link>
           </div>
         </section>
