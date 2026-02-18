@@ -11,6 +11,9 @@ import Testimonials from './components/Testimonials/Testimonials'
 import FAQ from './components/FAQ/FAQ'
 import FinalCTA from './components/FinalCTA/FinalCTA'
 import Contact from './components/Contact/Contact'
+import Footer from './components/Footer/Footer'
+import Image from 'next/image'
+import styles from './page.module.scss'
 
 export default function Home() {
   return (
@@ -29,7 +32,20 @@ export default function Home() {
       <Testimonials />
       <FAQ />
       <FinalCTA />
+      <section className={styles.bookImageSection}>
+        <div className={styles.bookImageContainer}>
+          <Image
+            src="/pics/noabook.jpeg"
+            alt="המלווה הקליני"
+            width={800}
+            height={600}
+            className={styles.bookImage}
+            priority={false}
+          />
+        </div>
+      </section>
       <Contact />
+      <Footer />
     </>
   )
 }

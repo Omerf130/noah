@@ -28,11 +28,11 @@ const About = () => {
 
                 <div className={styles.aboutImage}>
                     <Image
-                        src="/pics/logo.jpeg"
+                        src="/pics/noa.jpeg"
                         alt="about"
                         width={280}
                         height={280}
-                        style={{ borderRadius: '50%', border: '6px solid #500889' }}
+                        style={{ borderRadius: '22px' }}
                     />
                 </div>
             </div>

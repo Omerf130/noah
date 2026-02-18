@@ -9,7 +9,7 @@ const Clinical = () => {
 
         <div className={styles.clinicalImage}>
           <Image 
-            src="/pics/clinical.jpeg" 
+            src="/pics/noaclinic.jpeg" 
             alt="clinical guide" 
             width={340}
             height={430}
