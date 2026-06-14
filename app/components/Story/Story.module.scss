@@ -1,0 +1,178 @@
+.storyWrapper {
+  width: 100%;
+  padding: 80px 20px;
+  direction: rtl;
+  display: flex;
+  justify-content: center;
+}
+
+.storyContainer {
+  max-width: 850px;
+  width: 100%;
+}
+
+.sectionTitle {
+  font-size: 2.2rem;
+  color: #500889;
+  font-weight: 900;
+  margin-bottom: 40px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.storyCard {
+  background-image: linear-gradient(
+    130deg,
+    rgba(255, 237, 171, 0.45),
+    rgba(255, 255, 255, 0.9)
+  );
+  border-radius: 22px;
+  padding: 45px 40px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-right: 8px solid #500889;
+  text-align: right;
+}
+
+.intro {
+  font-size: 1.2rem;
+  color: #500889;
+  font-weight: 700;
+  line-height: 1.8;
+  margin: 0 0 30px;
+}
+
+.shortLines {
+  margin-bottom: 28px;
+
+  p {
+    font-size: 1.15rem;
+    color: #333;
+    font-weight: 600;
+    line-height: 1.5;
+    margin: 0 0 8px;
+  }
+}
+
+.bridge {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.8;
+  margin: 0 0 22px;
+}
+
+.quoteBlock {
+  margin: 0 0 32px;
+  padding: 22px 28px;
+  border-radius: 16px;
+  background: rgba(80, 8, 137, 0.06);
+  border: none;
+  text-align: center;
+
+  p {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #500889;
+    line-height: 1.6;
+    font-style: italic;
+  }
+}
+
+.closingSection {
+  p {
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.8;
+    margin: 0 0 12px;
+  }
+}
+
+.closingLines {
+  margin-bottom: 12px;
+
+  p {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 600;
+    line-height: 1.5;
+    margin: 0 0 6px;
+  }
+}
+
+.closingFinal {
+  font-weight: 600;
+  color: #500889 !important;
+  margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+  .storyWrapper {
+    padding: 60px 20px;
+  }
+
+  .sectionTitle {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+
+  .storyCard {
+    padding: 35px 30px;
+  }
+
+  .intro {
+    font-size: 1.1rem;
+  }
+
+  .shortLines p {
+    font-size: 1.05rem;
+  }
+
+  .bridge,
+  .closingSection p,
+  .closingLines p {
+    font-size: 1rem;
+  }
+
+  .quoteBlock p {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .storyWrapper {
+    padding: 50px 15px;
+  }
+
+  .sectionTitle {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+  }
+
+  .storyCard {
+    padding: 28px 22px;
+    border-right-width: 6px;
+  }
+
+  .intro {
+    font-size: 1rem;
+    margin-bottom: 25px;
+  }
+
+  .shortLines p {
+    font-size: 0.95rem;
+  }
+
+  .bridge,
+  .closingSection p,
+  .closingLines p {
+    font-size: 0.95rem;
+  }
+
+  .quoteBlock {
+    padding: 18px 20px;
+
+    p {
+      font-size: 1.05rem;
+    }
+  }
+}

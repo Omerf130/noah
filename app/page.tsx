@@ -1,6 +1,7 @@
 import Nav from './components/Nav/Nav'
 import Hero from './components/Hero/Hero'
 import Metrics from './components/Metrics/Metrics'
+import Story from './components/Story/Story'
 import HowItWorks from './components/HowItWorks/HowItWorks'
 import About from './components/About/About'
 import ValueCards from './components/ValueCards/ValueCards'
@@ -22,6 +23,7 @@ export default function Home() {
       <Nav />
       <Hero />
       <Metrics />
+      <Story />
       <HowItWorks />
       <About />
       <ValueCards />
