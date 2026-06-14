@@ -6,14 +6,16 @@ const Hero = () => {
     <section className={styles.heroWrapper}>
       <div className={styles.heroContainer}>
         <h1 className={styles.heroTitle}>
-          בואו ללמוד סיעוד בנוח
+          אתם לא צריכים ללמוד יותר.
         </h1>
+        <h2 className={styles.heroTitle}>
+          אתם צריכים ללמוד אחרת, בנוח.
+        </h2>
         <p className={styles.heroSubtitle}>
-          שילוב של שיטה ללמידה ותרגול, חיזוק משמעת עצמית וביטחון,
-          וליווי שמחזיק את הדרך – לא רק את המבחן הבא.
+          ליווי אישי, שיעורים פרטיים וכלים לסטודנטים לסיעוד שרוצים יותר סדר, יותר ביטחון ויותר שקט בדרך להצלחה
         </p>
         <Link href="/#contact" className={styles.primaryBtn}>
-          לשאלות והתייעצות
+          אני רוצה להצליח בתואר!
         </Link>
       </div>
     </section>

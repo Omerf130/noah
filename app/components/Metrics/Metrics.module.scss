@@ -1,0 +1,136 @@
+.metricsWrapper {
+  width: 100%;
+  padding: 80px 20px;
+  direction: rtl;
+  display: flex;
+  justify-content: center;
+}
+
+.metricsContainer {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  color: #500889;
+  font-weight: 900;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.sectionSubtitle {
+  font-size: 1.15rem;
+  color: #555;
+  text-align: center;
+  margin-bottom: 50px;
+  line-height: 1.8;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.metricCard {
+  background-image: linear-gradient(
+    130deg,
+    rgba(255, 237, 171, 0.45),
+    rgba(255, 255, 255, 0.9)
+  );
+  border-radius: 22px;
+  padding: 40px 25px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-top: 6px solid #500889;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.metricNumber {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #500889;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.metricLabel {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #500889;
+  margin-bottom: 8px;
+}
+
+.metricDescription {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .metricsWrapper {
+    padding: 60px 20px;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  .sectionSubtitle {
+    font-size: 1.05rem;
+    margin-bottom: 40px;
+  }
+
+  .metricsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+
+  .metricCard {
+    padding: 30px 20px;
+  }
+
+  .metricNumber {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .metricsWrapper {
+    padding: 50px 15px;
+  }
+
+  .sectionTitle {
+    font-size: 1.7rem;
+    margin-bottom: 10px;
+  }
+
+  .sectionSubtitle {
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+  }
+
+  .metricsGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .metricCard {
+    padding: 30px 20px;
+  }
+
+  .metricNumber {
+    font-size: 2.2rem;
+  }
+
+  .metricLabel {
+    font-size: 1rem;
+  }
+
+  .metricDescription {
+    font-size: 0.9rem;
+  }
+}
