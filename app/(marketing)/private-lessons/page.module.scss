@@ -1,0 +1,104 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'breakpoints' as *;
+
+.page {
+  width: 100%;
+}
+
+.chips {
+  padding: $space-11 $space-5;
+  background: $color-surface-warm;
+
+  h2 {
+    text-align: center;
+    color: $color-purple-deep;
+    font-size: $font-size-4xl;
+    margin: 0 0 $space-7;
+  }
+}
+
+.cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3;
+  justify-content: center;
+
+  span {
+    background: $color-white;
+    border: 2px solid rgba(212, 184, 240, 0.45);
+    color: $color-primary;
+    font-weight: $font-weight-bold;
+    padding: $space-3 $space-5;
+    border-radius: $radius-pill;
+  }
+}
+
+.steps {
+  padding: $space-13 $space-5;
+  background: $color-white;
+
+  h2 {
+    text-align: center;
+    font-size: $font-size-5xl;
+    color: $color-purple-deep;
+    margin: 0 0 $space-10;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: $space-4;
+
+  article {
+    background: linear-gradient(180deg, $color-gold-tint, $color-white);
+    border-radius: $radius-lg;
+    padding: $space-5;
+    box-shadow: $shadow-md;
+
+    h3 {
+      font-size: $font-size-md;
+      color: $color-primary;
+      margin: $space-3 0;
+    }
+
+    p {
+      margin: 0;
+      font-size: $font-size-sm;
+      color: $color-text-muted;
+      line-height: 1.6;
+    }
+  }
+}
+
+.stepNum {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: $color-amber;
+  color: $color-white;
+  font-weight: $font-weight-black;
+  font-size: $font-size-sm;
+}
+
+.cta {
+  padding: $space-11 $space-5;
+  text-align: center;
+  @include section-band-gold;
+}
+
+@include respond-to(xl) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@include respond-to(md) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

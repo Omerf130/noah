@@ -1,19 +1,23 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'breakpoints' as *;
+
 .navWrapper {
   width: 100%;
-  background: linear-gradient(85deg, #fff, #ffedab);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(80, 8, 137, 0.08);
   padding: 10px 0;
   position: sticky;
   top: 0;
-  z-index: 100;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  z-index: $z-nav;
+  box-shadow: $shadow-sm;
   direction: rtl;
 }
 
 .navContainer {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 25px;
-
+  @include container($container-max);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28,8 +32,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 101;
-  order: 2; /* Logo on the left in RTL */
+  z-index: $z-nav-top;
+  order: 2;
 
   img {
     width: 100%;
@@ -40,31 +44,30 @@
   }
 }
 
-/* ---------- LINKS ---------- */
 .navLinks {
   display: flex;
   align-items: center;
-  gap: 25px;
-  order: 1; /* Links on the right in RTL */
+  gap: $space-6;
+  order: 1;
 
   a {
-    color: #500889;
-    font-size: 1.05rem;
+    color: $color-primary;
+    font-size: $font-size-md;
     text-decoration: none;
-    font-weight: 700;
-    padding: 8px 14px;
-    border-radius: 14px;
-    transition: 0.3s ease;
+    font-weight: $font-weight-bold;
+    padding: $space-2 $space-4;
+    border-radius: $radius-md;
+    transition: $transition-base;
+    @include focus-visible;
 
     &:hover {
-      background: #500889;
-      color: white;
-      padding: 16px;
+      background: $color-primary;
+      color: $color-white;
+      padding: $space-4;
     }
   }
 }
 
-/* ---------- HAMBURGER MENU ---------- */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -75,37 +78,30 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 101;
+  z-index: $z-nav-top;
   position: relative;
-  order: 1; /* Hamburger on the right in RTL */
-
-  &:focus {
-    outline: none;
-  }
+  order: 1;
+  @include focus-visible;
 }
 
 .hamburgerLine {
   width: 100%;
   height: 3px;
-  background: #500889;
+  background: $color-primary;
   border-radius: 3px;
-  transition: all 0.3s ease;
+  transition: all $transition-base;
   transform-origin: center;
 }
 
 .overlay {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 99;
+  z-index: $z-overlay;
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 768px) {
+@include respond-to(lg) {
   .hamburger {
     display: flex;
   }
@@ -120,28 +116,30 @@
     right: 0;
     height: 100vh;
     width: 280px;
-    background: linear-gradient(85deg, #fff, #ffedab);
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    padding: 100px 30px 30px;
+    padding: 100px $space-7 $space-7;
     box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2);
     transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
+    transition: transform $transition-base;
     gap: 0;
-    z-index: 100;
+    z-index: $z-nav;
     order: 1;
 
     a {
       width: 100%;
       padding: 15px 0;
       font-size: 1.1rem;
-      border-bottom: 1px solid rgba(80, 8, 137, 0.1);
+      border-bottom: 1px solid $color-border-light;
       text-align: right;
 
       &:hover {
         background: transparent;
-        color: #500889;
+        color: $color-primary;
         padding-right: 10px;
         padding-left: 0;
       }
@@ -157,7 +155,7 @@
   }
 
   .hamburger {
-    &[aria-expanded="true"] {
+    &[aria-expanded='true'] {
       .hamburgerLine {
         &:nth-child(1) {
           transform: rotate(45deg) translate(8px, 8px);
@@ -181,7 +179,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@include respond-to(sm) {
   .logo {
     width: 65px;
     height: 65px;
@@ -189,8 +187,6 @@
 
   .navLinks {
     width: 100%;
-    padding: 90px 20px 20px;
+    padding: 90px $space-5 $space-5;
   }
 }
-
-

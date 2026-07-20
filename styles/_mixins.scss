@@ -1,0 +1,78 @@
+@use 'variables' as *;
+@use 'breakpoints' as *;
+
+@mixin container($max: $container-max) {
+  max-width: $max;
+  width: 100%;
+  margin: 0 auto;
+  padding-inline: $space-6;
+}
+
+@mixin focus-visible {
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+    box-shadow: $shadow-focus;
+  }
+}
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+@mixin card-surface {
+  background: linear-gradient(
+    130deg,
+    rgba(255, 237, 171, 0.45),
+    rgba(255, 255, 255, 0.9)
+  );
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
+}
+
+@mixin section-padding {
+  padding-block: $space-13;
+  padding-inline: $space-5;
+}
+
+@mixin nav-gradient {
+  background: linear-gradient(85deg, $color-white, $color-accent-gold);
+}
+
+@mixin organic-blob($size: 420px, $opacity: 0.35) {
+  width: $size;
+  height: $size;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  filter: blur(0);
+  opacity: $opacity;
+}
+
+@mixin glass-surface {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+@mixin section-band-purple {
+  background: linear-gradient(135deg, $color-purple-deep 0%, $color-primary 55%, #5c1a94 100%);
+  color: $color-white;
+}
+
+@mixin section-band-gold {
+  background: linear-gradient(135deg, $color-gold-tint 0%, $color-accent-gold 100%);
+}
+
+@mixin mesh-background {
+  background:
+    radial-gradient(ellipse at 85% 10%, $color-gold-soft, transparent 45%),
+    radial-gradient(ellipse at 10% 90%, rgba(80, 8, 137, 0.08), transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(255, 237, 171, 0.35), transparent 60%),
+    $color-surface-warm;
+}

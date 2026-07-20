@@ -1,18 +1,20 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'breakpoints' as *;
+
 .footerWrapper {
   width: 100%;
-  background: linear-gradient(135deg, #500889, #6a1ba8);
-  padding: 50px 20px 25px;
+  background: linear-gradient(135deg, $color-primary, $color-primary-hover);
+  padding: $space-11 $space-5 $space-6;
   direction: rtl;
-  margin-top: 0;
 }
 
 .footerContainer {
-  max-width: 1200px;
-  margin: 0 auto;
+  @include container($container-max);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: $space-7;
 }
 
 .footerLinks {
@@ -20,16 +22,17 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 25px;
+  gap: $space-6;
 
   a {
-    color: white;
-    font-size: 1rem;
+    color: $color-white;
+    font-size: $font-size-base;
     text-decoration: none;
     font-weight: 600;
-    padding: 8px 16px;
-    border-radius: 12px;
-    transition: 0.3s ease;
+    padding: $space-2 $space-4;
+    border-radius: $radius-sm;
+    transition: $transition-base;
+    @include focus-visible;
 
     &:hover {
       background: rgba(255, 255, 255, 0.2);
@@ -39,43 +42,42 @@
 }
 
 .footerCredit {
-  padding-top: 20px;
+  padding-top: $space-5;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
   width: 100%;
   text-align: center;
 
   p {
     color: rgba(255, 255, 255, 0.9);
-    font-size: 0.9rem;
+    font-size: $font-size-sm;
     margin: 0;
     line-height: 1.6;
 
     a {
-      color: white;
+      color: $color-white;
       text-decoration: none;
-      font-weight: 700;
-      transition: 0.3s ease;
+      font-weight: $font-weight-bold;
+      transition: $transition-base;
+      @include focus-visible;
 
       &:hover {
-        color: #ffedab;
+        color: $color-accent-gold;
         text-decoration: underline;
       }
     }
   }
 }
 
-@media (max-width: 768px) {
+@include respond-to(lg) {
   .footerWrapper {
-    padding: 40px 15px 20px;
+    padding: $space-9 $space-4 $space-5;
   }
 
   .footerLinks {
-    gap: 15px;
+    gap: $space-4;
     flex-direction: column;
 
     a {
-      font-size: 0.95rem;
-      padding: 10px 20px;
       width: 100%;
       text-align: center;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -85,34 +87,10 @@
       }
     }
   }
-
-  .footerCredit {
-    padding-top: 15px;
-
-    p {
-      font-size: 0.85rem;
-    }
-  }
 }
 
-@media (max-width: 480px) {
+@include respond-to(sm) {
   .footerWrapper {
-    padding: 35px 10px 15px;
-  }
-
-  .footerLinks {
-    gap: 10px;
-
-    a {
-      font-size: 0.9rem;
-      padding: 12px 15px;
-    }
-  }
-
-  .footerCredit {
-    p {
-      font-size: 0.8rem;
-    }
+    padding: $space-8 $space-3 $space-4;
   }
 }
-

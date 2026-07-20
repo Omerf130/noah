@@ -1,0 +1,94 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'breakpoints' as *;
+
+.page {
+  width: 100%;
+}
+
+.bentoSection {
+  padding: $space-13 $space-5;
+  background: $color-surface-warm;
+}
+
+.sectionTitle {
+  font-size: $font-size-5xl;
+  font-weight: $font-weight-black;
+  color: $color-purple-deep;
+  text-align: center;
+  margin: 0 0 $space-10;
+}
+
+.bento {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: $space-5;
+}
+
+.tile {
+  background: $color-white;
+  border-radius: $radius-xl;
+  padding: $space-6;
+  box-shadow: $shadow-md;
+
+  h3 {
+    color: $color-primary;
+    margin: 0 0 $space-3;
+    font-size: 1.15rem;
+  }
+
+  p {
+    margin: 0;
+    color: $color-text-muted;
+    line-height: 1.7;
+  }
+}
+
+.t1 { grid-column: span 4; }
+.t2 { grid-column: span 5; }
+.t3 { grid-column: span 3; }
+
+.splitSection {
+  padding: $space-13 $space-5;
+  background: $color-white;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-10;
+  align-items: center;
+
+  h2 {
+    font-size: $font-size-4xl;
+    color: $color-purple-deep;
+    margin: 0 0 $space-5;
+  }
+
+  p {
+    font-size: $font-size-lg;
+    line-height: $line-height-relaxed;
+    color: $color-text-muted;
+    margin: 0 0 $space-4;
+  }
+}
+
+.note {
+  color: $color-primary !important;
+  font-weight: $font-weight-bold;
+}
+
+.cta {
+  padding: $space-11 $space-5;
+  text-align: center;
+  @include section-band-gold;
+}
+
+@include respond-to(xl) {
+  .t1, .t2, .t3 { grid-column: span 6; }
+  .split { grid-template-columns: 1fr; }
+}
+
+@include respond-to(md) {
+  .t1, .t2, .t3 { grid-column: span 12; }
+}

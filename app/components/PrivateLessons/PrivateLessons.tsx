@@ -5,7 +5,7 @@ const PrivateLessons = () => {
   return (
     <section className={styles.lessonsWrapper} id="lessons">
       <div className={styles.lessonsContainer}>
-        <h1 className={styles.lessonsHeader}>שיעורים פרטיים בסיעוד</h1>
+        <h2 className={styles.lessonsHeader}>שיעורים פרטיים בסיעוד</h2>
 
         <p className={styles.lessonsContent}>
           השיעורים הפרטיים מיועדים לסטודנטים שזקוקים לעזרה ממוקדת לקראת מבחן,

@@ -1,0 +1,104 @@
+// Design tokens — single source of truth for the noah2 platform (Phase 1)
+
+// Brand colors
+$color-primary: #500889;
+$color-primary-hover: #6a1ba8;
+$color-primary-light: #d4b8f0;
+$color-accent-gold: #ffedab;
+
+// Supporting palette
+$color-lavender: #d4b8f0;
+$color-lavender-soft: rgba(212, 184, 240, 0.18);
+$color-amber: #d4a017;
+$color-amber-dark: #a67c00;
+$color-gold-soft: rgba(255, 237, 171, 0.35);
+$color-beige: #f5efe6;
+$color-purple-muted: #6b5b7a;
+$color-purple-soft: rgba(80, 8, 137, 0.08);
+
+// Neutrals
+$color-white: #ffffff;
+$color-black: #000000;
+$color-text: #333333;
+$color-text-muted: #555555;
+$color-text-light: rgba(255, 255, 255, 0.88);
+$color-border: #dddddd;
+$color-border-light: rgba(80, 8, 137, 0.1);
+
+// Surfaces
+$color-surface: #ffffff;
+$color-surface-warm: #faf7f2;
+$color-surface-muted: rgba(255, 255, 255, 0.9);
+$color-gold-tint: #fff6d6;
+$color-purple-deep: #3a0666;
+$color-overlay-dark: rgba(20, 8, 35, 0.72);
+
+// Typography
+$font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+$font-weight-black: 900;
+
+$font-size-xs: 0.875rem;
+$font-size-sm: 0.95rem;
+$font-size-base: 1rem;
+$font-size-md: 1.05rem;
+$font-size-lg: 1.15rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.7rem;
+$font-size-3xl: 2rem;
+$font-size-4xl: 2.3rem;
+$font-size-5xl: 2.5rem;
+$font-size-hero: 3.4rem;
+$font-size-display: clamp(2.2rem, 5vw, 4.2rem);
+
+$line-height-tight: 1.25;
+$line-height-base: 1.7;
+$line-height-relaxed: 1.9;
+
+// Spacing scale
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 12px;
+$space-4: 16px;
+$space-5: 20px;
+$space-6: 25px;
+$space-7: 30px;
+$space-8: 35px;
+$space-9: 40px;
+$space-10: 45px;
+$space-11: 50px;
+$space-12: 60px;
+$space-13: 80px;
+$space-14: 90px;
+
+// Layout
+$container-max: 1200px;
+$container-narrow: 800px;
+$container-form: 1000px;
+
+// Border radius
+$radius-sm: 12px;
+$radius-md: 14px;
+$radius-lg: 22px;
+$radius-xl: 28px;
+$radius-pill: 30px;
+$radius-round: 35px;
+
+// Shadows
+$shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.2);
+$shadow-md: 0 10px 25px rgba(0, 0, 0, 0.15);
+$shadow-lg: 0 14px 35px rgba(0, 0, 0, 0.18);
+$shadow-primary: 0 8px 30px rgba(80, 8, 137, 0.45);
+$shadow-primary-hover: 0 12px 35px rgba(80, 8, 137, 0.5);
+$shadow-focus: 0 0 0 3px rgba(80, 8, 137, 0.35);
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-base: 0.3s ease;
+
+// Z-index
+$z-overlay: 99;
+$z-nav: 100;
+$z-nav-top: 101;
+$z-modal: 200;

@@ -1,0 +1,25 @@
+@use 'variables' as *;
+
+.wrapper {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: $space-14 $space-5;
+  direction: rtl;
+  gap: $space-5;
+}
+
+.title {
+  font-size: $font-size-5xl;
+  color: $color-primary;
+  margin: 0;
+}
+
+.text {
+  color: $color-text-muted;
+  font-size: $font-size-lg;
+  margin: 0;
+}

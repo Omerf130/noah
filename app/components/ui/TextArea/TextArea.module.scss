@@ -1,0 +1,31 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+
+  label {
+    color: $color-primary;
+    font-weight: $font-weight-black;
+  }
+
+  textarea {
+    padding: $space-3;
+    border-radius: $radius-sm;
+    border: 2px solid $color-border;
+    background: $color-surface;
+    font-size: $font-size-base;
+    font-family: inherit;
+    direction: rtl;
+    min-height: 120px;
+    resize: vertical;
+    transition: border-color $transition-base, box-shadow $transition-base;
+    @include focus-visible;
+
+    &:focus-visible {
+      border-color: $color-primary;
+    }
+  }
+}

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import styles from "./About.module.scss";
 
 const About = () => {
@@ -29,7 +28,7 @@ const About = () => {
                 <div className={styles.aboutImage}>
                     <Image
                         src="/pics/noa.jpeg"
-                        alt="about"
+                        alt="נועה – מייסדת נוח, ליווי סטודנטים לסיעוד"
                         width={280}
                         height={280}
                         style={{ borderRadius: '22px' }}

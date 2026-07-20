@@ -1,0 +1,76 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'breakpoints' as *;
+
+.page {
+  width: 100%;
+}
+
+.section {
+  padding: $space-13 $space-5;
+  background: $color-white;
+}
+
+.splitGrid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: $space-10;
+  align-items: center;
+}
+
+.portraitWrap {
+  border-radius: $radius-xl;
+  overflow: hidden;
+  box-shadow: $shadow-lg;
+  border: 5px solid $color-gold-tint;
+}
+
+.portrait {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.h2 {
+  font-size: $font-size-4xl;
+  color: $color-purple-deep;
+  margin: 0 0 $space-5;
+}
+
+.p {
+  font-size: $font-size-lg;
+  line-height: $line-height-relaxed;
+  color: $color-text-muted;
+  margin: 0 0 $space-5;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    padding: $space-3 0;
+    border-bottom: 1px solid $color-border-light;
+    color: $color-primary;
+    font-weight: $font-weight-bold;
+  }
+}
+
+.ctaBand {
+  @include section-band-purple;
+  padding: $space-13 $space-5;
+  text-align: center;
+
+  h2 {
+    color: $color-white;
+    font-size: $font-size-4xl;
+    margin: 0 0 $space-6;
+  }
+}
+
+@include respond-to(xl) {
+  .splitGrid {
+    grid-template-columns: 1fr;
+  }
+}

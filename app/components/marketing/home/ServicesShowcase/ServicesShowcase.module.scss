@@ -1,0 +1,156 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'breakpoints' as *;
+
+.wrapper {
+  padding: $space-13 $space-5;
+  direction: rtl;
+}
+
+.header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto $space-11;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: $color-primary;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-sm;
+  margin-bottom: $space-3;
+}
+
+.title {
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
+  font-weight: $font-weight-black;
+  color: $color-purple-deep;
+  margin: 0 0 $space-4;
+}
+
+.subtitle {
+  margin: 0;
+  color: $color-text-muted;
+  font-size: $font-size-lg;
+}
+
+.panels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-6;
+}
+
+.panel {
+  border-radius: $radius-xl;
+  padding: $space-7;
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+  min-height: 100%;
+  box-shadow: $shadow-md;
+  transition: transform $transition-base;
+
+  &:hover {
+    transform: translateY(-6px);
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: $font-weight-black;
+  }
+
+  p {
+    margin: 0;
+    line-height: 1.7;
+    color: $color-text-muted;
+    flex: 1;
+  }
+}
+
+.purple {
+  background: linear-gradient(160deg, rgba(80, 8, 137, 0.08), $color-white);
+  border-top: 5px solid $color-primary;
+
+  .panelTop {
+    color: $color-primary;
+  }
+}
+
+.gold {
+  background: linear-gradient(160deg, $color-gold-tint, $color-white);
+  border-top: 5px solid $color-accent-gold;
+
+  .panelTop {
+    color: $color-purple-deep;
+  }
+}
+
+.lavender {
+  background: linear-gradient(160deg, $color-lavender-soft, $color-white);
+  border-top: 5px solid $color-lavender;
+
+  .panelTop {
+    color: $color-purple-deep;
+  }
+}
+
+.panelTop {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+
+  span {
+    font-size: $font-size-sm;
+    opacity: 0.85;
+  }
+}
+
+.book {
+  padding: 0;
+  margin: 0 auto;
+
+  img {
+    max-width: 200px;
+  }
+}
+
+.miniPreview {
+  @include glass-surface;
+  border-radius: $radius-lg;
+  padding: $space-5;
+  font-size: $font-size-sm;
+  color: $color-primary;
+  font-weight: $font-weight-bold;
+}
+
+.miniBar {
+  height: 6px;
+  background: rgba(80, 8, 137, 0.12);
+  border-radius: $radius-pill;
+  margin-bottom: $space-3;
+  overflow: hidden;
+
+  span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, $color-primary, $color-amber);
+    border-radius: inherit;
+  }
+}
+
+.link {
+  color: $color-primary;
+  font-weight: $font-weight-bold;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@include respond-to(xl) {
+  .panels {
+    grid-template-columns: 1fr;
+  }
+}

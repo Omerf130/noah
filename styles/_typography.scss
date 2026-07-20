@@ -1,0 +1,33 @@
+@use 'variables' as *;
+
+@mixin heading-1 {
+  font-size: $font-size-hero;
+  font-weight: $font-weight-black;
+  line-height: $line-height-tight;
+  color: $color-primary;
+}
+
+@mixin heading-2 {
+  font-size: $font-size-5xl;
+  font-weight: $font-weight-black;
+  line-height: $line-height-tight;
+  color: $color-primary;
+}
+
+@mixin heading-3 {
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-black;
+  color: $color-primary;
+}
+
+@mixin body-text {
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $color-text-muted;
+}
+
+@mixin section-subtitle {
+  font-size: $font-size-lg;
+  line-height: $line-height-relaxed;
+  color: $color-text-muted;
+}

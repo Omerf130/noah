@@ -1,0 +1,189 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// Pinned Hero-only accents — kept local so global palette changes do not affect Hero visual
+$hero-accent-teal: #2dd4bf;
+$hero-accent-teal-dark: #14b8a6;
+$hero-teal-soft: rgba(45, 212, 191, 0.12);
+
+.wrapper {
+  position: relative;
+  min-height: 420px;
+  width: 100%;
+}
+
+.blobPurple,
+.blobTeal {
+  position: absolute;
+  @include organic-blob(280px, 0.5);
+}
+
+.blobPurple {
+  top: 0;
+  right: 10%;
+  background: linear-gradient(135deg, rgba(80, 8, 137, 0.35), rgba(58, 6, 102, 0.2));
+}
+
+.blobTeal {
+  bottom: 5%;
+  left: 5%;
+  background: linear-gradient(135deg, rgba(45, 212, 191, 0.35), rgba(20, 184, 166, 0.15));
+  border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%;
+}
+
+.mainCard {
+  position: relative;
+  z-index: 2;
+  @include glass-surface;
+  border-radius: $radius-xl;
+  padding: $space-6;
+  box-shadow: $shadow-lg;
+  max-width: 320px;
+  margin-inline-start: auto;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $space-4;
+}
+
+.badge {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  background: $hero-teal-soft;
+  padding: $space-1 $space-3;
+  border-radius: $radius-pill;
+}
+
+.liveDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: $hero-accent-teal;
+  box-shadow: 0 0 0 4px rgba(45, 212, 191, 0.25);
+}
+
+.cardTitle {
+  font-size: 1.15rem;
+  font-weight: $font-weight-black;
+  color: $color-primary;
+  margin: 0 0 $space-5;
+}
+
+.progressRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  margin-bottom: $space-2;
+
+  strong {
+    color: $hero-accent-teal-dark;
+  }
+}
+
+.progressBar {
+  height: 8px;
+  background: rgba(80, 8, 137, 0.1);
+  border-radius: $radius-pill;
+  overflow: hidden;
+  margin-bottom: $space-5;
+
+  span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, $color-primary, $hero-accent-teal);
+  }
+}
+
+.statsRow {
+  display: flex;
+  gap: $space-5;
+  font-size: $font-size-sm;
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    color: $color-primary;
+  }
+}
+
+.lessonCard {
+  position: absolute;
+  z-index: 3;
+  bottom: 18%;
+  left: 0;
+  @include glass-surface;
+  border-radius: $radius-lg;
+  padding: $space-4 $space-5;
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  box-shadow: $shadow-md;
+  color: $color-primary;
+  max-width: 260px;
+}
+
+.lessonLabel {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  margin: 0 0 2px;
+}
+
+.lessonTitle {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  margin: 0;
+}
+
+.metricChip {
+  position: absolute;
+  z-index: 4;
+  top: 8%;
+  left: 0;
+  background: $color-primary;
+  color: $color-white;
+  border-radius: $radius-lg;
+  padding: $space-4 $space-5;
+  box-shadow: $shadow-primary;
+  text-align: center;
+}
+
+.chipNumber {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: $font-weight-black;
+  line-height: 1.1;
+}
+
+.chipLabel {
+  font-size: $font-size-xs;
+  opacity: 0.9;
+}
+
+@media (max-width: 900px) {
+  .wrapper {
+    min-height: 360px;
+    margin-top: $space-7;
+  }
+
+  .mainCard {
+    margin-inline: auto;
+  }
+
+  .lessonCard {
+    bottom: 0;
+    left: 5%;
+  }
+
+  .metricChip {
+    top: 0;
+    left: auto;
+    right: 0;
+  }
+}

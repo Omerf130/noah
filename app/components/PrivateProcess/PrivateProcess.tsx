@@ -5,7 +5,7 @@ const PrivateProcess = () => {
   return (
     <section className={styles.privateWrapper} id="process">
       <div className={styles.privateContainer}>
-        <h1 className={styles.privateHeader}>ליווי אישי לסטודנטים לסיעוד</h1>
+        <h2 className={styles.privateHeader}>ליווי אישי לסטודנטים לסיעוד</h2>
 
         <div className={styles.privateContent}>
           <p>

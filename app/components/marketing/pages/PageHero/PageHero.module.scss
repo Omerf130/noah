@@ -1,0 +1,126 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'breakpoints' as *;
+
+.hero {
+  direction: rtl;
+  padding: 120px $space-6 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.inner {
+  max-width: $container-max;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  margin-bottom: $space-4;
+  padding: $space-2 $space-4;
+  border-radius: $radius-pill;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: $font-weight-black;
+  line-height: 1.15;
+  margin: 0 0 $space-5;
+  max-width: 720px;
+}
+
+.subtitle {
+  font-size: $font-size-xl;
+  line-height: $line-height-relaxed;
+  margin: 0 0 $space-7;
+  max-width: 640px;
+}
+
+.stat {
+  display: block;
+  font-size: clamp(4rem, 12vw, 7rem);
+  font-weight: $font-weight-black;
+  line-height: 1;
+  margin-bottom: $space-4;
+  opacity: 0.15;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.visual {
+  margin-top: $space-9;
+}
+
+.split {
+  background: linear-gradient(135deg, $color-gold-tint, $color-surface-warm);
+
+  .eyebrow {
+    background: rgba(80, 8, 137, 0.1);
+    color: $color-primary;
+  }
+
+  .title {
+    color: $color-purple-deep;
+  }
+
+  .subtitle {
+    color: $color-text-muted;
+  }
+}
+
+.product {
+  @include section-band-purple;
+
+  .eyebrow {
+    background: rgba(255, 255, 255, 0.15);
+    color: $color-accent-gold;
+  }
+
+  .title,
+  .subtitle {
+    color: $color-white;
+  }
+
+  .subtitle {
+    opacity: 0.9;
+  }
+}
+
+.journey {
+  background: linear-gradient(160deg, $color-purple-deep, $color-primary);
+
+  .eyebrow {
+    background: rgba(255, 255, 255, 0.12);
+    color: $color-accent-gold;
+  }
+
+  .title,
+  .subtitle {
+    color: $color-white;
+  }
+}
+
+.focus {
+  background: $color-white;
+  border-bottom: 1px solid rgba(80, 8, 137, 0.08);
+
+  .eyebrow {
+    background: $color-lavender-soft;
+    color: $color-amber-dark;
+  }
+
+  .title {
+    color: $color-purple-deep;
+  }
+}
+
+@include respond-to(md) {
+  .hero {
+    padding: 100px $space-4 60px;
+  }
+}

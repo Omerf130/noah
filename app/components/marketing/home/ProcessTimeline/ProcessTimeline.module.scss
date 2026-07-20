@@ -1,0 +1,77 @@
+@use 'variables' as *;
+@use 'breakpoints' as *;
+
+.wrapper {
+  padding: $space-13 $space-5;
+  direction: rtl;
+  background: $color-white;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: $space-11;
+}
+
+.title {
+  font-size: $font-size-5xl;
+  font-weight: $font-weight-black;
+  color: $color-purple-deep;
+  margin: 0 0 $space-4;
+}
+
+.subtitle {
+  margin: 0;
+  color: $color-text-muted;
+  font-size: $font-size-lg;
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $space-5;
+  counter-reset: none;
+}
+
+.step {
+  position: relative;
+  padding: $space-6;
+  border-radius: $radius-xl;
+  background: $color-surface-warm;
+  border: 1px solid rgba(80, 8, 137, 0.08);
+
+  h3 {
+    margin: 0 0 $space-3;
+    font-size: 1.15rem;
+    color: $color-primary;
+  }
+
+  p {
+    margin: 0;
+    color: $color-text-muted;
+    line-height: 1.7;
+    font-size: $font-size-md;
+  }
+}
+
+.num {
+  display: block;
+  font-size: 2rem;
+  font-weight: $font-weight-black;
+  color: $color-amber-dark;
+  margin-bottom: $space-4;
+}
+
+@include respond-to(xl) {
+  .timeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@include respond-to(md) {
+  .timeline {
+    grid-template-columns: 1fr;
+  }
+}

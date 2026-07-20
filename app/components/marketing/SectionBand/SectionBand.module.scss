@@ -1,0 +1,19 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.band {
+  width: 100%;
+  direction: rtl;
+}
+
+.purple {
+  @include section-band-purple;
+}
+
+.gold {
+  @include section-band-gold;
+}
+
+.warm {
+  background: $color-surface-warm;
+}

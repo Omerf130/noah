@@ -1,5 +1,35 @@
+@use '../styles/variables' as *;
+
 * {
   box-sizing: border-box;
+}
+
+:root {
+  --color-primary: #{$color-primary};
+  --color-primary-hover: #{$color-primary-hover};
+  --color-primary-light: #{$color-primary-light};
+  --color-accent-gold: #{$color-accent-gold};
+  --color-lavender: #{$color-lavender};
+  --color-lavender-soft: #{$color-lavender-soft};
+  --color-amber: #{$color-amber};
+  --color-amber-dark: #{$color-amber-dark};
+  --color-gold-soft: #{$color-gold-soft};
+  --color-beige: #{$color-beige};
+  --color-purple-muted: #{$color-purple-muted};
+  --color-purple-soft: #{$color-purple-soft};
+  --color-text: #{$color-text};
+  --color-text-muted: #{$color-text-muted};
+  --color-surface: #{$color-surface};
+  --color-surface-warm: #{$color-surface-warm};
+  --color-purple-deep: #{$color-purple-deep};
+  --color-gold-tint: #{$color-gold-tint};
+  --color-border: #{$color-border};
+  --font-family-base: #{$font-family-base};
+  --container-max: #{$container-max};
+  --radius-lg: #{$radius-lg};
+  --radius-pill: #{$radius-pill};
+  --shadow-md: #{$shadow-md};
+  --transition-base: #{$transition-base};
 }
 
 html {
@@ -14,6 +44,8 @@ body {
   overflow-x: hidden;
   position: relative;
   margin: 0;
+  font-family: var(--font-family-base);
+  color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -30,4 +62,34 @@ a {
   touch-action: manipulation;
 }
 
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  padding: 12px 24px;
+  background: var(--color-primary);
+  color: var(--color-surface);
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 0 0 8px 8px;
+  transition: top var(--transition-base);
 
+  &:focus {
+    top: 0;
+    outline: 2px solid var(--color-accent-gold);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

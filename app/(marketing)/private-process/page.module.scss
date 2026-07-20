@@ -1,0 +1,101 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'breakpoints' as *;
+
+.page {
+  width: 100%;
+}
+
+.pain {
+  padding: $space-11 $space-5;
+  background: $color-white;
+
+  h2 {
+    text-align: center;
+    color: $color-purple-deep;
+    font-size: $font-size-4xl;
+    margin: 0 0 $space-7;
+  }
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3;
+  justify-content: center;
+
+  span {
+    background: $color-gold-tint;
+    color: $color-primary;
+    font-weight: $font-weight-bold;
+    padding: $space-3 $space-5;
+    border-radius: $radius-pill;
+    font-size: $font-size-md;
+  }
+}
+
+.roadmap {
+  padding: $space-13 $space-5;
+  background: $color-surface-warm;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: $font-size-5xl;
+  color: $color-purple-deep;
+  margin: 0 0 $space-10;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-5;
+}
+
+.list li {
+  background: $color-white;
+  border-radius: $radius-xl;
+  padding: $space-6;
+  box-shadow: $shadow-md;
+  border-top: 4px solid $color-amber;
+
+  p {
+    margin: $space-3 0 0;
+    color: $color-text-muted;
+    line-height: 1.6;
+    font-weight: $font-weight-bold;
+  }
+}
+
+.num {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: $color-primary;
+  color: $color-white;
+  font-weight: $font-weight-black;
+}
+
+.cta {
+  @include section-band-purple;
+  padding: $space-11 $space-5;
+  text-align: center;
+}
+
+@include respond-to(xl) {
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@include respond-to(md) {
+  .list {
+    grid-template-columns: 1fr;
+  }
+}

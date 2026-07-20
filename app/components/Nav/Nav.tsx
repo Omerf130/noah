@@ -21,9 +21,9 @@ const Nav = () => {
       <nav className={styles.navContainer}>
         <div className={styles.logo}>
           <Link href="/" onClick={closeMenu}>
-            <Image 
-              src="/pics/logo.jpeg" 
-              alt="logo" 
+            <Image
+              src="/pics/logo.jpeg"
+              alt="נוח – לוגו ליווי סטודנטים לסיעוד"
               width={90}
               height={90}
             />

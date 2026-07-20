@@ -1,0 +1,41 @@
+@use 'variables' as *;
+@use 'typography' as *;
+@use 'breakpoints' as *;
+
+.wrapper {
+  margin-bottom: $space-11;
+}
+
+.center {
+  text-align: center;
+}
+
+.start {
+  text-align: start;
+}
+
+.title {
+  @include heading-2;
+  margin: 0 0 $space-3;
+}
+
+.subtitle {
+  @include section-subtitle;
+  margin: 0;
+}
+
+@include respond-to(xl) {
+  .title {
+    font-size: $font-size-3xl;
+  }
+}
+
+@include respond-to(md) {
+  .title {
+    font-size: $font-size-2xl;
+  }
+
+  .subtitle {
+    font-size: $font-size-sm;
+  }
+}

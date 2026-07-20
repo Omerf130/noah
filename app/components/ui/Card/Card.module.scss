@@ -1,0 +1,8 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.card {
+  @include card-surface;
+  padding: $space-9 $space-6;
+  border-top: 6px solid $color-primary;
+}

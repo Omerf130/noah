@@ -10,7 +10,7 @@ const Clinical = () => {
         <div className={styles.clinicalImage}>
           <Image 
             src="/pics/noaclinic.jpeg" 
-            alt="clinical guide" 
+            alt="חוברת המלווה הקליני לסטודנטים לסיעוד" 
             width={340}
             height={430}
             style={{ borderRadius: '22px' }}
@@ -18,9 +18,9 @@ const Clinical = () => {
         </div>
 
         <div className={styles.clinicalContent}>
-          <h1 className={styles.clinicalTitle}>
+          <h2 className={styles.clinicalTitle}>
             המלווה הקליני – חוברת תהליכים לסטודנטים לסיעוד
-          </h1>
+          </h2>
 
           <p className={styles.clinicalText}>
             המלווה הקליני היא חוברת עבודה אישית שנועדה ללוות אתכם לאורך הדרך – בקצב שלכם.
