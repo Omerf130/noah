@@ -1,3 +1,4 @@
+import { homepageTestimonials } from '../../../lib/content/homepage'
 import styles from './Testimonials.module.scss'
 
 const Testimonials = () => {
@@ -11,7 +12,7 @@ const Testimonials = () => {
   return (
     <section className={styles.testimonialsWrapper}>
       <div className={styles.testimonialsContainer}>
-        <h2 className={styles.sectionTitle}>מה משתנה במהלך הדרך</h2>
+        <h2 className={styles.sectionTitle}>{homepageTestimonials.title}</h2>
         <div className={styles.changesGrid}>
           {changes.map((change, index) => (
             <div key={index} className={styles.changeCard}>
@@ -31,4 +32,3 @@ const Testimonials = () => {
 }
 
 export default Testimonials
-

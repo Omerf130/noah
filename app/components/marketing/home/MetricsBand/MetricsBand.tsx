@@ -4,14 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import Container from '../../../ui/Container/Container'
 import SectionBand from '../../SectionBand/SectionBand'
+import { homepageMetrics } from '../../../../../lib/content/homepage'
 import styles from './MetricsBand.module.scss'
-
-const metrics = [
-  { value: 97, suffix: '%+', label: 'אחוז מעבר', description: 'של סטודנטיות שעברו בהצלחה' },
-  { value: 10, suffix: '+', label: 'סטודנטיות שליוויתי', description: 'בליווי אישי וממוקד' },
-  { value: 100, suffix: '%', label: 'ליווי מותאם אישית', description: 'תוכנית למידה לפי הצרכים האישיים' },
-  { value: 50, suffix: '+', label: 'שעות ליווי ולמידה', description: 'שעות של תמיכה, תרגול והכוונה' },
-]
 
 function MetricItem({
   metric,
@@ -19,7 +13,7 @@ function MetricItem({
   isVisible,
   reducedMotion,
 }: {
-  metric: (typeof metrics)[0]
+  metric: (typeof homepageMetrics)[0]
   index: number
   isVisible: boolean
   reducedMotion: boolean
@@ -58,7 +52,6 @@ function MetricItem({
         {metric.suffix}
       </span>
       <span className={styles.label}>{metric.label}</span>
-      <span className={styles.desc}>{metric.description}</span>
     </motion.div>
   )
 }
@@ -83,12 +76,8 @@ export default function MetricsBand() {
     <SectionBand variant="purple">
       <section ref={sectionRef} className={styles.wrapper}>
         <Container>
-          <div className={styles.header}>
-            <h2 className={styles.title}>המספרים שמאחורי הדרך</h2>
-            <p className={styles.subtitle}>נתונים אמיתיים מליווי שכבר קורה — לא הבטחות, אלא מה שכבר נמדד.</p>
-          </div>
           <div className={styles.grid}>
-            {metrics.map((metric, index) => (
+            {homepageMetrics.map((metric, index) => (
               <MetricItem
                 key={metric.label}
                 metric={metric}

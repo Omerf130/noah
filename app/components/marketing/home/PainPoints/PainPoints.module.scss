@@ -54,6 +54,13 @@
   }
 }
 
+.audienceText {
+  margin: $space-4 0 0;
+  color: $color-text-muted;
+  line-height: 1.7;
+  font-size: $font-size-md;
+}
+
 .icon {
   color: $color-primary;
 }

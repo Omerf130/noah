@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import Button from '../ui/Button/Button'
 import Container from '../ui/Container/Container'
 import PlatformPreview from '../marketing/PlatformPreview/PlatformPreview'
+import { homepageHero } from '../../../lib/content/homepage'
 import styles from './Hero.module.scss'
 
 export default function Hero() {
@@ -24,27 +25,20 @@ export default function Hero() {
       <Container>
         <div className={styles.grid}>
           <div className={styles.copy}>
-            <motion.span className={styles.eyebrow} {...fade(0.1)}>
-              ליווי, שיעורים וכלים לסטודנטים לסיעוד
-            </motion.span>
             <motion.h1 id="hero-title" className={styles.title} {...fade(0.2)}>
-              לומדים סיעוד — בקצב שלכם, בדרך שעובדת
+              {homepageHero.title}
             </motion.h1>
             <motion.p className={styles.subtitle} {...fade(0.35)}>
-              נועה מלווה סטודנטים לסיעוד בליווי אישי, שיעורים פרטיים והמלווה הקליני —
-              עם סדר, ביטחון ותחושה שיש מי שמבין את הדרך.
+              {homepageHero.subtitle}
             </motion.p>
             <motion.div className={styles.actions} {...fade(0.5)}>
-              <Button href="/contact?service=general" variant="primary">
-                לשיחת היכרות בוואטסאפ
+              <Button href={homepageHero.primaryHref} variant="primary">
+                {homepageHero.primaryCta}
               </Button>
-              <Button href="/#services" variant="ghost">
-                גלו את השירותים
+              <Button href={homepageHero.secondaryHref} variant="ghost">
+                {homepageHero.secondaryCta}
               </Button>
             </motion.div>
-            <motion.p className={styles.trustLine} {...fade(0.6)}>
-              6 מפגשי ליווי · שיעורים בזום · חוברת עצמאית לכל התואר
-            </motion.p>
           </div>
           <motion.div className={styles.visual} {...fade(0.3)}>
             <PlatformPreview />

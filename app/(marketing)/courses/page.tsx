@@ -25,7 +25,7 @@ export default function CoursesPage() {
         <section className={[styles.section, styles.warm].join(' ')}>
           <Container>
             <h1 className={styles.sectionTitle}>קורסים</h1>
-            <p className={styles.sectionSub}>למידה דיגיטלית מסודרת — בקצב שלכם, עם תרגול מעשי.</p>
+            <p className={styles.sectionSub}>למידה דיגיטלית מסודרת - בקצב שלכם, עם תרגול מעשי.</p>
             <div className={styles.grid}>
               {coursesCatalog.map((course) => (
                 <CatalogCard

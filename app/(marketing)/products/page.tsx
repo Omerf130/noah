@@ -25,7 +25,7 @@ export default function ProductsPage() {
         <section className={[styles.section, styles.warm].join(' ')}>
           <Container>
             <h1 className={styles.sectionTitle}>מוצרים</h1>
-            <p className={styles.sectionSub}>כלים שמלווים אתכם בלמידה — לבד או לצד ליווי ושיעורים.</p>
+            <p className={styles.sectionSub}>כלים שמלווים אתכם בלמידה - לבד או לצד ליווי ושיעורים.</p>
             <div className={styles.grid}>
               {productsCatalog.map((product) => (
                 <CatalogCard

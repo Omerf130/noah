@@ -41,7 +41,7 @@ export default function PersonalGuidancePage() {
         <section className={[styles.section, styles.white].join(' ')}>
           <Container>
             <h2 className={styles.sectionTitle}>חבילות ליווי</h2>
-            <p className={styles.sectionSub}>בחרו את קצב התהליך שמתאים לכם — ללא הצגת מחיר בשלב זה.</p>
+            <p className={styles.sectionSub}>בחרו את קצב התהליך שמתאים לכם - ללא הצגת מחיר בשלב זה.</p>
             <PackageCards packages={content.packages} />
           </Container>
         </section>
@@ -60,7 +60,7 @@ export default function PersonalGuidancePage() {
         <section className={[styles.section, styles.white].join(' ')}>
           <Container>
             <h2 className={styles.sectionTitle}>ליווי אישי מול שיעור פרטי</h2>
-            <p className={styles.sectionSub}>ההבדל המרכזי — תהליך מתמשך מול מפגש ממוקד.</p>
+            <p className={styles.sectionSub}>ההבדל המרכזי - תהליך מתמשך מול מפגש ממוקד.</p>
             <ComparisonSection
               guidance={content.comparison.guidance}
               lesson={content.comparison.lesson}

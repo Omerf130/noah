@@ -4,7 +4,7 @@ export const productsCatalog = [
     path: '/products/booklet',
     title: 'המלווה הקליני',
     subtitle: 'חוברת תהליכים לכל התואר',
-    shortDescription: 'חוברת שמלווה אתכם לאורך כל התואר — רפלקציה, ארגון למידה וכלים מעשיים.',
+    shortDescription: 'חוברת שמלווה אתכם לאורך כל התואר - רפלקציה, ארגון למידה וכלים מעשיים.',
     status: 'available' as const,
     contactService: 'booklet' as const,
     image: { src: '/pics/noabook.jpeg', alt: 'כריכת המלווה הקליני – חוברת תהליכים לסטודנטים לסיעוד' },

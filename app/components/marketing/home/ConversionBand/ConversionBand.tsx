@@ -3,19 +3,30 @@ import Container from '../../../ui/Container/Container'
 import SectionBand from '../../SectionBand/SectionBand'
 import styles from './ConversionBand.module.scss'
 
-export default function ConversionBand() {
+type ConversionBandProps = {
+  title: string
+  text: string
+  buttonLabel: string
+  buttonHref: string
+  variant?: 'purple'
+}
+
+export default function ConversionBand({
+  title,
+  text,
+  buttonLabel,
+  buttonHref,
+  variant = 'purple',
+}: ConversionBandProps) {
   return (
-    <SectionBand variant="purple">
+    <SectionBand variant={variant}>
       <div className={styles.wrapper}>
         <Container>
           <div className={styles.inner}>
-            <h2 className={styles.title}>מוכנים לעשות סדר בדרך?</h2>
-            <p className={styles.text}>
-              שלחו הודעה — נדבר קצר, נבין מה אתם צריכים, ונראה יחד מה מתאים.
-              בלי התחייבות, בלי לחץ.
-            </p>
-            <Button href="/contact" variant="secondary">
-              לשיחה בוואטסאפ
+            <h2 className={styles.title}>{title}</h2>
+            <p className={styles.text}>{text}</p>
+            <Button href={buttonHref} variant="secondary">
+              {buttonLabel}
             </Button>
           </div>
         </Container>

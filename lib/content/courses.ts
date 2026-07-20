@@ -3,7 +3,7 @@ export const coursesCatalog = [
     slug: 'pharmaceutical-calculations',
     path: '/courses/pharmaceutical-calculations',
     title: 'חישוב רוקחי',
-    shortDescription: 'קורס דיגיטלי מקיף לחישוב רוקחי — בקרוב.',
+    shortDescription: 'קורס דיגיטלי מקיף לחישוב רוקחי - בקרוב.',
     status: 'coming-soon' as const,
     contactService: 'pharmaceutical-calculations' as const,
     seo: {

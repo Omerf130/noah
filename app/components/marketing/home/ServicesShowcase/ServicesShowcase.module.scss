@@ -36,7 +36,7 @@
 
 .panels {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: $space-6;
 }
 
@@ -168,6 +168,12 @@
 }
 
 @include respond-to(xl) {
+  .panels {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@include respond-to(md) {
   .panels {
     grid-template-columns: 1fr;
   }

@@ -1,7 +1,7 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import Container from '../../../ui/Container/Container'
 import Button from '../../../ui/Button/Button'
+import { homepageAboutNoa } from '../../../../../lib/content/homepage'
 import styles from './MeetNoa.module.scss'
 
 export default function MeetNoa() {
@@ -22,24 +22,16 @@ export default function MeetNoa() {
             <div className={styles.accentBlob} aria-hidden="true" />
           </div>
           <div className={styles.copy}>
-            <span className={styles.eyebrow}>נעים להכיר</span>
-            <h2 className={styles.title}>אני נועה — ואני כאן בשבילכם</h2>
-            <p className={styles.text}>
-              אחות מוסמכת, בוגרת תואר ראשון בסיעוד וסטודנטית לתואר שני. לאורך הדרך הבנתי
-              שהקושי האמיתי הוא לא רק החומר — אלא שגרה, התמדה וביטחון.
-            </p>
-            <ul className={styles.credentials}>
-              <li>ליווי אישי · תוכנית מותאמת לאורך זמן</li>
-              <li>שיעורים פרטיים בזום</li>
-              <li>קורסים ומוצרים ללמידה</li>
-            </ul>
+            <h2 className={styles.title}>{homepageAboutNoa.title}</h2>
+            {homepageAboutNoa.paragraphs.map((paragraph) => (
+              <p key={paragraph} className={styles.text}>
+                {paragraph}
+              </p>
+            ))}
             <div className={styles.actions}>
-              <Button href="/about" variant="primary">
-                עוד עליי
+              <Button href={homepageAboutNoa.buttonHref} variant="primary">
+                {homepageAboutNoa.buttonLabel}
               </Button>
-              <Link href="/contact" className={styles.link}>
-                בואו נדבר
-              </Link>
             </div>
           </div>
         </div>
