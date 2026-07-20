@@ -47,7 +47,7 @@ export const homepageServices = {
       title: 'חנות מוצרים',
       text: 'כלים וחומרי לימוד שנבנו במיוחד לסטודנטים לסיעוד כדי ללמוד בצורה מסודרת, יעילה ונוחה יותר.',
       href: '/products',
-      accent: 'purple' as const,
+      accent: 'amber' as const,
       icon: 'checklist' as const,
     },
   ],

@@ -86,6 +86,15 @@
   }
 }
 
+.amber {
+  background: linear-gradient(160deg, $color-gold-tint, $color-white);
+  border-top: 5px solid $color-amber;
+
+  .panelTop {
+    color: $color-primary;
+  }
+}
+
 .lavender {
   background: linear-gradient(160deg, $color-lavender-soft, $color-white);
   border-top: 5px solid $color-lavender;
