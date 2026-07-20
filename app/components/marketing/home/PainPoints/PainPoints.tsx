@@ -12,14 +12,14 @@ export default function PainPoints() {
         <div className={styles.header}>
           <h2 className={styles.title}>{homepageAudience.title}</h2>
         </div>
-        <div className={styles.bento}>
+        <ul className={styles.list}>
           {homepageAudience.items.map((text, i) => (
-            <article key={text} className={[styles.tile, styles[`size${(i % 3) + 1}`]].join(' ')}>
-              <Icon name={icons[i % icons.length]} size={28} className={styles.icon} />
-              <p className={styles.audienceText}>{text}</p>
-            </article>
+            <li key={text} className={styles.item}>
+              <Icon name={icons[i % icons.length]} size={24} className={styles.icon} />
+              <p className={styles.itemText}>{text}</p>
+            </li>
           ))}
-        </div>
+        </ul>
       </Container>
     </section>
   )
