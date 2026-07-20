@@ -1,16 +1,26 @@
 import Link from 'next/link'
 import styles from './Footer.module.scss'
 
-const Footer = () => {
+const footerLinks = [
+  { href: '/about', label: 'קצת עליי' },
+  { href: '/courses', label: 'קורסים' },
+  { href: '/products', label: 'מוצרים' },
+  { href: '/personal-guidance', label: 'ליווי אישי' },
+  { href: '/private-lessons', label: 'שיעורים פרטיים' },
+  { href: '/contact', label: 'צור קשר' },
+  { href: '/login', label: 'התחברות' },
+]
+
+export default function Footer() {
   return (
     <footer className={styles.footerWrapper}>
       <div className={styles.footerContainer}>
         <div className={styles.footerLinks}>
-          <Link href="/#about">קצת עליי</Link>
-          <Link href="/#process">ליווי אישי</Link>
-          <Link href="/#clinical">המלווה הקליני</Link>
-          <Link href="/#lessons">שיעורים פרטיים</Link>
-          <Link href="/#contact">צור קשר</Link>
+          {footerLinks.map((link) => (
+            <Link key={link.href} href={link.href}>
+              {link.label}
+            </Link>
+          ))}
         </div>
         <div className={styles.footerCredit}>
           <p>
@@ -24,6 +34,3 @@ const Footer = () => {
     </footer>
   )
 }
-
-export default Footer
-

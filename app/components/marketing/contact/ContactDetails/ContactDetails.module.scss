@@ -1,0 +1,43 @@
+@use 'variables' as *;
+@use 'breakpoints' as *;
+
+.details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-5;
+  margin-bottom: $space-8;
+}
+
+.item {
+  background: $color-gold-tint;
+  border-radius: $radius-lg;
+  padding: $space-5;
+  text-align: center;
+
+  h3 {
+    margin: 0 0 $space-2;
+    font-size: $font-size-sm;
+    color: $color-purple-deep;
+  }
+
+  a {
+    color: $color-primary;
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.whatsappBtn {
+  display: inline-flex;
+  margin-top: $space-2;
+}
+
+@include respond-to(xl) {
+  .details {
+    grid-template-columns: 1fr;
+  }
+}

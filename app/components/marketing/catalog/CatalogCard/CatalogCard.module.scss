@@ -1,0 +1,73 @@
+@use 'variables' as *;
+@use 'breakpoints' as *;
+
+.card {
+  border-radius: $radius-xl;
+  padding: $space-7;
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  min-height: 100%;
+  box-shadow: $shadow-md;
+  background: $color-white;
+  border-top: 5px solid $color-primary;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: $font-weight-black;
+    color: $color-purple-deep;
+  }
+
+  .subtitle {
+    margin: 0;
+    font-size: $font-size-sm;
+    color: $color-primary;
+    font-weight: $font-weight-bold;
+  }
+
+  p {
+    margin: 0;
+    line-height: 1.7;
+    color: $color-text-muted;
+    flex: 1;
+  }
+}
+
+.badge {
+  display: inline-block;
+  width: fit-content;
+  padding: $space-1 $space-3;
+  border-radius: $radius-pill;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  background: $color-lavender-soft;
+  color: $color-purple-deep;
+}
+
+.imageWrap {
+  margin: 0 auto;
+}
+
+.link {
+  color: $color-primary;
+  font-weight: $font-weight-bold;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.gold {
+  border-top-color: $color-accent-gold;
+}
+
+.lavender {
+  border-top-color: $color-lavender;
+}

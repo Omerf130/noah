@@ -29,15 +29,15 @@ export default function MeetNoa() {
               שהקושי האמיתי הוא לא רק החומר — אלא שגרה, התמדה וביטחון.
             </p>
             <ul className={styles.credentials}>
-              <li>ליווי אישי · 6 מפגשים מובנים</li>
+              <li>ליווי אישי · תוכנית מותאמת לאורך זמן</li>
               <li>שיעורים פרטיים בזום</li>
-              <li>המלווה הקליני — חוברת תהליכים</li>
+              <li>קורסים ומוצרים ללמידה</li>
             </ul>
             <div className={styles.actions}>
               <Button href="/about" variant="primary">
                 עוד עליי
               </Button>
-              <Link href="/#contact" className={styles.link}>
+              <Link href="/contact" className={styles.link}>
                 בואו נדבר
               </Link>
             </div>

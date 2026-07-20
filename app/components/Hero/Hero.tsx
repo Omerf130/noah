@@ -35,7 +35,7 @@ export default function Hero() {
               עם סדר, ביטחון ותחושה שיש מי שמבין את הדרך.
             </motion.p>
             <motion.div className={styles.actions} {...fade(0.5)}>
-              <Button href="/#contact" variant="primary">
+              <Button href="/contact?service=general" variant="primary">
                 לשיחת היכרות בוואטסאפ
               </Button>
               <Button href="/#services" variant="ghost">

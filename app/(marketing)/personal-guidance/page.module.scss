@@ -1,0 +1,8 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.cta {
+  padding: $space-11 $space-5;
+  text-align: center;
+  @include section-band-purple;
+}

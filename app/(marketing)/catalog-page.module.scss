@@ -1,0 +1,75 @@
+@use 'variables' as *;
+@use 'breakpoints' as *;
+
+.page {
+  width: 100%;
+}
+
+.section {
+  padding: $space-13 $space-5;
+  direction: rtl;
+}
+
+.sectionTitle {
+  font-size: $font-size-5xl;
+  font-weight: $font-weight-black;
+  color: $color-purple-deep;
+  text-align: center;
+  margin: 0 0 $space-4;
+}
+
+.sectionSub {
+  text-align: center;
+  color: $color-text-muted;
+  font-size: $font-size-lg;
+  margin: 0 0 $space-10;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $space-6;
+}
+
+.gridThree {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-6;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    padding: $space-3 0;
+    border-bottom: 1px solid rgba(80, 8, 137, 0.1);
+    color: $color-text-muted;
+    line-height: 1.7;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+.cta {
+  padding: $space-11 $space-5;
+  text-align: center;
+}
+
+.warm {
+  background: $color-surface-warm;
+}
+
+.white {
+  background: $color-white;
+}
+
+@include respond-to(xl) {
+  .grid,
+  .gridThree {
+    grid-template-columns: 1fr;
+  }
+}

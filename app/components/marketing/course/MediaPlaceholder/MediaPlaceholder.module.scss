@@ -1,0 +1,52 @@
+@use 'variables' as *;
+
+.wrapper {
+  border-radius: $radius-xl;
+  overflow: hidden;
+  background: linear-gradient(160deg, $color-lavender-soft, $color-white);
+  border: 1px solid rgba(80, 8, 137, 0.1);
+  box-shadow: $shadow-md;
+}
+
+.placeholder {
+  aspect-ratio: 16 / 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $space-4;
+  padding: $space-6;
+  text-align: center;
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: $color-primary;
+  color: $color-white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.title {
+  margin: 0;
+  color: $color-purple-deep;
+  font-size: 1.2rem;
+  font-weight: $font-weight-black;
+}
+
+.text {
+  margin: 0;
+  color: $color-text-muted;
+  max-width: 420px;
+  line-height: 1.7;
+}
+
+.video {
+  width: 100%;
+  display: block;
+  background: $color-black;
+}

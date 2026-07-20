@@ -10,22 +10,26 @@ import ProofSection from '../components/marketing/home/ProofSection/ProofSection
 import FAQ from '../components/FAQ/FAQ'
 import ConversionBand from '../components/marketing/home/ConversionBand/ConversionBand'
 import Contact from '../components/Contact/Contact'
+import { buildPageMetadata, buildWebPageJsonLd } from '../../lib/seo'
+import { JsonLd } from '../../lib/JsonLd'
 import { siteConfig } from '../../lib/site'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: siteConfig.title,
   description: siteConfig.description,
-  openGraph: {
-    title: siteConfig.title,
-    description: siteConfig.description,
-    locale: siteConfig.locale,
-    type: 'website',
-  },
-}
+  path: '/',
+})
 
 export default function Home() {
   return (
     <>
+      <JsonLd
+        data={buildWebPageJsonLd({
+          title: siteConfig.title,
+          description: siteConfig.description,
+          path: '/',
+        })}
+      />
       <Hero />
       <MetricsBand />
       <PainPoints />

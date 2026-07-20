@@ -18,7 +18,7 @@ export default function PageHero({
   eyebrow,
   title,
   subtitle,
-  ctaHref = '/#contact',
+  ctaHref = '/contact',
   ctaLabel = 'צרו קשר',
   visual,
   stat,

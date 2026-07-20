@@ -149,6 +149,24 @@
   }
 }
 
+.catalogLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $space-5;
+  margin-top: $space-10;
+
+  a {
+    color: $color-purple-deep;
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 @include respond-to(xl) {
   .panels {
     grid-template-columns: 1fr;

@@ -1,17 +1,29 @@
-import type { Metadata } from 'next'
 import Image from 'next/image'
 import PageHero from '../../components/marketing/pages/PageHero/PageHero'
 import Container from '../../components/ui/Container/Container'
 import Button from '../../components/ui/Button/Button'
 import styles from './page.module.scss'
 
-export const metadata: Metadata = {
-  title: 'קצת עליי | נוח',
-  description: 'נועה — אחות מוסמכת ומלווה סטודנטים לסיעוד. ליווי אישי, שיעורים פרטיים והמלווה הקליני.',
-}
+import { getContactHref } from '../../../lib/contact'
+import { buildPageMetadata, buildWebPageJsonLd } from '../../../lib/seo'
+import { JsonLd } from '../../../lib/JsonLd'
+
+export const metadata = buildPageMetadata({
+  title: 'קצת עליי',
+  description: 'נועה — אחות מוסמכת ומלווה סטודנטים לסיעוד. ליווי אישי, שיעורים פרטיים, קורסים ומוצרים.',
+  path: '/about',
+})
 
 export default function AboutPage() {
   return (
+    <>
+      <JsonLd
+        data={buildWebPageJsonLd({
+          title: 'קצת עליי',
+          description: 'נועה — אחות מוסמכת ומלווה סטודנטים לסיעוד.',
+          path: '/about',
+        })}
+      />
     <div className={styles.page} dir="rtl">
       <PageHero
         variant="split"
@@ -56,11 +68,12 @@ export default function AboutPage() {
       <section className={styles.ctaBand}>
         <Container>
           <h2>רוצים לשמוע אם זה מתאים לכם?</h2>
-          <Button href="/#contact" variant="secondary">
+          <Button href={getContactHref('general')} variant="secondary">
             לשיחת היכרות
           </Button>
         </Container>
       </section>
     </div>
+    </>
   )
 }

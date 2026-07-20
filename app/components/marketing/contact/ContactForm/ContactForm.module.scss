@@ -1,0 +1,66 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'breakpoints' as *;
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-6;
+}
+
+.formShell {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-6;
+  min-height: 420px;
+}
+
+.selectGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+
+  label {
+    color: $color-primary;
+    font-weight: $font-weight-black;
+  }
+
+  select {
+    padding: $space-3;
+    border-radius: $radius-sm;
+    border: 2px solid $color-border;
+    background: $color-surface;
+    font-size: $font-size-base;
+    font-family: inherit;
+    direction: rtl;
+    @include focus-visible;
+  }
+}
+
+.full {
+  grid-column: span 2;
+}
+
+.submitBtn {
+  grid-column: span 2;
+  width: fit-content;
+  justify-self: center;
+}
+
+.error {
+  color: #b42318;
+  font-size: $font-size-sm;
+  margin: 0;
+}
+
+@include respond-to(xl) {
+  .form,
+  .formShell {
+    grid-template-columns: 1fr;
+  }
+
+  .full,
+  .submitBtn {
+    grid-column: span 1;
+  }
+}

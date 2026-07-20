@@ -1,0 +1,74 @@
+@use 'variables' as *;
+@use 'breakpoints' as *;
+
+.wrapper {
+  width: 100%;
+  padding: $space-14 $space-5;
+  direction: rtl;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 237, 171, 0.7),
+    rgba(255, 255, 255, 0.9)
+  );
+}
+
+.container {
+  max-width: $container-form;
+  width: 100%;
+  margin: 0 auto;
+  background: $color-surface;
+  border-radius: $radius-xl;
+  padding: $space-10;
+  box-shadow: $shadow-lg;
+  border-right: 8px solid $color-primary;
+  direction: rtl;
+}
+
+.title {
+  color: $color-primary;
+  font-size: $font-size-4xl;
+  margin-bottom: $space-3;
+  font-weight: $font-weight-black;
+}
+
+.subtitle {
+  font-size: $font-size-md;
+  color: $color-text-muted;
+  margin-bottom: $space-8;
+}
+
+@include respond-to(xl) {
+  .wrapper {
+    padding: $space-12 $space-4;
+  }
+
+  .container {
+    padding: $space-8;
+    text-align: center;
+    border-right: none;
+    border-top: 8px solid $color-primary;
+  }
+
+  .title {
+    font-size: $font-size-3xl;
+  }
+}
+
+@include respond-to(md) {
+  .wrapper {
+    padding: $space-9 $space-3;
+  }
+
+  .container {
+    padding: $space-6;
+  }
+
+  .title {
+    font-size: $font-size-2xl;
+  }
+
+  .subtitle {
+    font-size: $font-size-sm;
+    margin-bottom: $space-6;
+  }
+}

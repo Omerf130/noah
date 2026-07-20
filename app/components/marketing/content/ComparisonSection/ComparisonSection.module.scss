@@ -1,0 +1,50 @@
+@use 'variables' as *;
+@use 'breakpoints' as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-6;
+}
+
+.column {
+  background: $color-white;
+  border-radius: $radius-xl;
+  padding: $space-6;
+  box-shadow: $shadow-md;
+
+  h3 {
+    margin: 0 0 $space-4;
+    color: $color-purple-deep;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      padding: $space-2 0;
+      color: $color-text-muted;
+      border-bottom: 1px solid rgba(80, 8, 137, 0.08);
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+.guidance {
+  border-top: 4px solid $color-primary;
+}
+
+.lesson {
+  border-top: 4px solid $color-amber;
+}
+
+@include respond-to(md) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

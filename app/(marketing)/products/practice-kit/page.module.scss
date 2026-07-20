@@ -1,0 +1,46 @@
+@use 'variables' as *;
+
+.lead {
+  font-size: $font-size-lg;
+  line-height: 1.8;
+  color: $color-text-muted;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto $space-4;
+
+  a {
+    color: $color-primary;
+    font-weight: $font-weight-bold;
+  }
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-5;
+}
+
+.featureCard {
+  background: $color-white;
+  border-radius: $radius-xl;
+  padding: $space-6;
+  box-shadow: $shadow-md;
+  border-top: 4px solid $color-amber;
+
+  h3 {
+    margin: 0 0 $space-3;
+    color: $color-purple-deep;
+  }
+
+  p {
+    margin: 0;
+    color: $color-text-muted;
+    line-height: 1.7;
+  }
+}
+
+@media (max-width: 900px) {
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+}

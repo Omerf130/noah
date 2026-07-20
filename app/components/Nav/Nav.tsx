@@ -1,20 +1,24 @@
 'use client'
 
 import { useState } from 'react'
-import styles from './Nav.module.scss'
-import Image from 'next/image'
 import Link from 'next/link'
+import Image from 'next/image'
+import styles from './Nav.module.scss'
 
-const Nav = () => {
+const navLinks = [
+  { href: '/about', label: 'קצת עליי' },
+  { href: '/courses', label: 'קורסים' },
+  { href: '/products', label: 'מוצרים' },
+  { href: '/personal-guidance', label: 'ליווי אישי' },
+  { href: '/private-lessons', label: 'שיעורים פרטיים' },
+  { href: '/contact', label: 'צור קשר' },
+  { href: '/login', label: 'התחברות' },
+]
+
+export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
-
-  const closeMenu = () => {
-    setIsMenuOpen(false)
-  }
+  const closeMenu = () => setIsMenuOpen(false)
 
   return (
     <header className={styles.navWrapper}>
@@ -30,9 +34,9 @@ const Nav = () => {
           </Link>
         </div>
 
-        <button 
+        <button
           className={styles.hamburger}
-          onClick={toggleMenu}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="תפריט"
           aria-expanded={isMenuOpen}
         >
@@ -41,25 +45,16 @@ const Nav = () => {
           <span className={styles.hamburgerLine}></span>
         </button>
 
-        {isMenuOpen && (
-          <div 
-            className={styles.overlay}
-            onClick={closeMenu}
-          />
-        )}
+        {isMenuOpen && <div className={styles.overlay} onClick={closeMenu} />}
 
         <div className={`${styles.navLinks} ${isMenuOpen ? styles.navLinksOpen : ''}`}>
-          <Link href="/#about" onClick={closeMenu}>קצת עליי</Link>
-          <Link href="/#process" onClick={closeMenu}>ליווי אישי</Link>
-          <Link href="/#clinical" onClick={closeMenu}>המלווה הקליני</Link>
-          <Link href="/#lessons" onClick={closeMenu}>שיעורים פרטיים</Link>
-          <Link href="/#contact" onClick={closeMenu}>צור קשר</Link>
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href} onClick={closeMenu}>
+              {link.label}
+            </Link>
+          ))}
         </div>
       </nav>
     </header>
-  );
-};
-
-export default Nav;
-
-
+  )
+}

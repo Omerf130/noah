@@ -14,7 +14,7 @@ export default function ConversionBand() {
               שלחו הודעה — נדבר קצר, נבין מה אתם צריכים, ונראה יחד מה מתאים.
               בלי התחייבות, בלי לחץ.
             </p>
-            <Button href="/#contact" variant="secondary">
+            <Button href="/contact" variant="secondary">
               לשיחה בוואטסאפ
             </Button>
           </div>

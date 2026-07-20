@@ -39,6 +39,18 @@ Some browser extensions inject attributes (e.g. `fdprocessedid`) onto `<button>`
 - **Shared shell:** Skip link, Nav, `<main id="main-content">`, Footer
 - **Root layout:** `app/layout.tsx` keeps html/body, metadata defaults, BackgroundWrapper
 
+## Phase 2 — Content and routes
+
+Static content lives in [`lib/content/`](../lib/content/) (`courses.ts`, `products.ts`, `services.ts`, `contact.ts`). Pages consume data objects so a future MongoDB/Admin swap requires minimal UI changes.
+
+**Canonical routes:** `/`, `/about`, `/courses`, `/courses/pharmaceutical-calculations`, `/products`, `/products/booklet`, `/products/practice-kit`, `/personal-guidance`, `/private-lessons`, `/contact`, `/login`
+
+**Redirects:** `/clinical` → `/products/booklet`, `/private-process` → `/personal-guidance`
+
+**SEO:** [`lib/seo.ts`](../lib/seo.ts) — metadata, canonical, Open Graph, Twitter, JSON-LD helpers per page.
+
+**Contact:** Shared [`ContactSection`](../app/components/marketing/contact/ContactSection/ContactSection.tsx) on homepage embed and `/contact`. Query param `?service=` preselects dropdown. WhatsApp submit — no backend storage.
+
 ## SEO / structured data
 
 - Per-page `generateMetadata()` on marketing pages
