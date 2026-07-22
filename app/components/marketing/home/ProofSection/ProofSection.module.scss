@@ -36,15 +36,10 @@
   padding: $space-6;
   box-shadow: $shadow-md;
   display: flex;
-  align-items: flex-start;
-  gap: $space-4;
-
-  p {
-    margin: 0;
-    color: $color-text;
-    line-height: 1.6;
-    font-weight: $font-weight-bold;
-  }
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: $space-3;
 }
 
 .check {
@@ -58,6 +53,20 @@
   align-items: center;
   justify-content: center;
   font-weight: $font-weight-black;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-black;
+  color: $color-purple-deep;
+}
+
+.cardText {
+  margin: 0;
+  color: $color-text;
+  line-height: 1.6;
+  font-weight: $font-weight-normal;
 }
 
 @include respond-to(xl) {

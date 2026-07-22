@@ -2,14 +2,14 @@ import PageHero from '../../../components/marketing/pages/PageHero/PageHero'
 import BookFrame from '../../../components/marketing/BookFrame/BookFrame'
 import Container from '../../../components/ui/Container/Container'
 import Button from '../../../components/ui/Button/Button'
+import PainPoints from '../../../components/marketing/home/PainPoints/PainPoints'
 import Testimonials from '../../../components/Testimonials/Testimonials'
 import { bookletProduct } from '../../../../lib/content/products'
 import { getContactHref } from '../../../../lib/contact'
 import { buildPageMetadata, buildProductJsonLd } from '../../../../lib/seo'
 import { JsonLd } from '../../../../lib/JsonLd'
 import catalogStyles from '../../catalog-page.module.scss'
-import styles from '../../clinical/page.module.scss'
-import lessonStyles from '../../private-lessons/page.module.scss'
+import styles from './page.module.scss'
 
 const product = bookletProduct
 
@@ -63,54 +63,51 @@ export default function BookletProductPage() {
           </Container>
         </section>
 
-        <section className={styles.bentoSection}>
+        <section className={[catalogStyles.section, catalogStyles.white].join(' ')}>
           <Container>
-            <h2 className={styles.sectionTitle}>{product.features.title}</h2>
-            <div className={styles.bento}>
-              {product.features.items.map((f, i) => (
-                <article key={f.title} className={[styles.tile, styles[`t${(i % 3) + 1}`]].join(' ')}>
-                  <h3>{f.title}</h3>
-                  <p>{f.text}</p>
-                </article>
-              ))}
-            </div>
-          </Container>
-        </section>
-
-        <section className={styles.splitSection}>
-          <Container>
-            <div className={styles.split}>
-              <BookFrame src={product.secondaryImage.src} alt={product.secondaryImage.alt} />
-              <div>
-                <h2>{product.audience.title}</h2>
-                <ul className={catalogStyles.list}>
-                  {product.audience.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </Container>
-        </section>
-
-        <section className={[catalogStyles.section, catalogStyles.warm].join(' ')}>
-          <Container>
-            <h2 className={catalogStyles.sectionTitle}>{product.whyDifferent.title}</h2>
-            <ul className={catalogStyles.list}>
-              {product.whyDifferent.items.map((item) => (
-                <li key={item}>{item}</li>
+            <h2 className={catalogStyles.sectionTitle}>{product.features.title}</h2>
+            <ul className={styles.featureCards}>
+              {product.features.items.map((feature) => (
+                <li key={feature.title}>
+                  <strong className={styles.featureTitle}>{feature.title}</strong>
+                  <p className={styles.featureText}>{feature.text}</p>
+                </li>
               ))}
             </ul>
           </Container>
         </section>
 
-        <section className={lessonStyles.steps}>
+        <section className={styles.imageSection}>
+          <Container>
+            <BookFrame src={product.secondaryImage.src} alt={product.secondaryImage.alt} />
+          </Container>
+        </section>
+
+        <PainPoints title={product.audience.title} items={product.audience.items} />
+
+        <section className={[catalogStyles.section, catalogStyles.warm].join(' ')}>
+          <Container>
+            <h2 className={catalogStyles.sectionTitle}>{product.whyDifferent.title}</h2>
+            <ul className={styles.checkListCard}>
+              {product.whyDifferent.items.map((item) => (
+                <li key={item}>
+                  <span className={styles.checkMark} aria-hidden="true">
+                    ✓
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+
+        <section className={styles.journeySection}>
           <Container>
             <h2>{product.journey.title}</h2>
-            <div className={lessonStyles.grid}>
-              {product.journey.items.map((step, i) => (
-                <article key={step.title}>
-                  <span className={lessonStyles.stepNum}>{i + 1}</span>
+            <div className={styles.journeyGrid}>
+              {product.journey.items.map((step, index) => (
+                <article key={step.title} className={styles.journeyCard}>
+                  <span className={styles.stepNum}>{index + 1}</span>
                   <h3>{step.title}</h3>
                   <p>{step.text}</p>
                 </article>

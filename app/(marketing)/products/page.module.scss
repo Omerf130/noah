@@ -1,32 +1,5 @@
 @use 'variables' as *;
-@use 'mixins' as *;
 @use 'breakpoints' as *;
-
-.includedSection {
-  background: $color-lavender-soft;
-}
-
-.includedCards {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: $space-4;
-
-  li {
-    padding: $space-6 $space-5;
-    background: $color-white;
-    border-radius: $radius-xl;
-    border: 1px solid rgba(80, 8, 137, 0.1);
-    border-top: 4px solid $color-primary;
-    box-shadow: $shadow-md;
-    color: $color-purple-deep;
-    line-height: 1.6;
-    font-weight: $font-weight-bold;
-    text-align: center;
-  }
-}
 
 .checkListCard {
   list-style: none;
@@ -73,24 +46,7 @@
   margin-top: 2px;
 }
 
-.listCardItemTitle {
-  display: block;
-  color: $color-purple-deep;
-  font-weight: $font-weight-black;
-  margin-bottom: $space-2;
-}
-
-.cta {
-  padding: $space-11 $space-5;
-  text-align: center;
-  @include section-band-gold;
-}
-
 @include respond-to(md) {
-  .includedCards {
-    grid-template-columns: 1fr;
-  }
-
   .checkListCard {
     padding: $space-5;
   }

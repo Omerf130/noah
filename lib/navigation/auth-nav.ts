@@ -73,11 +73,11 @@ export function buildPublicAuthNavigation(user: SafeUser | null): PublicAuthNavi
 }
 
 export const marketingNavLinks = [
-  { href: '/about', label: 'קצת עליי' },
   { href: '/courses', label: 'קורסים' },
-  { href: '/products', label: 'מוצרים' },
-  { href: '/personal-guidance', label: 'ליווי אישי' },
   { href: '/private-lessons', label: 'שיעורים פרטיים' },
+  { href: '/personal-guidance', label: 'ליווי אישי' },
+  { href: '/products', label: 'מוצרים' },
+  { href: '/about', label: 'קצת עליי' },
   { href: '/contact', label: 'צור קשר' },
 ] as const
 

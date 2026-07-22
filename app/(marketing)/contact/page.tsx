@@ -31,7 +31,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
         showDetails
         defaultService={defaultService}
         title="צרו קשר"
-        subtitle="מלאו את הפרטים, התקשרו או שלחו הודעה - ונחזור אליכם בהקדם"
+        subtitle="מלאו את הפרטים, שלחו מייל או הודעת וואטסאפ - ונחזור אליכם בהקדם"
       />
     </>
   )

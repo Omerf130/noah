@@ -8,10 +8,6 @@ export default function ContactDetails() {
   return (
     <div className={styles.details}>
       <div className={styles.item}>
-        <h3>טלפון</h3>
-        <a href={`tel:${siteConfig.phoneTel}`}>{siteConfig.phoneDisplay}</a>
-      </div>
-      <div className={styles.item}>
         <h3>מייל</h3>
         <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
       </div>

@@ -15,7 +15,15 @@
   font-size: clamp(1.9rem, 4vw, 2.6rem);
   font-weight: $font-weight-black;
   color: $color-white;
-  margin: 0 0 $space-5;
+  margin: 0 0 $space-4;
+}
+
+.subtitle {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-relaxed;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0 0 $space-4;
 }
 
 .text {

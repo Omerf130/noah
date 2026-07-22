@@ -14,6 +14,7 @@ type CatalogCardProps = {
   accent?: 'purple' | 'gold' | 'lavender'
   image?: { src: string; alt: string }
   ctaLabel?: string
+  showContactLink?: boolean
 }
 
 export default function CatalogCard({
@@ -26,13 +27,16 @@ export default function CatalogCard({
   accent = 'purple',
   image,
   ctaLabel = 'לפרטים',
+  showContactLink = true,
 }: CatalogCardProps) {
   const accentClass = accent !== 'purple' ? styles[accent] : ''
 
   return (
     <article className={[styles.card, accentClass].filter(Boolean).join(' ')}>
-      {status === 'coming-soon' && <span className={styles.badge}>בקרוב</span>}
-      <h3>{title}</h3>
+      <div className={styles.titleRow}>
+        <h3>{title}</h3>
+        {status === 'coming-soon' ? <span className={styles.badge}>בקרוב</span> : null}
+      </div>
       {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
       <p>{description}</p>
       {image && (
@@ -43,11 +47,11 @@ export default function CatalogCard({
       <Link href={href} className={styles.link}>
         {ctaLabel} ←
       </Link>
-      {contactService && (
+      {showContactLink && contactService ? (
         <Link href={getContactHref(contactService)} className={styles.link}>
           ליצירת קשר ←
         </Link>
-      )}
+      ) : null}
     </article>
   )
 }

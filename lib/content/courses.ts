@@ -71,7 +71,7 @@ export const coursesCatalog = [
     path: '/contact',
     title: 'אק״ג',
     shortDescription:
-      'ללמוד לזהות הפרעות קצב ולהבין את תרשימי האק״ג בצורה פשוטה וברורה (בקרוב)',
+      'ללמוד לזהות הפרעות קצב ולהבין את תרשימי האק״ג בצורה פשוטה וברורה',
     status: 'coming-soon' as const,
     contactService: 'general' as const,
     ctaLabel: 'עדכנו אותי כשייפתח',
@@ -99,7 +99,11 @@ export const pharmaceuticalCalculationsCourse = {
     title: 'אם גם אתם מוצאים את עצמכם מתבלבלים בין נוסחאות, לא בטוחים מאיפה להתחיל או חוששים מהמבחן - אתם לא לבד.',
     text: 'הקורס נבנה כדי לעשות סדר, להסביר כל נושא שלב אחר שלב ולאפשר לכם לתרגל עד שתרגישו בטוחים.',
   },
-  metrics: ['כמות סטודנטים שלמדו את הקורס', 'דירוג ממוצע של תלמידי הקורס', 'אחוזי הצלחה במבחן'],
+  metrics: [
+    { value: 10, suffix: '+', label: 'כמות סטודנטים שלמדו את הקורס' },
+    { value: 5, suffix: '/5', label: 'דירוג ממוצע של תלמידי הקורס' },
+    { value: 97, suffix: '%+', label: 'אחוזי הצלחה במבחן' },
+  ],
   audience: {
     title: 'למי הקורס מתאים?',
     items: [
@@ -127,14 +131,14 @@ export const pharmaceuticalCalculationsCourse = {
   deliverables: {
     title: 'מה תקבלו בקורס?',
     items: [
-      'סרטוני לימוד',
-      'מצגות',
-      'תרגול לכל מודול',
-      'בוחן לכל מודול',
-      'מבחנים לדוגמה',
-      'פתרונות מלאים',
-      'גישה מכל מקום בכל זמן',
-      'גישה חוזרת לכל התכנים',
+      { text: 'סרטוני לימוד', icon: 'book', accent: 'purple' },
+      { text: 'מצגות', icon: 'chart', accent: 'lavender' },
+      { text: 'תרגול לכל מודול', icon: 'checklist', accent: 'gold' },
+      { text: 'בוחן לכל מודול', icon: 'sparkle', accent: 'amber' },
+      { text: 'מבחנים לדוגמה', icon: 'book', accent: 'lavender' },
+      { text: 'פתרונות מלאים', icon: 'checklist', accent: 'purple' },
+      { text: 'גישה מכל מקום בכל זמן', icon: 'calendar', accent: 'gold' },
+      { text: 'גישה חוזרת לכל התכנים', icon: 'heart', accent: 'amber' },
     ],
   },
   whyItWorks: {

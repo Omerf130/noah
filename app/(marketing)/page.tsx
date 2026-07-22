@@ -43,6 +43,7 @@ export default function Home() {
       <Testimonials />
       <ConversionBand
         title={homepageConsultation.title}
+        subtitle={homepageConsultation.subtitle}
         text={homepageConsultation.text}
         buttonLabel={homepageConsultation.buttonLabel}
         buttonHref={homepageConsultation.buttonHref}
@@ -50,6 +51,7 @@ export default function Home() {
       <FAQ />
       <ConversionBand
         title={homepageFinalCta.title}
+        subtitle={homepageFinalCta.subtitle}
         text={homepageFinalCta.text}
         buttonLabel={homepageFinalCta.buttonLabel}
         buttonHref={homepageFinalCta.buttonHref}

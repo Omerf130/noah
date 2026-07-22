@@ -31,6 +31,9 @@ export default function Hero() {
             <motion.p className={styles.subtitle} {...fade(0.35)}>
               {homepageHero.subtitle}
             </motion.p>
+            <motion.p className={styles.lead} {...fade(0.42)}>
+              {homepageHero.lead}
+            </motion.p>
             <motion.div className={styles.actions} {...fade(0.5)}>
               <Button href={homepageHero.primaryHref} variant="primary">
                 {homepageHero.primaryCta}

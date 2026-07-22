@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react'
 
-type IconName = 'book' | 'calendar' | 'heart' | 'checklist' | 'sparkle' | 'chart'
+export type IconName = 'book' | 'calendar' | 'heart' | 'checklist' | 'sparkle' | 'chart'
 
 type IconProps = {
   name: IconName

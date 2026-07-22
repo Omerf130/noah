@@ -13,10 +13,8 @@ export default function ProofSection() {
           {homepageWhyNoah.items.map((item) => (
             <div key={item.title} className={styles.card}>
               <span className={styles.check}>✓</span>
-              <div>
-                <h3 className={styles.cardTitle}>{item.title}</h3>
-                <p>{item.text}</p>
-              </div>
+              <h3 className={styles.cardTitle}>{item.title}</h3>
+              <p className={styles.cardText}>{item.text}</p>
             </div>
           ))}
         </div>

@@ -24,6 +24,14 @@
     color: $color-purple-deep;
   }
 
+  .titleRow {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    min-height: 2.75rem;
+    flex-wrap: wrap;
+  }
+
   .subtitle {
     margin: 0;
     font-size: $font-size-sm;

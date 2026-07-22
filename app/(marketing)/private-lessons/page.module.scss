@@ -46,29 +46,35 @@
   }
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+.stepsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: $space-4;
+  max-width: 960px;
+  margin: 0 auto;
+}
 
-  article {
-    background: linear-gradient(180deg, $color-gold-tint, $color-white);
-    border-radius: $radius-lg;
-    padding: $space-5;
-    box-shadow: $shadow-md;
+.stepCard {
+  flex: 1 1 180px;
+  max-width: 220px;
+  text-align: center;
+  background: linear-gradient(180deg, $color-gold-tint, $color-white);
+  border-radius: $radius-lg;
+  padding: $space-5;
+  box-shadow: $shadow-md;
 
-    h3 {
-      font-size: $font-size-md;
-      color: $color-primary;
-      margin: $space-3 0;
-    }
+  h3 {
+    font-size: $font-size-md;
+    color: $color-primary;
+    margin: $space-3 0 0;
+  }
 
-    p {
-      margin: 0;
-      font-size: $font-size-sm;
-      color: $color-text-muted;
-      line-height: 1.6;
-    }
+  p {
+    margin: $space-2 0 0;
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+    line-height: 1.6;
   }
 }
 
@@ -85,20 +91,167 @@
   font-size: $font-size-sm;
 }
 
+.checkListCard {
+  list-style: none;
+  margin: 0 auto;
+  padding: $space-6 $space-7;
+  max-width: 760px;
+  background: $color-white;
+  border: 1px solid rgba(80, 8, 137, 0.12);
+  border-radius: $radius-xl;
+  box-shadow: $shadow-md;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-4;
+    padding: $space-4 0;
+    color: $color-text-muted;
+    line-height: 1.7;
+    border-bottom: 1px solid rgba(80, 8, 137, 0.08);
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+}
+
+.checkMark {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: $color-lavender-soft;
+  color: $color-amber-dark;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: $font-weight-black;
+  font-size: $font-size-sm;
+  margin-top: 2px;
+}
+
+.learningOptionsCard {
+  list-style: none;
+  margin: 0 auto;
+  padding: $space-6 $space-7;
+  max-width: 760px;
+  background: $color-white;
+  border: 1px solid rgba(80, 8, 137, 0.12);
+  border-radius: $radius-xl;
+  box-shadow: $shadow-md;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-4;
+    padding: $space-5 0;
+    border-bottom: 1px solid rgba(80, 8, 137, 0.08);
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+}
+
+.peopleIcon {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  padding: $space-3;
+  border-radius: 50%;
+  background: rgba(80, 8, 137, 0.1);
+  color: $color-purple-deep;
+}
+
+.learningOptionCopy {
+  flex: 1;
+
+  strong {
+    display: block;
+    color: $color-purple-deep;
+    font-size: $font-size-lg;
+    margin-bottom: $space-2;
+  }
+
+  p {
+    margin: 0;
+    color: $color-text-muted;
+    line-height: 1.7;
+  }
+}
+
+.pricingCard {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: $space-6 $space-7;
+  background: $color-white;
+  border: 1px solid rgba(80, 8, 137, 0.12);
+  border-radius: $radius-xl;
+  box-shadow: $shadow-md;
+}
+
+.pricingGroupTitle {
+  margin: 0 0 $space-4;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-black;
+  color: $color-purple-deep;
+  text-align: center;
+
+  &:not(:first-child) {
+    margin-top: $space-7;
+    padding-top: $space-6;
+    border-top: 1px solid rgba(80, 8, 137, 0.08);
+  }
+}
+
+.pricingList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    padding: $space-4 $space-5;
+    margin-bottom: $space-3;
+    background: $color-surface-warm;
+    border: 1px solid rgba(80, 8, 137, 0.08);
+    border-radius: $radius-lg;
+    color: $color-text-muted;
+    line-height: 1.6;
+    text-align: center;
+    font-weight: $font-weight-bold;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
 .cta {
   padding: $space-11 $space-5;
   text-align: center;
   @include section-band-gold;
 }
 
-@include respond-to(xl) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 @include respond-to(md) {
-  .grid {
-    grid-template-columns: 1fr;
+  .stepCard {
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+
+  .checkListCard,
+  .learningOptionsCard,
+  .pricingCard {
+    padding: $space-5;
   }
 }

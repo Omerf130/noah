@@ -5,6 +5,7 @@ import styles from './ConversionBand.module.scss'
 
 type ConversionBandProps = {
   title: string
+  subtitle?: string
   text: string
   buttonLabel: string
   buttonHref: string
@@ -13,6 +14,7 @@ type ConversionBandProps = {
 
 export default function ConversionBand({
   title,
+  subtitle,
   text,
   buttonLabel,
   buttonHref,
@@ -24,6 +26,7 @@ export default function ConversionBand({
         <Container>
           <div className={styles.inner}>
             <h2 className={styles.title}>{title}</h2>
+            {subtitle ? <p className={styles.subtitle}>{subtitle}</p> : null}
             <p className={styles.text}>{text}</p>
             <Button href={buttonHref} variant="secondary">
               {buttonLabel}

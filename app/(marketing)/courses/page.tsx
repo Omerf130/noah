@@ -39,7 +39,7 @@ export default function CoursesPage() {
         <section className={[styles.section, styles.white].join(' ')}>
           <Container>
             <h2 className={styles.sectionTitle}>{coursesPage.whyChoose.title}</h2>
-            <ul className={styles.list}>
+            <ul className={styles.listCards}>
               {coursesPage.whyChoose.items.map((item) => (
                 <li key={item}>{item}</li>
               ))}
@@ -70,7 +70,7 @@ export default function CoursesPage() {
         <section className={[styles.section, styles.white].join(' ')}>
           <Container>
             <h2 className={styles.sectionTitle}>{coursesPage.deliverables.title}</h2>
-            <ul className={styles.list}>
+            <ul className={styles.listCards}>
               {coursesPage.deliverables.items.map((item) => (
                 <li key={item}>{item}</li>
               ))}
@@ -91,7 +91,7 @@ export default function CoursesPage() {
         <section className={[styles.section, styles.warm].join(' ')}>
           <Container>
             <h2 className={styles.sectionTitle}>{coursesPage.crossLinks.title}</h2>
-            <ul className={styles.list}>
+            <ul className={styles.listCards}>
               {coursesPage.crossLinks.items.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href}>{link.label}</Link>

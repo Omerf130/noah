@@ -2,9 +2,12 @@ import Link from 'next/link'
 import PageHero from '../../../components/marketing/pages/PageHero/PageHero'
 import Container from '../../../components/ui/Container/Container'
 import Button from '../../../components/ui/Button/Button'
+import Icon, { type IconName } from '../../../components/marketing/Icon/Icon'
 import MediaPlaceholder from '../../../components/marketing/course/MediaPlaceholder/MediaPlaceholder'
 import FAQ from '../../../components/FAQ/FAQ'
 import ConversionBand from '../../../components/marketing/home/ConversionBand/ConversionBand'
+import MetricsBand from '../../../components/marketing/home/MetricsBand/MetricsBand'
+import PainPoints from '../../../components/marketing/home/PainPoints/PainPoints'
 import Testimonials from '../../../components/Testimonials/Testimonials'
 import { pharmaceuticalCalculationsCourse } from '../../../../lib/content/courses'
 import { getContactHref } from '../../../../lib/contact'
@@ -14,6 +17,16 @@ import styles from '../../catalog-page.module.scss'
 import detailStyles from './page.module.scss'
 
 const course = pharmaceuticalCalculationsCourse
+
+const deliverableAccentClass: Record<
+  (typeof course.deliverables.items)[number]['accent'],
+  string
+> = {
+  purple: detailStyles.deliverableIconPurple,
+  lavender: detailStyles.deliverableIconLavender,
+  gold: detailStyles.deliverableIconGold,
+  amber: detailStyles.deliverableIconAmber,
+}
 
 export const metadata = buildPageMetadata({
   title: course.seo.title,
@@ -42,15 +55,7 @@ export default function PharmaceuticalCalculationsPage() {
           ctaLabel={course.hero.ctaLabel}
         />
 
-        <section className={[styles.section, styles.white].join(' ')}>
-          <Container>
-            <ul className={styles.list}>
-              {course.metrics.map((label) => (
-                <li key={label}>{label}</li>
-              ))}
-            </ul>
-          </Container>
-        </section>
+        <MetricsBand metrics={course.metrics} />
 
         <section className={[styles.section, styles.warm].join(' ')}>
           <Container>
@@ -59,16 +64,7 @@ export default function PharmaceuticalCalculationsPage() {
           </Container>
         </section>
 
-        <section className={[styles.section, styles.white].join(' ')}>
-          <Container>
-            <h2 className={styles.sectionTitle}>{course.audience.title}</h2>
-            <ul className={styles.list}>
-              {course.audience.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </Container>
-        </section>
+        <PainPoints title={course.audience.title} items={course.audience.items} />
 
         <section className={[styles.section, styles.warm].join(' ')}>
           <Container>
@@ -89,9 +85,19 @@ export default function PharmaceuticalCalculationsPage() {
         <section className={[styles.section, styles.white].join(' ')}>
           <Container>
             <h2 className={styles.sectionTitle}>{course.deliverables.title}</h2>
-            <ul className={styles.list}>
+            <ul className={detailStyles.deliverablesGrid}>
               {course.deliverables.items.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item.text} className={detailStyles.deliverableCard}>
+                  <span
+                    className={[
+                      detailStyles.deliverableIcon,
+                      deliverableAccentClass[item.accent],
+                    ].join(' ')}
+                  >
+                    <Icon name={item.icon as IconName} size={26} />
+                  </span>
+                  {item.text}
+                </li>
               ))}
             </ul>
           </Container>
@@ -100,9 +106,14 @@ export default function PharmaceuticalCalculationsPage() {
         <section className={[styles.section, styles.warm].join(' ')}>
           <Container>
             <h2 className={styles.sectionTitle}>{course.whyItWorks.title}</h2>
-            <ul className={styles.list}>
+            <ul className={detailStyles.checkListCard}>
               {course.whyItWorks.items.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item}>
+                  <span className={detailStyles.checkMark} aria-hidden="true">
+                    ✓
+                  </span>
+                  <span>{item}</span>
+                </li>
               ))}
             </ul>
           </Container>

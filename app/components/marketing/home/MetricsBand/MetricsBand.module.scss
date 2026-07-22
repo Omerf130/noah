@@ -1,6 +1,15 @@
 @use 'variables' as *;
 @use 'breakpoints' as *;
 
+.band {
+  background: linear-gradient(
+    135deg,
+    rgba(80, 8, 137, 0.82) 0%,
+    rgba(128, 41, 184, 0.78) 55%,
+    rgba(92, 26, 148, 0.82) 100%
+  ) !important;
+}
+
 .wrapper {
   padding: $space-13 $space-5;
 }
@@ -27,16 +36,27 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   gap: $space-6;
+}
+
+.gridFour {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.gridThree {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.gridAuto {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 .item {
   text-align: center;
   padding: $space-6 $space-4;
   border-radius: $radius-lg;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .number {
@@ -56,6 +76,14 @@
   margin-bottom: $space-2;
 }
 
+.labelOnly {
+  display: block;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-white;
+  line-height: 1.5;
+}
+
 .desc {
   display: block;
   font-size: $font-size-sm;
@@ -64,7 +92,8 @@
 }
 
 @include respond-to(xl) {
-  .grid {
+  .gridFour,
+  .gridThree {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -74,7 +103,9 @@
     padding: $space-11 $space-4;
   }
 
-  .grid {
+  .gridFour,
+  .gridThree,
+  .gridAuto {
     grid-template-columns: 1fr;
   }
 
