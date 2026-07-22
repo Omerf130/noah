@@ -4,6 +4,8 @@ import Container from '../../../components/ui/Container/Container'
 import Button from '../../../components/ui/Button/Button'
 import MediaPlaceholder from '../../../components/marketing/course/MediaPlaceholder/MediaPlaceholder'
 import FAQ from '../../../components/FAQ/FAQ'
+import ConversionBand from '../../../components/marketing/home/ConversionBand/ConversionBand'
+import Testimonials from '../../../components/Testimonials/Testimonials'
 import { pharmaceuticalCalculationsCourse } from '../../../../lib/content/courses'
 import { getContactHref } from '../../../../lib/contact'
 import { buildPageMetadata, buildCourseJsonLd } from '../../../../lib/seo'
@@ -33,24 +35,73 @@ export default function PharmaceuticalCalculationsPage() {
         <PageHero
           variant="focus"
           eyebrow={course.hero.eyebrow}
+          stat={course.hero.stat}
           title={course.hero.title}
           subtitle={course.hero.subtitle}
           ctaHref={getContactHref(course.contactService)}
-          ctaLabel="השאירו פרטים"
+          ctaLabel={course.hero.ctaLabel}
         />
 
         <section className={[styles.section, styles.white].join(' ')}>
           <Container>
-            <h2 className={styles.sectionTitle}>על הקורס</h2>
-            <p className={detailStyles.lead}>{course.shortDescription}</p>
+            <ul className={styles.list}>
+              {course.metrics.map((label) => (
+                <li key={label}>{label}</li>
+              ))}
+            </ul>
           </Container>
         </section>
 
         <section className={[styles.section, styles.warm].join(' ')}>
           <Container>
-            <h2 className={styles.sectionTitle}>למי הקורס מתאים</h2>
+            <p className={detailStyles.lead}>{course.intro.title}</p>
+            <p className={detailStyles.lead}>{course.intro.text}</p>
+          </Container>
+        </section>
+
+        <section className={[styles.section, styles.white].join(' ')}>
+          <Container>
+            <h2 className={styles.sectionTitle}>{course.audience.title}</h2>
             <ul className={styles.list}>
-              {course.audience.map((item) => (
+              {course.audience.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+
+        <section className={[styles.section, styles.warm].join(' ')}>
+          <Container>
+            <h2 className={styles.sectionTitle}>{course.modules.title}</h2>
+            <p className={styles.sectionSub}>{course.modules.intro}</p>
+            <ul className={styles.list}>
+              {course.modules.items.map((module) => (
+                <li key={module.title}>
+                  <strong>{module.title}</strong>
+                  <br />
+                  {module.text}
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+
+        <section className={[styles.section, styles.white].join(' ')}>
+          <Container>
+            <h2 className={styles.sectionTitle}>{course.deliverables.title}</h2>
+            <ul className={styles.list}>
+              {course.deliverables.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+
+        <section className={[styles.section, styles.warm].join(' ')}>
+          <Container>
+            <h2 className={styles.sectionTitle}>{course.whyItWorks.title}</h2>
+            <ul className={styles.list}>
+              {course.whyItWorks.items.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
@@ -59,29 +110,8 @@ export default function PharmaceuticalCalculationsPage() {
 
         <section className={[styles.section, styles.white].join(' ')}>
           <Container>
-            <h2 className={styles.sectionTitle}>מה תקבלו</h2>
-            <ul className={styles.list}>
-              {course.deliverables.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </Container>
-        </section>
-
-        <section className={[styles.section, styles.warm].join(' ')}>
-          <Container>
-            <h2 className={styles.sectionTitle}>סילבוס</h2>
-            <ul className={styles.list}>
-              {course.syllabus.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </Container>
-        </section>
-
-        <section className={[styles.section, styles.white].join(' ')}>
-          <Container>
-            <h2 className={styles.sectionTitle}>סרטון הסילבוס</h2>
+            <h2 className={styles.sectionTitle}>{course.preview.title}</h2>
+            <p className={styles.sectionSub}>{course.preview.caption}</p>
             <MediaPlaceholder videoUrl={course.syllabusVideoUrl} />
           </Container>
         </section>
@@ -96,12 +126,23 @@ export default function PharmaceuticalCalculationsPage() {
           </Container>
         </section>
 
+        <Testimonials title={course.testimonials.title} />
+
+        <ConversionBand
+          title={course.consultation.title}
+          text={course.consultation.text}
+          buttonLabel={course.consultation.buttonLabel}
+          buttonHref={course.consultation.buttonHref}
+        />
+
         <FAQ items={course.faq} />
 
         <section className={styles.cta}>
           <Container>
+            <h2 className={styles.sectionTitle}>{course.finalCta.title}</h2>
+            <p className={styles.sectionSub}>{course.finalCta.text}</p>
             <Button href={getContactHref(course.contactService)} variant="primary">
-              השאירו פרטים לקורס
+              {course.finalCta.buttonLabel}
             </Button>
           </Container>
         </section>

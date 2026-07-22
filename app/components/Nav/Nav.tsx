@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from './Nav.module.scss'
@@ -15,13 +15,29 @@ const navLinks = [
   { href: '/login', label: 'התחברות' },
 ]
 
+const SCROLL_THRESHOLD = 12
+
 export default function Nav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const updateScrollState = () => {
+      setIsScrolled(window.scrollY > SCROLL_THRESHOLD)
+    }
+
+    updateScrollState()
+    window.addEventListener('scroll', updateScrollState, { passive: true })
+
+    return () => window.removeEventListener('scroll', updateScrollState)
+  }, [])
 
   const closeMenu = () => setIsMenuOpen(false)
 
   return (
-    <header className={styles.navWrapper}>
+    <header
+      className={[styles.navWrapper, isScrolled ? styles.scrolled : ''].filter(Boolean).join(' ')}
+    >
       <nav className={styles.navContainer}>
         <div className={styles.logo}>
           <Link href="/" onClick={closeMenu}>

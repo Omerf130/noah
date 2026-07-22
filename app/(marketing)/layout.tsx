@@ -1,5 +1,6 @@
 import Nav from '../components/Nav/Nav'
 import Footer from '../components/Footer/Footer'
+import styles from './layout.module.scss'
 
 export default function MarketingLayout({
   children,
@@ -12,7 +13,9 @@ export default function MarketingLayout({
         דלג לתוכן הראשי
       </a>
       <Nav />
-      <main id="main-content">{children}</main>
+      <main id="main-content" className={styles.main}>
+        {children}
+      </main>
       <Footer />
     </>
   )

@@ -30,6 +30,8 @@
   --radius-pill: #{$radius-pill};
   --shadow-md: #{$shadow-md};
   --transition-base: #{$transition-base};
+  /* Nav bar: logo + vertical padding (10px + 10px) — desktop 90px logo */
+  --nav-height: 110px;
 }
 
 html {
@@ -37,6 +39,25 @@ html {
   overflow-x: hidden;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
+  scroll-padding-top: var(--nav-height);
+}
+
+[id] {
+  scroll-margin-top: var(--nav-height);
+}
+
+@media (max-width: 768px) {
+  :root {
+    /* 75px logo + 20px padding */
+    --nav-height: 95px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    /* 65px logo + 20px padding */
+    --nav-height: 85px;
+  }
 }
 
 body {

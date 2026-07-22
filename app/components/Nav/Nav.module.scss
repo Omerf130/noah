@@ -9,11 +9,31 @@
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(80, 8, 137, 0.08);
   padding: 10px 0;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: $z-nav;
   box-shadow: $shadow-sm;
   direction: rtl;
+  transition:
+    background-color 250ms ease,
+    backdrop-filter 250ms ease,
+    -webkit-backdrop-filter 250ms ease,
+    box-shadow 250ms ease,
+    border-color 250ms ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.scrolled {
+  background: rgba(250, 247, 242, 0.58);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom-color: rgba(80, 8, 137, 0.1);
+  box-shadow: 0 1px 0 rgba(80, 8, 137, 0.05);
 }
 
 .navContainer {
@@ -176,6 +196,12 @@
     width: 75px;
     height: 75px;
     order: 2;
+  }
+
+  .scrolled {
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
   }
 }
 

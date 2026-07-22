@@ -1,7 +1,11 @@
 import { homepageTestimonials } from '../../../lib/content/homepage'
 import styles from './Testimonials.module.scss'
 
-const Testimonials = () => {
+type TestimonialsProps = {
+  title?: string
+}
+
+const Testimonials = ({ title }: TestimonialsProps) => {
   const changes = [
     'עזרה בארגון הלמידה',
     'חיזוק ביטחון בהתמודדות עם חומר',
@@ -12,7 +16,7 @@ const Testimonials = () => {
   return (
     <section className={styles.testimonialsWrapper}>
       <div className={styles.testimonialsContainer}>
-        <h2 className={styles.sectionTitle}>{homepageTestimonials.title}</h2>
+        <h2 className={styles.sectionTitle}>{title ?? homepageTestimonials.title}</h2>
         <div className={styles.changesGrid}>
           {changes.map((change, index) => (
             <div key={index} className={styles.changeCard}>

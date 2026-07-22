@@ -44,17 +44,25 @@
   margin: 0 0 $space-5;
 }
 
-.list {
+.offeringsList {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
 
-  li {
-    padding: $space-3 0;
-    border-bottom: 1px solid $color-border-light;
-    color: $color-primary;
-    font-weight: $font-weight-bold;
-  }
+.offeringsItem {
+  padding: $space-6;
+  background: $color-white;
+  border-radius: $radius-xl;
+  border: 1px solid rgba(80, 8, 137, 0.06);
+  box-shadow: $shadow-md;
+  color: $color-primary;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-md;
 }
 
 .ctaBand {
@@ -66,6 +74,20 @@
     color: $color-white;
     font-size: $font-size-4xl;
     margin: 0 0 $space-6;
+  }
+}
+
+.ctaText {
+  max-width: 720px;
+  margin: 0 auto $space-7;
+  font-size: $font-size-lg;
+  line-height: $line-height-relaxed;
+  color: $color-text-light;
+}
+
+@include respond-to(md) {
+  .offeringsItem {
+    padding: $space-5;
   }
 }
 
