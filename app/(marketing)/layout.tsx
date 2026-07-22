@@ -1,6 +1,8 @@
-import Nav from '../components/Nav/Nav'
-import Footer from '../components/Footer/Footer'
+import NavWithAuth from '../components/Nav/NavWithAuth'
+import FooterWithAuth from '../components/Footer/FooterWithAuth'
 import styles from './layout.module.scss'
+
+export const dynamic = 'force-dynamic'
 
 export default function MarketingLayout({
   children,
@@ -12,11 +14,11 @@ export default function MarketingLayout({
       <a href="#main-content" className="skip-link">
         דלג לתוכן הראשי
       </a>
-      <Nav />
+      <NavWithAuth />
       <main id="main-content" className={styles.main}>
         {children}
       </main>
-      <Footer />
+      <FooterWithAuth />
     </>
   )
 }

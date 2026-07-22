@@ -1,0 +1,28 @@
+@use 'variables' as *;
+@use 'breakpoints' as *;
+
+.shell {
+  min-height: 100vh;
+  background: $color-surface-warm;
+}
+
+.admin {
+  background: #f3edf8;
+}
+
+.body {
+  display: flex;
+  min-height: calc(100vh - 76px);
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: $space-6;
+}
+
+@include respond-to(md) {
+  .main {
+    padding: $space-5 $space-4;
+  }
+}

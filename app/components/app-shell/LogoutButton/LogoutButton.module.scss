@@ -1,0 +1,36 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.form {
+  margin: 0;
+}
+
+.button {
+  padding: $space-2 $space-4;
+  border: 1px solid rgba(80, 8, 137, 0.18);
+  border-radius: $radius-sm;
+  background: $color-surface;
+  color: $color-primary;
+  font-family: inherit;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+  transition: background $transition-base, border-color $transition-base, color $transition-base;
+  @include focus-visible;
+
+  &:hover {
+    background: $color-gold-tint;
+    border-color: $color-primary;
+  }
+}
+
+.admin .button {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: $color-accent-gold;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.14);
+    border-color: $color-accent-gold;
+  }
+}

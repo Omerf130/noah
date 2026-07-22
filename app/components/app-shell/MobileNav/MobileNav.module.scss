@@ -1,0 +1,85 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'breakpoints' as *;
+
+.mobileNav {
+  display: none;
+}
+
+.menuButton,
+.closeButton {
+  padding: $space-2 $space-4;
+  border: 1px solid rgba(80, 8, 137, 0.18);
+  border-radius: $radius-sm;
+  background: $color-surface;
+  color: $color-primary;
+  font-family: inherit;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+  @include focus-visible;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  border: 0;
+  background: $color-overlay-dark;
+  cursor: pointer;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 130;
+  width: min(86vw, 320px);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: $shadow-md;
+}
+
+.dashboard.drawer {
+  background: $color-surface;
+}
+
+.admin.drawer {
+  background: $color-purple-deep;
+}
+
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+  padding: $space-4;
+  border-bottom: 1px solid $color-border-light;
+}
+
+.admin .drawerHeader {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.drawerTitle {
+  font-weight: $font-weight-black;
+  color: $color-primary;
+}
+
+.admin .drawerTitle {
+  color: $color-accent-gold;
+}
+
+.drawerSidebar {
+  display: block !important;
+  width: 100%;
+  border: 0;
+  padding-top: $space-3;
+}
+
+@include respond-to(md) {
+  .mobileNav {
+    display: block;
+  }
+}

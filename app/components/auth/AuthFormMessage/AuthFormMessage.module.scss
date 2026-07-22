@@ -1,0 +1,11 @@
+@use 'variables' as *;
+
+.formError {
+  margin: 0;
+  padding: $space-3 $space-4;
+  border-radius: $radius-sm;
+  background: rgba(214, 160, 23, 0.12);
+  border: 1px solid rgba(214, 160, 23, 0.35);
+  color: $color-amber-dark;
+  font-size: $font-size-sm;
+}

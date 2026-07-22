@@ -3,23 +3,19 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { marketingNavLinks, type PublicAuthNavItem } from '../../../lib/navigation/auth-nav'
 import styles from './Nav.module.scss'
-
-const navLinks = [
-  { href: '/about', label: 'קצת עליי' },
-  { href: '/courses', label: 'קורסים' },
-  { href: '/products', label: 'מוצרים' },
-  { href: '/personal-guidance', label: 'ליווי אישי' },
-  { href: '/private-lessons', label: 'שיעורים פרטיים' },
-  { href: '/contact', label: 'צור קשר' },
-  { href: '/login', label: 'התחברות' },
-]
 
 const SCROLL_THRESHOLD = 12
 
-export default function Nav() {
+type NavProps = {
+  authItems: PublicAuthNavItem[]
+}
+
+export default function Nav({ authItems }: NavProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const navLinks = [...marketingNavLinks, ...authItems]
 
   useEffect(() => {
     const updateScrollState = () => {
@@ -65,7 +61,7 @@ export default function Nav() {
 
         <div className={`${styles.navLinks} ${isMenuOpen ? styles.navLinksOpen : ''}`}>
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} onClick={closeMenu}>
+            <Link key={`${link.href}-${link.label}`} href={link.href} onClick={closeMenu}>
               {link.label}
             </Link>
           ))}

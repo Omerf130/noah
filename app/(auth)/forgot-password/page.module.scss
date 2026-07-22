@@ -1,0 +1,31 @@
+@use 'variables' as *;
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+.message {
+  margin: 0;
+  color: $color-text-muted;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.homeLink {
+  align-self: center;
+  color: $color-primary;
+  font-weight: $font-weight-bold;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-primary-hover;
+  }
+}

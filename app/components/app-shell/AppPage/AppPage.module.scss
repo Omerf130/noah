@@ -1,0 +1,58 @@
+@use 'variables' as *;
+@use 'breakpoints' as *;
+
+.page {
+  max-width: 760px;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: $space-3;
+  padding: $space-1 $space-3;
+  border-radius: $radius-pill;
+  background: $color-gold-tint;
+  color: $color-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+}
+
+.title {
+  margin: 0 0 $space-4;
+  color: $color-primary;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: $font-weight-black;
+}
+
+.lead,
+.text {
+  margin: 0 0 $space-4;
+  color: $color-text-muted;
+  line-height: 1.8;
+}
+
+.card {
+  padding: $space-5;
+  border-radius: $radius-lg;
+  border: 1px solid $color-border-light;
+  background: $color-surface;
+}
+
+.cardTitle {
+  margin: 0 0 $space-3;
+  color: $color-primary;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-black;
+}
+
+.list {
+  margin: 0;
+  padding-right: $space-5;
+  color: $color-text-muted;
+  line-height: 1.8;
+}
+
+.adminPage {
+  .eyebrow {
+    background: rgba(255, 237, 171, 0.22);
+  }
+}

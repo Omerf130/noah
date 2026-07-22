@@ -1,0 +1,43 @@
+@use 'variables' as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+}
+
+.fieldError {
+  margin: 0;
+  color: $color-amber-dark;
+  font-size: $font-size-sm;
+}
+
+.hint {
+  margin: 0;
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+  line-height: 1.6;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  margin-top: $space-2;
+}
+
+.link {
+  color: $color-primary;
+  font-weight: $font-weight-bold;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-primary-hover;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}

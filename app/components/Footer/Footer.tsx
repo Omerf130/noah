@@ -1,23 +1,22 @@
 import Link from 'next/link'
 import styles from './Footer.module.scss'
 
-const footerLinks = [
-  { href: '/about', label: 'קצת עליי' },
-  { href: '/courses', label: 'קורסים' },
-  { href: '/products', label: 'מוצרים' },
-  { href: '/personal-guidance', label: 'ליווי אישי' },
-  { href: '/private-lessons', label: 'שיעורים פרטיים' },
-  { href: '/contact', label: 'צור קשר' },
-  { href: '/login', label: 'התחברות' },
-]
+type FooterLink = {
+  href: string
+  label: string
+}
 
-export default function Footer() {
+type FooterProps = {
+  navLinks: readonly FooterLink[]
+}
+
+export default function Footer({ navLinks }: FooterProps) {
   return (
     <footer className={styles.footerWrapper}>
       <div className={styles.footerContainer}>
         <div className={styles.footerLinks}>
-          {footerLinks.map((link) => (
-            <Link key={link.href} href={link.href}>
+          {navLinks.map((link) => (
+            <Link key={`${link.href}-${link.label}`} href={link.href}>
               {link.label}
             </Link>
           ))}

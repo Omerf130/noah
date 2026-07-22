@@ -1,0 +1,105 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+@use 'breakpoints' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+  padding: $space-4 $space-5;
+  border-bottom: 1px solid $color-border-light;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+}
+
+.dashboard {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.admin {
+  background: $color-purple-deep;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.start,
+.end {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  flex-wrap: wrap;
+}
+
+.brandLink {
+  color: $color-primary;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-black;
+  text-decoration: none;
+  @include focus-visible;
+}
+
+.admin .brandLink {
+  color: $color-accent-gold;
+}
+
+.userMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $space-1;
+}
+
+.userName {
+  font-weight: $font-weight-bold;
+  color: $color-text;
+}
+
+.admin .userName {
+  color: $color-white;
+}
+
+.roleBadge {
+  display: inline-block;
+  padding: 2px $space-2;
+  border-radius: $radius-pill;
+  background: $color-gold-tint;
+  color: $color-primary;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+}
+
+.admin .roleBadge {
+  background: rgba(255, 237, 171, 0.16);
+  color: $color-accent-gold;
+}
+
+.secondaryLink {
+  color: $color-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  text-decoration: none;
+  @include focus-visible;
+}
+
+.admin .secondaryLink {
+  color: $color-accent-gold;
+}
+
+@include respond-to(md) {
+  .end {
+    gap: $space-2;
+  }
+
+  .secondaryLink {
+    display: none;
+  }
+}
+
+@include respond-to(sm) {
+  .userMeta {
+    display: none;
+  }
+}

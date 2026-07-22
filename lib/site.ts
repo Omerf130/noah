@@ -21,7 +21,6 @@ export const marketingRoutes = [
   { path: '/personal-guidance', priority: 0.9 },
   { path: '/private-lessons', priority: 0.9 },
   { path: '/contact', priority: 0.95 },
-  { path: '/login', priority: 0.5 },
 ] as const
 
 export function getSiteUrl(path = ''): string {

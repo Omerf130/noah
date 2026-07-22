@@ -1,0 +1,60 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-3;
+  padding: $space-3 $space-4;
+  border-radius: $radius-sm;
+  color: $color-text;
+  font-weight: $font-weight-bold;
+  text-decoration: none;
+  transition: background $transition-base, color $transition-base;
+  @include focus-visible;
+}
+
+.dashboard.item:hover {
+  background: $color-purple-soft;
+  color: $color-primary;
+}
+
+.admin.item {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.admin.item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: $color-accent-gold;
+}
+
+.active {
+  background: $color-gold-tint;
+  color: $color-primary;
+}
+
+.admin.active {
+  background: rgba(255, 237, 171, 0.14);
+  color: $color-accent-gold;
+}
+
+.disabled {
+  color: $color-purple-muted;
+  cursor: not-allowed;
+  opacity: 0.85;
+}
+
+.admin.disabled {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.soon {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-normal;
+  color: $color-purple-muted;
+}
+
+.admin .soon {
+  color: rgba(255, 255, 255, 0.45);
+}
