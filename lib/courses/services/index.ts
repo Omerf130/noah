@@ -1,4 +1,9 @@
 export {
+  deleteCoursePermanently,
+  determineCourseDeletionEligibility,
+} from './course-deletion-service'
+
+export {
   archiveCourse,
   createCourse,
   getCourseById,
@@ -45,6 +50,10 @@ export {
 } from './publish-service'
 
 export {
+  CourseArchiveNotAllowedError,
+  CourseDeletionConfirmationError,
+  CourseDeletionFailedError,
+  CourseDeletionNotEligibleError,
   CourseDuplicateKeyError,
   CourseInstructorError,
   CourseModuleNotFoundError,

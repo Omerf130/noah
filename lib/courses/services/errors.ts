@@ -60,3 +60,35 @@ export class CourseInstructorError extends Error {
 export function formatZodError(error: { issues: { message: string }[] }): string {
   return error.issues.map((issue) => issue.message).join('; ')
 }
+
+export class CourseArchiveNotAllowedError extends Error {
+  readonly name = 'CourseArchiveNotAllowedError'
+
+  constructor(message = 'ניתן להעביר לארכיון רק קורסים בסטטוס טיוטה.') {
+    super(message)
+  }
+}
+
+export class CourseDeletionNotEligibleError extends Error {
+  readonly name = 'CourseDeletionNotEligibleError'
+
+  constructor(message = 'לא ניתן למחוק קורס זה. ניתן להעביר אותו לארכיון במקום.') {
+    super(message)
+  }
+}
+
+export class CourseDeletionConfirmationError extends Error {
+  readonly name = 'CourseDeletionConfirmationError'
+
+  constructor(message = 'יש להקליד את שם הקורס בדיוק כדי לאשר מחיקה.') {
+    super(message)
+  }
+}
+
+export class CourseDeletionFailedError extends Error {
+  readonly name = 'CourseDeletionFailedError'
+
+  constructor(message = 'מחיקת הקורס נכשלה. נסו שוב מאוחר יותר.') {
+    super(message)
+  }
+}

@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { requireAdmin } from '../../../../../lib/auth/current-user'
 import { getAdminCourseDetails } from '../../../../../lib/courses/queries/admin-course-details-query'
 import { buildPageMetadata } from '../../../../../lib/seo'
+import CourseActions from '../../../../components/admin/courses/CourseActions/CourseActions'
 import CourseDetails from '../../../../components/admin/courses/CourseDetails/CourseDetails'
 import Button from '../../../../components/ui/Button/Button'
 import styles from '../../../../components/admin/courses/CourseDetails/CourseDetails.module.scss'
@@ -59,6 +60,13 @@ export default async function AdminCourseDetailsPage({ params }: AdminCourseDeta
         <Button href={`/admin/courses/${course.id}/edit`} variant="primary">
           עריכת הקורס
         </Button>
+        <CourseActions
+          courseId={course.id}
+          courseTitle={course.title}
+          status={course.status}
+          layout="details"
+          showNavigationLinks={false}
+        />
       </div>
 
       <CourseDetails course={course} />

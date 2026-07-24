@@ -166,6 +166,62 @@
   border-top: 1px solid $color-border-light;
 }
 
+.detailsActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3;
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-2 $space-4;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-pill;
+  background: $color-white;
+  color: $color-primary;
+  font: inherit;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.actionButtonDestructive {
+  border-color: rgba($color-amber-dark, 0.35);
+  color: $color-amber-dark;
+}
+
+.actionError {
+  margin: $space-3 0 0;
+  color: $color-amber-dark;
+  font-size: $font-size-sm;
+  line-height: 1.6;
+}
+
+.dialogLabel {
+  display: block;
+  margin-bottom: $space-2;
+  color: $color-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+}
+
+.dialogInput {
+  width: 100%;
+  padding: $space-3 $space-4;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-md;
+  background: $color-white;
+  color: $color-text;
+  font: inherit;
+}
+
 .priceStack {
   display: flex;
   flex-direction: column;

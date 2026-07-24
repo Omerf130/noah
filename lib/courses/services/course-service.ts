@@ -13,6 +13,7 @@ import { parseCourseIdParam } from '../validators/course-id'
 import { getCourseDuplicateKeyField } from './duplicate-key'
 import {
   CourseDuplicateKeyError,
+  CourseArchiveNotAllowedError,
   CourseNotFoundError,
   CourseValidationError,
   formatZodError,
@@ -237,14 +238,39 @@ export async function updateCourseMetadata(
 }
 
 export async function archiveCourse(courseId: string, actorUserId: string) {
-  return updateCourse(
-    courseId,
+  await connectDb()
+
+  const parsedCourseId = parseCourseIdParam(courseId)
+  if (!parsedCourseId.success) {
+    throw new CourseNotFoundError('הקורס המבוקש לא נמצא.')
+  }
+
+  const existingCourse = await Course.findById(parsedCourseId.courseId).lean()
+  if (!existingCourse) {
+    throw new CourseNotFoundError('הקורס המבוקש לא נמצא.')
+  }
+
+  if (existingCourse.status !== 'draft') {
+    throw new CourseArchiveNotAllowedError()
+  }
+
+  const course = await Course.findByIdAndUpdate(
+    parsedCourseId.courseId,
     {
-      status: 'archived',
-      archivedAt: new Date(),
+      $set: {
+        status: 'archived',
+        archivedAt: new Date(),
+        updatedBy: actorUserId,
+      },
     },
-    actorUserId,
-  )
+    { returnDocument: 'after', runValidators: true },
+  ).lean()
+
+  if (!course) {
+    throw new CourseNotFoundError('הקורס המבוקש לא נמצא.')
+  }
+
+  return { archived: true as const, course }
 }
 
 export async function publishCourse(courseId: string, actorUserId: string) {

@@ -302,14 +302,36 @@ describeIfDb('course services integration', () => {
   )
 
   it(
-    'archives and publishes a course',
+    'publishes a course',
     async () => {
-      const archived = await archiveCourse(courseId, actorUserId)
-      expect(archived.status).toBe('archived')
-
       const published = await publishCourse(courseId, actorUserId)
       expect(published.status).toBe('published')
       expect(published.publishedAt).toBeTruthy()
+    },
+    INTEGRATION_TIMEOUT_MS,
+  )
+
+  it(
+    'archives a draft-only course',
+    async () => {
+      const draftCourse = await createCourse(
+        {
+          internalName: `archive-only-draft-v1-${runId}`,
+          title: 'Archive Only Draft',
+          slug: `archive-only-draft-${runId}`,
+          shortDescription: 'Draft course for archive integration.',
+          instructorId: actorUserId,
+        },
+        actorUserId,
+      )
+
+      const draftCourseId = String(draftCourse._id)
+      createdCourseIds.push(draftCourseId)
+
+      const archived = await archiveCourse(draftCourseId, actorUserId)
+      expect(archived.archived).toBe(true)
+      expect(archived.course.status).toBe('archived')
+      expect(archived.course.archivedAt).toBeTruthy()
     },
     INTEGRATION_TIMEOUT_MS,
   )
