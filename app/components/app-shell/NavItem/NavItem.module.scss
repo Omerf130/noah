@@ -2,10 +2,11 @@
 @use 'mixins' as *;
 
 .item {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: space-between;
   gap: $space-3;
+  width: 100%;
   padding: $space-3 $space-4;
   border-radius: $radius-sm;
   color: $color-text;
@@ -53,6 +54,10 @@
   font-size: $font-size-xs;
   font-weight: $font-weight-normal;
   color: $color-purple-muted;
+}
+
+.icon {
+  flex-shrink: 0;
 }
 
 .admin .soon {

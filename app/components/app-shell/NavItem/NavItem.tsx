@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import Icon from '../../marketing/Icon/Icon'
 import type { AppNavItem } from '../../../../lib/app-shell/navigation'
 import styles from './NavItem.module.scss'
 
@@ -24,11 +27,20 @@ export default function NavItem({
     .filter(Boolean)
     .join(' ')
 
+  const content = (
+    <>
+      {item.icon ? (
+        <Icon name={item.icon} size={18} className={styles.icon} aria-hidden="true" />
+      ) : null}
+      <span>{item.label}</span>
+      {item.disabled ? <span className={styles.soon}>בקרוב</span> : null}
+    </>
+  )
+
   if (item.disabled || !item.href) {
     return (
       <span className={className} aria-disabled="true">
-        {item.label}
-        <span className={styles.soon}>בקרוב</span>
+        {content}
       </span>
     )
   }
@@ -40,7 +52,7 @@ export default function NavItem({
       aria-current={isActive ? 'page' : undefined}
       onClick={onNavigate}
     >
-      {item.label}
+      {content}
     </Link>
   )
 }

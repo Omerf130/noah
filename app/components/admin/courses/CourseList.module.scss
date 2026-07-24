@@ -1,0 +1,291 @@
+@use 'variables' as *;
+@use 'breakpoints' as *;
+@use 'mixins' as *;
+
+.page {
+  max-width: 100%;
+}
+
+.header {
+  margin-bottom: $space-6;
+}
+
+.title {
+  margin: 0 0 $space-3;
+  color: $color-primary;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: $font-weight-black;
+}
+
+.lead {
+  margin: 0;
+  color: $color-text-muted;
+  line-height: 1.8;
+}
+
+.filters {
+  margin-bottom: $space-6;
+  padding: $space-5;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-lg;
+  background: $color-surface;
+}
+
+.filtersGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: $space-4;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.fieldWide {
+  grid-column: span 2;
+}
+
+.label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+}
+
+.input,
+.select {
+  width: 100%;
+  padding: $space-3 $space-4;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-sm;
+  background: $color-white;
+  color: $color-text;
+  font: inherit;
+  @include focus-visible;
+}
+
+.actions {
+  display: flex;
+  align-items: flex-end;
+  gap: $space-3;
+}
+
+.submitButton {
+  padding: $space-3 $space-5;
+  border: none;
+  border-radius: $radius-sm;
+  background: $color-primary;
+  color: $color-white;
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+  @include focus-visible;
+}
+
+.resetLink {
+  color: $color-primary;
+  font-weight: $font-weight-bold;
+  text-decoration: none;
+  @include focus-visible;
+}
+
+.summary {
+  margin-bottom: $space-4;
+  color: $color-text-muted;
+}
+
+.tableWrap {
+  display: block;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: $color-white;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-lg;
+}
+
+.caption {
+  caption-side: top;
+  padding: $space-4;
+  text-align: right;
+  color: $color-text-muted;
+}
+
+.table th,
+.table td {
+  padding: $space-3 $space-4;
+  border-bottom: 1px solid $color-border-light;
+  text-align: right;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.table th {
+  background: $color-gold-tint;
+  color: $color-primary;
+  font-size: $font-size-sm;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.cards {
+  display: none;
+  gap: $space-4;
+}
+
+.card {
+  padding: $space-5;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-lg;
+  background: $color-white;
+}
+
+.cardTitle {
+  margin: 0 0 $space-3;
+  color: $color-primary;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-black;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-3;
+}
+
+.cardField {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+}
+
+.cardLabel {
+  font-size: $font-size-xs;
+  color: $color-purple-muted;
+}
+
+.cardValue {
+  color: $color-text;
+  line-height: 1.5;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: $space-1 $space-3;
+  border-radius: $radius-pill;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+}
+
+.statusDraft {
+  background: rgba(80, 8, 137, 0.08);
+  color: $color-primary;
+}
+
+.statusPublished {
+  background: rgba(212, 160, 23, 0.16);
+  color: $color-amber-dark;
+}
+
+.statusArchived {
+  background: rgba(80, 8, 137, 0.12);
+  color: $color-purple-muted;
+}
+
+.visibilityPublic,
+.visibilityMembers,
+.visibilityPrivate,
+.visibilityUnlisted {
+  background: $color-lavender-soft;
+  color: $color-primary;
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  margin-top: $space-6;
+}
+
+.pageLink,
+.pageLinkActive,
+.pageLinkDisabled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  padding: $space-2 $space-3;
+  border-radius: $radius-sm;
+  text-decoration: none;
+  font-weight: $font-weight-bold;
+  @include focus-visible;
+}
+
+.pageLink {
+  color: $color-primary;
+  background: $color-white;
+  border: 1px solid $color-border-light;
+}
+
+.pageLinkActive {
+  color: $color-white;
+  background: $color-primary;
+}
+
+.pageLinkDisabled {
+  color: $color-purple-muted;
+  background: $color-surface;
+  border: 1px solid $color-border-light;
+  pointer-events: none;
+}
+
+.emptyState {
+  padding: $space-8 $space-5;
+  border: 1px dashed $color-border-light;
+  border-radius: $radius-lg;
+  background: $color-surface;
+  text-align: center;
+}
+
+.emptyTitle {
+  margin: 0 0 $space-3;
+  color: $color-primary;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-black;
+}
+
+.emptyText {
+  margin: 0;
+  color: $color-text-muted;
+  line-height: 1.7;
+}
+
+@include respond-to(md) {
+  .filtersGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .fieldWide {
+    grid-column: span 1;
+  }
+
+  .tableWrap {
+    display: none;
+  }
+
+  .cards {
+    display: grid;
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
+}

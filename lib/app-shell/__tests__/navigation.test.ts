@@ -3,6 +3,7 @@ import {
   adminNavItems,
   canAccessAdminArea,
   canAccessDashboard,
+  getActiveNavItemId,
   getAuthenticatedAuthRedirect,
   getDisplayName,
   getRoleLabel,
@@ -19,13 +20,14 @@ describe('app shell navigation', () => {
     expect(studentNavItems.filter((item) => item.disabled)).toHaveLength(3)
   })
 
-  it('defines admin navigation with one active overview link and disabled future items', () => {
+  it('defines admin navigation with overview and courses links enabled', () => {
     const interactive = adminNavItems.filter(isNavItemInteractive)
 
     expect(interactive).toEqual([
       { id: 'overview', label: 'סקירה כללית', href: '/admin' },
+      { id: 'courses', label: 'קורסים', href: '/admin/courses', icon: 'book' },
     ])
-    expect(adminNavItems.filter((item) => item.disabled)).toHaveLength(5)
+    expect(adminNavItems.filter((item) => item.disabled)).toHaveLength(4)
   })
 
   it('maps roles to Hebrew labels', () => {
@@ -34,8 +36,14 @@ describe('app shell navigation', () => {
   })
 
   it('derives a display name from the first word of fullName', () => {
-    expect(getDisplayName('  נועה רכлин  ')).toBe('נועה')
+    expect(getDisplayName('  נועה רכlin  ')).toBe('נועה')
     expect(getDisplayName('')).toBe('משתמש/ת')
+  })
+
+  it('activates courses nav for nested admin course routes', () => {
+    expect(getActiveNavItemId('/admin/courses', adminNavItems)).toBe('courses')
+    expect(getActiveNavItemId('/admin/courses/some-future-route', adminNavItems)).toBe('courses')
+    expect(getActiveNavItemId('/admin', adminNavItems)).toBe('overview')
   })
 })
 

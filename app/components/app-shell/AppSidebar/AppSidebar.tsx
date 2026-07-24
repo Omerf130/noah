@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import type { AppNavItem, AppShellVariant } from '../../../../lib/app-shell/navigation'
+import { getActiveNavItemId, type AppNavItem, type AppShellVariant } from '../../../../lib/app-shell/navigation'
 import NavItem from '../NavItem/NavItem'
 import styles from './AppSidebar.module.scss'
 
@@ -19,6 +19,7 @@ export default function AppSidebar({
   className = '',
 }: AppSidebarProps) {
   const pathname = usePathname()
+  const activeItemId = getActiveNavItemId(pathname, items)
 
   return (
     <nav
@@ -30,7 +31,7 @@ export default function AppSidebar({
           <li key={item.id}>
             <NavItem
               item={item}
-              isActive={Boolean(item.href && item.href === pathname)}
+              isActive={activeItemId === item.id}
               onNavigate={onNavigate}
               variant={variant}
             />

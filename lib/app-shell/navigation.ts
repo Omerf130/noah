@@ -1,10 +1,13 @@
 import type { UserRole } from '../auth/types'
 
+export type AppNavIconName = 'book' | 'calendar' | 'heart' | 'checklist' | 'sparkle' | 'chart'
+
 export type AppNavItem = {
   id: string
   label: string
   href?: string
   disabled?: boolean
+  icon?: AppNavIconName
 }
 
 export type AppShellVariant = 'dashboard' | 'admin'
@@ -19,7 +22,7 @@ export const studentNavItems: AppNavItem[] = [
 export const adminNavItems: AppNavItem[] = [
   { id: 'overview', label: 'סקירה כללית', href: '/admin' },
   { id: 'users', label: 'ניהול משתמשים', disabled: true },
-  { id: 'courses', label: 'ניהול קורסים', disabled: true },
+  { id: 'courses', label: 'קורסים', href: '/admin/courses', icon: 'book' },
   { id: 'content', label: 'ניהול תוכן', disabled: true },
   { id: 'orders', label: 'הזמנות', disabled: true },
   { id: 'settings', label: 'הגדרות', disabled: true },
@@ -59,6 +62,18 @@ export function isNavItemInteractive(item: AppNavItem): boolean {
 }
 
 export function getActiveNavItemId(pathname: string, items: AppNavItem[]): string | null {
-  const active = items.find((item) => item.href === pathname)
-  return active?.id ?? null
+  const exactMatch = items.find((item) => item.href === pathname)
+  if (exactMatch) {
+    return exactMatch.id
+  }
+
+  const prefixMatches = items
+    .filter((item) => item.href && item.href !== '/admin' && pathname.startsWith(`${item.href}/`))
+    .sort((left, right) => (right.href?.length ?? 0) - (left.href?.length ?? 0))
+
+  return prefixMatches[0]?.id ?? null
+}
+
+export function isNavItemActive(pathname: string, item: AppNavItem, items: AppNavItem[]): boolean {
+  return getActiveNavItemId(pathname, items) === item.id
 }
