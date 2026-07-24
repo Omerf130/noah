@@ -53,6 +53,45 @@ describe('parseCreateCourseInput', () => {
 
     expect(result.success).toBe(false)
   })
+
+  it('rejects negative regular price', () => {
+    const result = parseCreateCourseInput({
+      internalName: 'course-v1',
+      title: 'Course',
+      slug: 'course',
+      shortDescription: 'Short description',
+      instructorId: VALID_OBJECT_ID,
+      pricing: { price: -1, currency: 'ILS' },
+    })
+
+    expect(result.success).toBe(false)
+  })
+
+  it('allows zero price', () => {
+    const result = parseCreateCourseInput({
+      internalName: 'free-course-v1',
+      title: 'Free Course',
+      slug: 'free-course',
+      shortDescription: 'Short description',
+      instructorId: VALID_OBJECT_ID,
+      pricing: { price: 0, currency: 'ILS' },
+    })
+
+    expect(result.success).toBe(true)
+  })
+
+  it('rejects salePrice greater than or equal to regular price', () => {
+    const result = parseCreateCourseInput({
+      internalName: 'sale-course-v1',
+      title: 'Sale Course',
+      slug: 'sale-course',
+      shortDescription: 'Short description',
+      instructorId: VALID_OBJECT_ID,
+      pricing: { price: 100, salePrice: 100, currency: 'ILS' },
+    })
+
+    expect(result.success).toBe(false)
+  })
 })
 
 describe('parseUpdateCourseInput', () => {

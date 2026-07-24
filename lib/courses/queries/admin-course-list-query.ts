@@ -28,6 +28,7 @@ const courseListProjection = {
   featured: 1,
   moduleCount: 1,
   lessonCount: 1,
+  estimatedDurationMinutes: 1,
   instructorId: 1,
   createdBy: 1,
   createdAt: 1,

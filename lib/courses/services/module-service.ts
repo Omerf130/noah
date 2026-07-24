@@ -81,7 +81,10 @@ export async function createModule(courseId: string, input: unknown) {
     return courseModule.toObject()
   } catch (error) {
     if (isDuplicateKeyError(error)) {
-      throw new CourseDuplicateKeyError('A module with this slug already exists in the course')
+      throw new CourseDuplicateKeyError(
+        'unknown',
+        'A module with this slug already exists in the course',
+      )
     }
 
     throw error
@@ -134,7 +137,10 @@ export async function updateModule(moduleId: string, input: unknown) {
     return courseModule
   } catch (error) {
     if (isDuplicateKeyError(error)) {
-      throw new CourseDuplicateKeyError('A module with this slug already exists in the course')
+      throw new CourseDuplicateKeyError(
+        'unknown',
+        'A module with this slug already exists in the course',
+      )
     }
 
     throw error

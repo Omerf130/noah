@@ -95,7 +95,10 @@ export async function createLesson(moduleId: string, input: unknown) {
     return lesson.toObject()
   } catch (error) {
     if (isDuplicateKeyError(error)) {
-      throw new CourseDuplicateKeyError('A lesson with this slug already exists in the course')
+      throw new CourseDuplicateKeyError(
+        'unknown',
+        'A lesson with this slug already exists in the course',
+      )
     }
 
     throw error
@@ -148,7 +151,10 @@ export async function updateLesson(lessonId: string, input: unknown) {
     return lesson
   } catch (error) {
     if (isDuplicateKeyError(error)) {
-      throw new CourseDuplicateKeyError('A lesson with this slug already exists in the course')
+      throw new CourseDuplicateKeyError(
+        'unknown',
+        'A lesson with this slug already exists in the course',
+      )
     }
 
     throw error

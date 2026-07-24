@@ -30,11 +30,30 @@ export class LessonNotFoundError extends Error {
   }
 }
 
+export type CourseDuplicateKeyField = 'internalName' | 'slug' | 'unknown'
+
 export class CourseDuplicateKeyError extends Error {
   readonly name = 'CourseDuplicateKeyError'
+  readonly field: CourseDuplicateKeyField
 
-  constructor(message = 'A course with this identifier already exists') {
+  constructor(
+    field: CourseDuplicateKeyField = 'unknown',
+    message = 'A course with this identifier already exists',
+  ) {
     super(message)
+    this.field = field
+  }
+}
+
+export type CourseInstructorErrorReason = 'invalid' | 'inactive'
+
+export class CourseInstructorError extends Error {
+  readonly name = 'CourseInstructorError'
+  readonly reason: CourseInstructorErrorReason
+
+  constructor(reason: CourseInstructorErrorReason) {
+    super(reason === 'inactive' ? 'Instructor is inactive' : 'Invalid instructor')
+    this.reason = reason
   }
 }
 

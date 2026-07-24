@@ -5,11 +5,11 @@ import {
   hasActiveAdminCourseListFilters,
   parseAdminCourseListParams,
 } from '../../../../lib/courses/validators/admin-course-list'
-import CourseListCards from '../../../components/admin/courses/CourseListCards'
+import Button from '../../../components/ui/Button/Button'
+import CourseCardGrid from '../../../components/admin/courses/CourseCardGrid'
 import CourseListEmptyState from '../../../components/admin/courses/CourseListEmptyState'
 import CourseListFilters from '../../../components/admin/courses/CourseListFilters'
 import CourseListPagination from '../../../components/admin/courses/CourseListPagination'
-import CourseListTable from '../../../components/admin/courses/CourseListTable'
 import styles from '../../../components/admin/courses/CourseList.module.scss'
 
 export const runtime = 'nodejs'
@@ -36,8 +36,15 @@ export default async function AdminCoursesPage({ searchParams }: AdminCoursesPag
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <h1 className={styles.title}>ניהול קורסים</h1>
-        <p className={styles.lead}>צפייה וניהול של הקורסים במערכת.</p>
+        <div className={styles.headerMain}>
+          <h1 className={styles.title}>ניהול קורסים</h1>
+          <p className={styles.lead}>צפייה וניהול של הקורסים במערכת.</p>
+        </div>
+        <div className={styles.headerActions}>
+          <Button href="/admin/courses/new" variant="primary">
+            קורס חדש
+          </Button>
+        </div>
       </header>
 
       <CourseListFilters params={params} />
@@ -50,8 +57,7 @@ export default async function AdminCoursesPage({ searchParams }: AdminCoursesPag
         <CourseListEmptyState variant={hasFilters ? 'no-results' : 'empty-database'} />
       ) : (
         <>
-          <CourseListTable items={result.items} totalItems={result.totalItems} />
-          <CourseListCards items={result.items} />
+          <CourseCardGrid items={result.items} />
           <CourseListPagination
             params={params}
             page={result.page}

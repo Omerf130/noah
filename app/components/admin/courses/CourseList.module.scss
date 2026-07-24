@@ -4,10 +4,23 @@
 
 .page {
   max-width: 100%;
+  overflow-x: hidden;
 }
 
 .header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-4;
   margin-bottom: $space-6;
+}
+
+.headerMain {
+  min-width: 0;
+}
+
+.headerActions {
+  flex-shrink: 0;
 }
 
 .title {
@@ -94,68 +107,65 @@
   color: $color-text-muted;
 }
 
-.tableWrap {
-  display: block;
-  overflow-x: auto;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  background: $color-white;
-  border: 1px solid $color-border-light;
-  border-radius: $radius-lg;
-}
-
-.caption {
-  caption-side: top;
-  padding: $space-4;
-  text-align: right;
-  color: $color-text-muted;
-}
-
-.table th,
-.table td {
-  padding: $space-3 $space-4;
-  border-bottom: 1px solid $color-border-light;
-  text-align: right;
-  vertical-align: top;
-  white-space: nowrap;
-}
-
-.table th {
-  background: $color-gold-tint;
-  color: $color-primary;
-  font-size: $font-size-sm;
-}
-
-.table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.cards {
-  display: none;
+.cardGridLayout {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: $space-4;
+  align-items: stretch;
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   padding: $space-5;
   border: 1px solid $color-border-light;
   border-radius: $radius-lg;
   background: $color-white;
 }
 
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-3;
+  margin-bottom: $space-3;
+}
+
 .cardTitle {
-  margin: 0 0 $space-3;
+  margin: 0;
   color: $color-primary;
   font-size: $font-size-lg;
   font-weight: $font-weight-black;
+  line-height: 1.4;
+}
+
+.featuredBadge {
+  flex-shrink: 0;
+  padding: $space-1 $space-3;
+  border-radius: $radius-pill;
+  background: rgba(212, 160, 23, 0.16);
+  color: $color-amber-dark;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
 }
 
 .cardGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: $space-3;
+  flex: 1;
+}
+
+.priceStack {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+}
+
+.priceRegular {
+  color: $color-text-muted;
+  font-size: $font-size-sm;
 }
 
 .cardField {
@@ -268,7 +278,22 @@
   line-height: 1.7;
 }
 
+@include respond-to(lg) {
+  .cardGridLayout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @include respond-to(md) {
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .headerActions {
+    width: 100%;
+  }
+
   .filtersGrid {
     grid-template-columns: 1fr;
   }
@@ -277,12 +302,8 @@
     grid-column: span 1;
   }
 
-  .tableWrap {
-    display: none;
-  }
-
-  .cards {
-    display: grid;
+  .cardGridLayout {
+    grid-template-columns: 1fr;
   }
 
   .cardGrid {

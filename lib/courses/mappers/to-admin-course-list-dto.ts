@@ -1,7 +1,11 @@
 import type { CourseCategory, CourseStatus, CourseVisibility } from '../types'
+import { formatEstimatedDuration } from '../formatters/duration'
+import {
+  formatCoursePriceDisplay,
+  type CoursePriceDisplay,
+} from '../formatters/course-pricing-display'
 import {
   formatAdminDate,
-  formatAdminPrice,
   formatFeaturedLabel,
   formatUserDisplayName,
   getCourseCategoryLabel,
@@ -12,7 +16,6 @@ import {
 export type AdminCourseListItemDto = {
   id: string
   title: string
-  internalName: string
   slug: string
   category: CourseCategory | null
   categoryLabel: string | null
@@ -23,18 +26,18 @@ export type AdminCourseListItemDto = {
   price: number
   salePrice: number | null
   currency: string
+  priceDisplay: CoursePriceDisplay
   featured: boolean
   featuredLabel: string
   moduleCount: number
   lessonCount: number
+  durationLabel: string | null
   instructorName: string
   createdByName: string
   createdAt: string
   updatedAt: string
   createdAtLabel: string
   updatedAtLabel: string
-  priceLabel: string
-  salePriceLabel: string | null
 }
 
 export type AdminCourseListLeanCourse = {
@@ -53,6 +56,7 @@ export type AdminCourseListLeanCourse = {
   featured: boolean
   moduleCount: number
   lessonCount: number
+  estimatedDurationMinutes?: number | null
   instructorId: { toString(): string }
   createdBy: { toString(): string }
   createdAt: Date
@@ -63,7 +67,6 @@ export function mapToAdminCourseListItemDto(
   course: AdminCourseListLeanCourse,
   userNamesById: Map<string, string>,
 ): AdminCourseListItemDto {
-  const currency = course.pricing.currency
   const salePrice = course.pricing.salePrice ?? null
   const instructorId = course.instructorId.toString()
   const createdById = course.createdBy.toString()
@@ -71,7 +74,6 @@ export function mapToAdminCourseListItemDto(
   return {
     id: course._id.toString(),
     title: course.title,
-    internalName: course.internalName,
     slug: course.slug,
     category: course.category ?? null,
     categoryLabel: getCourseCategoryLabel(course.category),
@@ -81,19 +83,23 @@ export function mapToAdminCourseListItemDto(
     visibilityLabel: getCourseVisibilityLabel(course.visibility),
     price: course.pricing.price,
     salePrice,
-    currency,
+    currency: course.pricing.currency,
+    priceDisplay: formatCoursePriceDisplay({
+      price: course.pricing.price,
+      salePrice,
+      currency: course.pricing.currency,
+    }),
     featured: course.featured,
     featuredLabel: formatFeaturedLabel(course.featured),
     moduleCount: course.moduleCount,
     lessonCount: course.lessonCount,
+    durationLabel: formatEstimatedDuration(course.estimatedDurationMinutes ?? null),
     instructorName: formatUserDisplayName(userNamesById.get(instructorId)),
     createdByName: formatUserDisplayName(userNamesById.get(createdById)),
     createdAt: course.createdAt.toISOString(),
     updatedAt: course.updatedAt.toISOString(),
     createdAtLabel: formatAdminDate(course.createdAt),
     updatedAtLabel: formatAdminDate(course.updatedAt),
-    priceLabel: formatAdminPrice(course.pricing.price, currency),
-    salePriceLabel: salePrice === null ? null : formatAdminPrice(salePrice, currency),
   }
 }
 
@@ -107,7 +113,6 @@ export function mapToAdminCourseListDto(
 export const ADMIN_COURSE_LIST_DTO_KEYS = [
   'id',
   'title',
-  'internalName',
   'slug',
   'category',
   'categoryLabel',
@@ -118,22 +123,29 @@ export const ADMIN_COURSE_LIST_DTO_KEYS = [
   'price',
   'salePrice',
   'currency',
+  'priceDisplay',
   'featured',
   'featuredLabel',
   'moduleCount',
   'lessonCount',
+  'durationLabel',
   'instructorName',
   'createdByName',
   'createdAt',
   'updatedAt',
   'createdAtLabel',
   'updatedAtLabel',
-  'priceLabel',
-  'salePriceLabel',
 ] as const
 
 export function assertAdminCourseListDtoSafety(dto: AdminCourseListItemDto): void {
-  const forbiddenKeys = ['instructorId', 'createdBy', 'passwordHash', 'updatedBy', 'seo']
+  const forbiddenKeys = [
+    'instructorId',
+    'createdBy',
+    'passwordHash',
+    'updatedBy',
+    'seo',
+    'internalName',
+  ]
   for (const key of forbiddenKeys) {
     if (key in dto) {
       throw new Error(`Unsafe admin course list DTO field: ${key}`)

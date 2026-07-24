@@ -7,12 +7,14 @@ import {
   type CreateCourseInput,
   type UpdateCourseInput,
 } from '../validators/course'
+import { getCourseDuplicateKeyField } from './duplicate-key'
 import {
   CourseDuplicateKeyError,
   CourseNotFoundError,
   CourseValidationError,
   formatZodError,
 } from './errors'
+import { validateCourseInstructor } from './instructor-service'
 
 export async function createCourse(input: unknown, actorUserId: string) {
   await connectDb()
@@ -24,9 +26,12 @@ export async function createCourse(input: unknown, actorUserId: string) {
 
   const data: CreateCourseInput = parsed.data
 
+  await validateCourseInstructor(data.instructorId)
+
   try {
     const course = await Course.create({
       ...data,
+      status: 'draft',
       moduleCount: 0,
       lessonCount: 0,
       createdBy: actorUserId,
@@ -36,7 +41,7 @@ export async function createCourse(input: unknown, actorUserId: string) {
     return course.toObject()
   } catch (error) {
     if (isDuplicateKeyError(error)) {
-      throw new CourseDuplicateKeyError()
+      throw new CourseDuplicateKeyError(getCourseDuplicateKeyField(error))
     }
 
     throw error
@@ -136,7 +141,7 @@ export async function updateCourse(courseId: string, input: unknown, actorUserId
     return course
   } catch (error) {
     if (isDuplicateKeyError(error)) {
-      throw new CourseDuplicateKeyError()
+      throw new CourseDuplicateKeyError(getCourseDuplicateKeyField(error))
     }
 
     throw error

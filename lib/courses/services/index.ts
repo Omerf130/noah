@@ -45,8 +45,11 @@ export {
 
 export {
   CourseDuplicateKeyError,
+  CourseInstructorError,
   CourseModuleNotFoundError,
   CourseNotFoundError,
   CourseValidationError,
   LessonNotFoundError,
 } from './errors'
+
+export { validateCourseInstructor } from './instructor-service'

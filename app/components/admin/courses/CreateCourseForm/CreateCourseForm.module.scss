@@ -1,0 +1,137 @@
+@use 'variables' as *;
+@use 'breakpoints' as *;
+
+.page {
+  max-width: 48rem;
+}
+
+.header {
+  margin-bottom: $space-6;
+}
+
+.backLink {
+  display: inline-flex;
+  margin-bottom: $space-4;
+}
+
+.title {
+  margin: 0 0 $space-3;
+  color: $color-primary;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: $font-weight-black;
+}
+
+.lead {
+  margin: 0;
+  color: $color-text-muted;
+  line-height: 1.8;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+  padding: $space-6;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-lg;
+  background: $color-surface;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-5;
+}
+
+.fieldFull {
+  grid-column: 1 / -1;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+}
+
+.requiredMark {
+  color: $color-amber-dark;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  padding: $space-3 $space-4;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-md;
+  background: $color-white;
+  color: $color-text;
+  font: inherit;
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+
+  &[aria-invalid='true'] {
+    border-color: $color-amber-dark;
+  }
+}
+
+.textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.hint,
+.fieldError {
+  margin: 0;
+  font-size: $font-size-sm;
+  line-height: 1.6;
+}
+
+.hint {
+  color: $color-text-muted;
+}
+
+.fieldError {
+  color: $color-amber-dark;
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.checkbox {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.errorSummary {
+  margin: 0;
+  padding: $space-4;
+  border: 1px solid $color-amber-dark;
+  border-radius: $radius-md;
+  background: rgba($color-amber, 0.08);
+  color: $color-amber-dark;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-4;
+}
+
+@include respond-to(md) {
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+}

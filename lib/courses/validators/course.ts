@@ -17,11 +17,21 @@ import {
   slugSchema,
 } from './shared'
 
-const pricingSchema = z.object({
-  price: z.number().min(0),
-  salePrice: z.number().min(0).optional(),
-  currency: z.string().trim().min(3).max(3).default(DEFAULT_CURRENCY),
-})
+const pricingSchema = z
+  .object({
+    price: z.number().min(0),
+    salePrice: z.number().min(0).optional(),
+    currency: z.string().trim().min(3).max(3).default(DEFAULT_CURRENCY),
+  })
+  .superRefine((data, ctx) => {
+    if (data.salePrice !== undefined && data.salePrice >= data.price) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Sale price must be lower than regular price',
+        path: ['salePrice'],
+      })
+    }
+  })
 
 const seoSchema = z.object({
   title: z.string().trim().optional(),
