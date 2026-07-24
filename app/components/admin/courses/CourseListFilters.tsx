@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { COURSE_CATEGORIES, COURSE_STATUSES, COURSE_VISIBILITIES } from '../../../../lib/courses/constants'
 import {
   getCourseCategoryLabel,
@@ -114,9 +115,9 @@ export default function CourseListFilters({ params }: CourseListFiltersProps) {
           <button type="submit" className={styles.submitButton}>
             הצג תוצאות
           </button>
-          <a href="/admin/courses" className={styles.resetLink}>
+          <Link href="/admin/courses" className={styles.resetLink}>
             נקה סינון
-          </a>
+          </Link>
         </div>
       </form>
     </section>

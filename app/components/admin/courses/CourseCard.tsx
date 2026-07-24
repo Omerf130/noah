@@ -1,4 +1,5 @@
 import type { AdminCourseListItemDto } from '../../../../lib/courses/mappers/to-admin-course-list-dto'
+import Button from '../../ui/Button/Button'
 import CourseStatusBadge from './CourseStatusBadge'
 import CourseVisibilityBadge from './CourseVisibilityBadge'
 import styles from './CourseList.module.scss'
@@ -61,6 +62,15 @@ export default function CourseCard({ course }: CourseCardProps) {
         <CardField label="פרקים" value={course.moduleCount} />
         <CardField label="שיעורים" value={course.lessonCount} />
         <CardField label="עודכן" value={course.updatedAtLabel} />
+      </div>
+
+      <div className={styles.cardActions}>
+        <Button href={`/admin/courses/${course.id}`} variant="ghost">
+          צפייה
+        </Button>
+        <Button href={`/admin/courses/${course.id}/edit`} variant="secondary">
+          עריכה
+        </Button>
       </div>
     </article>
   )

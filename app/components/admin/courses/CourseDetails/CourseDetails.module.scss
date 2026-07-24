@@ -1,0 +1,106 @@
+@use 'variables' as *;
+@use 'breakpoints' as *;
+
+.page {
+  max-width: 56rem;
+}
+
+.header {
+  margin-bottom: $space-6;
+}
+
+.backLink {
+  display: inline-flex;
+  margin-bottom: $space-4;
+}
+
+.title {
+  margin: 0 0 $space-3;
+  color: $color-primary;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: $font-weight-black;
+}
+
+.lead {
+  margin: 0;
+  color: $color-text-muted;
+  line-height: 1.8;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-4;
+  margin-bottom: $space-6;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+}
+
+.section {
+  padding: $space-6;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-lg;
+  background: $color-surface;
+}
+
+.sectionTitle {
+  margin: 0 0 $space-5;
+  color: $color-primary;
+  font-size: 1.25rem;
+  font-weight: $font-weight-black;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: $space-4;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.fieldFull {
+  grid-column: 1 / -1;
+}
+
+.label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: $color-text-muted;
+}
+
+.value {
+  color: $color-text;
+  line-height: 1.7;
+}
+
+.helper {
+  margin: $space-2 0 0;
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+  line-height: 1.6;
+}
+
+.priceStack {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+}
+
+.priceRegular {
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+}
+
+@include respond-to(md) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

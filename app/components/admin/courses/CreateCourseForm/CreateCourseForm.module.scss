@@ -124,6 +124,15 @@
   color: $color-amber-dark;
 }
 
+.infoSummary {
+  margin: 0;
+  padding: $space-4;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-md;
+  background: rgba($color-primary, 0.06);
+  color: $color-primary;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;

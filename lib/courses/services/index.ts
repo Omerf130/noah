@@ -7,6 +7,7 @@ export {
   listCourses,
   publishCourse,
   updateCourse,
+  updateCourseMetadata,
 } from './course-service'
 
 export {
