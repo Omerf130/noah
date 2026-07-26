@@ -17,6 +17,8 @@ import {
   CourseModuleNotFoundError,
   CourseNotFoundError,
   CourseValidationError,
+  ModuleCountSyncError,
+  ModuleDeletionFailedError,
   formatZodError,
 } from './errors'
 import {
@@ -27,10 +29,8 @@ import {
 
 const MODULE_NOT_FOUND_MESSAGE = 'הפרק המבוקש לא נמצא.'
 const MODULE_DELETE_WITH_LESSONS_MESSAGE =
-  'לא ניתן למחוק פרק שעדיין מכיל שיעורים. יש להסיר את השיעורים תחילה.'
+  'לא ניתן למחוק את הפרק משום שקיימים בו שיעורים. יש למחוק או להעביר את השיעורים תחילה.'
 const MODULE_DUPLICATE_SLUG_MESSAGE = 'כבר קיים פרק עם מזהה מערכת זה בקורס.'
-const MODULE_MOVE_UP_BLOCKED_MESSAGE = 'הפרק כבר נמצא בתחילת הרשימה.'
-const MODULE_MOVE_DOWN_BLOCKED_MESSAGE = 'הפרק כבר נמצא בסוף הרשימה.'
 
 async function assertCourseExists(courseId: string) {
   if (!mongoose.Types.ObjectId.isValid(courseId)) {
@@ -58,8 +58,22 @@ async function getNextModuleOrder(courseId: string): Promise<number> {
   return lastModule.order + MODULE_ORDER_GAP
 }
 
-async function incrementCourseModuleCount(courseId: string, delta: 1 | -1) {
-  await Course.findByIdAndUpdate(courseId, { $inc: { moduleCount: delta } })
+async function incrementCourseModuleCount(courseId: string) {
+  await Course.findByIdAndUpdate(courseId, { $inc: { moduleCount: 1 } })
+}
+
+async function decrementCourseModuleCount(courseId: string) {
+  const updatedCourse = await Course.findOneAndUpdate(
+    { _id: courseId, moduleCount: { $gte: 1 } },
+    { $inc: { moduleCount: -1 } },
+    { returnDocument: 'after' },
+  ).lean()
+
+  if (!updatedCourse) {
+    throw new ModuleCountSyncError()
+  }
+
+  return updatedCourse
 }
 
 function slugifyModuleTitle(title: string): string {
@@ -134,7 +148,7 @@ export async function createModule(courseId: string, input: unknown) {
       lessonCount: 0,
     })
 
-    await incrementCourseModuleCount(courseId, 1)
+    await incrementCourseModuleCount(courseId)
     return courseModule.toObject()
   } catch (error) {
     if (isDuplicateKeyError(error)) {
@@ -281,6 +295,38 @@ export async function updateModuleMetadata(
   }
 }
 
+export async function deleteModuleFromCourse(courseId: string, moduleId: string) {
+  await connectDb()
+  await assertModuleBelongsToCourse(courseId, moduleId)
+
+  const lessonExists = await Lesson.exists({ moduleId })
+  if (lessonExists) {
+    throw new CourseValidationError(MODULE_DELETE_WITH_LESSONS_MESSAGE)
+  }
+
+  const deleteResult = await CourseModule.deleteOne({ _id: moduleId, courseId })
+
+  if (deleteResult.deletedCount !== 1) {
+    throw new ModuleDeletionFailedError()
+  }
+
+  try {
+    await decrementCourseModuleCount(courseId)
+  } catch (error) {
+    if (error instanceof ModuleCountSyncError) {
+      console.error('Module count sync failed after deletion', {
+        courseId,
+        moduleId,
+      })
+      throw error
+    }
+
+    throw error
+  }
+
+  return { deleted: true, moduleId }
+}
+
 export async function deleteModule(moduleId: string, courseId?: string) {
   await connectDb()
 
@@ -295,15 +341,7 @@ export async function deleteModule(moduleId: string, courseId?: string) {
     throw new CourseModuleNotFoundError(MODULE_NOT_FOUND_MESSAGE)
   }
 
-  const lessonCount = await Lesson.countDocuments({ moduleId })
-  if (lessonCount > 0) {
-    throw new CourseValidationError(MODULE_DELETE_WITH_LESSONS_MESSAGE)
-  }
-
-  await CourseModule.findByIdAndDelete(moduleId)
-  await incrementCourseModuleCount(resolvedCourseId, -1)
-
-  return { deleted: true, moduleId }
+  return deleteModuleFromCourse(resolvedCourseId, moduleId)
 }
 
 export async function reorderModules(courseId: string, input: unknown) {
@@ -328,7 +366,7 @@ export async function reorderModules(courseId: string, input: unknown) {
 
   assertBulkWriteMatchedAll(bulkResult.matchedCount, orderedIds.length, 'module')
 
-  return CourseModule.find({ courseId: scopedCourseId }).sort({ order: 1 }).lean()
+  return CourseModule.find({ courseId }).sort({ order: 1 }).lean()
 }
 
 export async function moveModuleInCourse(
@@ -347,12 +385,11 @@ export async function moveModuleInCourse(
     throw new CourseModuleNotFoundError(MODULE_NOT_FOUND_MESSAGE)
   }
 
-  if (direction === 'up' && currentIndex === 0) {
-    throw new CourseValidationError(MODULE_MOVE_UP_BLOCKED_MESSAGE)
-  }
-
-  if (direction === 'down' && currentIndex === orderedIds.length - 1) {
-    throw new CourseValidationError(MODULE_MOVE_DOWN_BLOCKED_MESSAGE)
+  if (
+    (direction === 'up' && currentIndex === 0) ||
+    (direction === 'down' && currentIndex === orderedIds.length - 1)
+  ) {
+    return CourseModule.find({ courseId }).sort({ order: 1 }).lean()
   }
 
   const targetIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1

@@ -27,8 +27,14 @@ export default function ModuleList({ courseId, items }: ModuleListProps) {
 
   return (
     <section className={styles.moduleList} aria-label="רשימת פרקים">
-      {items.map((module) => (
-        <ModuleRow key={module.id} courseId={courseId} module={module} />
+      {items.map((module, index) => (
+        <ModuleRow
+          key={module.id}
+          courseId={courseId}
+          module={module}
+          position={index + 1}
+          totalItems={items.length}
+        />
       ))}
     </section>
   )

@@ -1,15 +1,17 @@
 import mongoose from 'mongoose'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { connectDb, disconnectDb } from '../../db/connect'
-import { Course, CourseModule, User } from '../../db/models'
+import { Course, CourseModule, Lesson, User } from '../../db/models'
 import {
   assertModuleBelongsToCourse,
   createModule,
   deleteModule,
+  deleteModuleFromCourse,
   generateModuleSlug,
   moveModuleInCourse,
   updateModule,
 } from '../services/module-service'
+import { createLesson } from '../services/lesson-service'
 import { CourseModuleNotFoundError, CourseValidationError } from '../services/errors'
 import { createCourse } from '../services/course-service'
 
@@ -335,18 +337,158 @@ describeIfDb('moveModuleInCourse integration', () => {
   }, INTEGRATION_TIMEOUT_MS)
 
   it(
-    'moves a module down and rejects invalid boundary moves',
+    'moves a module down, persists deterministic order, and no-ops at boundaries',
     async () => {
       const moved = await moveModuleInCourse(courseId, moduleOneId, 'down')
       expect(moved.map((module) => String(module._id))).toEqual([moduleTwoId, moduleOneId])
+      expect(moved.map((module) => module.order)).toEqual([100, 200])
 
-      await expect(moveModuleInCourse(courseId, moduleOneId, 'down')).rejects.toBeInstanceOf(
+      const persisted = await moveModuleInCourse(courseId, moduleOneId, 'down')
+      expect(persisted.map((module) => String(module._id))).toEqual([moduleTwoId, moduleOneId])
+
+      const movedUp = await moveModuleInCourse(courseId, moduleTwoId, 'up')
+      expect(movedUp.map((module) => String(module._id))).toEqual([moduleTwoId, moduleOneId])
+      expect(new Set(movedUp.map((module) => module.order)).size).toBe(movedUp.length)
+
+      const noOpDown = await moveModuleInCourse(courseId, moduleOneId, 'down')
+      expect(noOpDown.map((module) => String(module._id))).toEqual([moduleTwoId, moduleOneId])
+
+      const noOpUp = await moveModuleInCourse(courseId, moduleTwoId, 'up')
+      expect(noOpUp.map((module) => String(module._id))).toEqual([moduleTwoId, moduleOneId])
+    },
+    INTEGRATION_TIMEOUT_MS,
+  )
+})
+
+describeIfDb('deleteModuleFromCourse integration', () => {
+  let actorUserId: string
+  let courseId: string
+  let emptyModuleId: string
+  let occupiedModuleId: string
+  let foreignCourseId: string
+  const createdCourseIds: string[] = []
+  const createdUserIds: string[] = []
+  const createdLessonIds: string[] = []
+
+  beforeAll(async () => {
+    await connectDb()
+
+    const actor = await User.create({
+      fullName: 'Module Delete Admin',
+      email: `module-delete-admin-${runId}@example.com`,
+      passwordHash: 'test-hash',
+      role: 'admin',
+      isActive: true,
+    })
+    actorUserId = String(actor._id)
+    createdUserIds.push(actorUserId)
+
+    const course = await createCourse(
+      {
+        internalName: `module-delete-v1-${runId}`,
+        title: 'Module Delete Course',
+        slug: `module-delete-${runId}`,
+        shortDescription: 'Delete tests.',
+        instructorId: actorUserId,
+      },
+      actorUserId,
+    )
+    courseId = String(course._id)
+    createdCourseIds.push(courseId)
+
+    const foreignCourse = await createCourse(
+      {
+        internalName: `module-delete-foreign-v1-${runId}`,
+        title: 'Foreign Delete Course',
+        slug: `module-delete-foreign-${runId}`,
+        shortDescription: 'Foreign delete tests.',
+        instructorId: actorUserId,
+      },
+      actorUserId,
+    )
+    foreignCourseId = String(foreignCourse._id)
+    createdCourseIds.push(foreignCourseId)
+
+    const emptyModule = await createModule(courseId, {
+      title: 'Empty Module',
+      slug: `empty-module-${runId}`,
+    })
+    emptyModuleId = String(emptyModule._id)
+
+    const occupiedModule = await createModule(courseId, {
+      title: 'Occupied Module',
+      slug: `occupied-module-${runId}`,
+    })
+    occupiedModuleId = String(occupiedModule._id)
+
+    const lesson = await createLesson(occupiedModuleId, {
+      title: 'Blocking Lesson',
+      slug: `blocking-lesson-${runId}`,
+    })
+    createdLessonIds.push(String(lesson._id))
+
+    await CourseModule.findByIdAndUpdate(occupiedModuleId, { lessonCount: 0 })
+  }, INTEGRATION_TIMEOUT_MS)
+
+  afterAll(async () => {
+    if (createdLessonIds.length > 0) {
+      await Lesson.deleteMany({ _id: { $in: createdLessonIds } })
+    }
+
+    await CourseModule.deleteMany({ courseId: { $in: createdCourseIds } })
+
+    for (const id of createdCourseIds) {
+      await Course.findByIdAndDelete(id)
+    }
+
+    for (const id of createdUserIds) {
+      await User.deleteOne({ _id: id })
+    }
+
+    await disconnectDb()
+    await mongoose.connection.close()
+  }, INTEGRATION_TIMEOUT_MS)
+
+  it(
+    'deletes an empty module and decrements Course.moduleCount exactly once',
+    async () => {
+      const before = await Course.findById(courseId).lean()
+      expect(before?.moduleCount).toBe(2)
+
+      const result = await deleteModuleFromCourse(courseId, emptyModuleId)
+      expect(result.deleted).toBe(true)
+
+      const deletedModule = await CourseModule.findById(emptyModuleId).lean()
+      expect(deletedModule).toBeNull()
+
+      const after = await Course.findById(courseId).lean()
+      expect(after?.moduleCount).toBe(1)
+
+      const lessonsAfterDelete = await Lesson.countDocuments({ moduleId: occupiedModuleId })
+      expect(lessonsAfterDelete).toBeGreaterThan(0)
+    },
+    INTEGRATION_TIMEOUT_MS,
+  )
+
+  it(
+    'rejects deletion when actual lessons exist even if lessonCount is stale',
+    async () => {
+      await expect(deleteModuleFromCourse(courseId, occupiedModuleId)).rejects.toBeInstanceOf(
         CourseValidationError,
       )
 
-      await expect(moveModuleInCourse(courseId, moduleTwoId, 'up')).rejects.toBeInstanceOf(
-        CourseValidationError,
-      )
+      const stillThere = await CourseModule.findById(occupiedModuleId).lean()
+      expect(stillThere).not.toBeNull()
+    },
+    INTEGRATION_TIMEOUT_MS,
+  )
+
+  it(
+    'rejects cross-course deletion',
+    async () => {
+      await expect(
+        deleteModuleFromCourse(foreignCourseId, occupiedModuleId),
+      ).rejects.toBeInstanceOf(CourseModuleNotFoundError)
     },
     INTEGRATION_TIMEOUT_MS,
   )

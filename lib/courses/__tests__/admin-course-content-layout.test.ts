@@ -40,7 +40,6 @@ describe('admin course content layout', () => {
     expect(contentSource).toContain('CourseAdminNav')
     expect(contentSource).toContain('ModuleList')
     expect(contentSource).toContain('יצירת פרק חדש')
-    expect(moduleRowSource).toContain('עריכה')
-    expect(moduleRowSource).toContain('/content/')
+    expect(moduleRowSource).toContain('ModuleRowActions')
   })
 })

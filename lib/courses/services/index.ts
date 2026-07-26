@@ -19,6 +19,7 @@ export {
   assertModuleBelongsToCourse,
   createModule,
   deleteModule,
+  deleteModuleFromCourse,
   generateModuleSlug,
   getModuleById,
   listModulesByCourse,
@@ -64,6 +65,8 @@ export {
   CourseNotFoundError,
   CourseValidationError,
   LessonNotFoundError,
+  ModuleCountSyncError,
+  ModuleDeletionFailedError,
 } from './errors'
 
 export { validateCourseInstructor } from './instructor-service'

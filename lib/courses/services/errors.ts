@@ -92,3 +92,25 @@ export class CourseDeletionFailedError extends Error {
     super(message)
   }
 }
+
+export class ModuleDeletionFailedError extends Error {
+  readonly name = 'ModuleDeletionFailedError'
+
+  constructor(message = 'מחיקת הפרק נכשלה. נסו שוב מאוחר יותר.') {
+    super(message)
+  }
+}
+
+/**
+ * Raised when a module was deleted but Course.moduleCount could not be decremented.
+ * Repair: recount CourseModule documents for courseId and set Course.moduleCount to match.
+ */
+export class ModuleCountSyncError extends Error {
+  readonly name = 'ModuleCountSyncError'
+
+  constructor(
+    message = 'הפרק נמחק אך עדכון ספירת הפרקים נכשל. פנו לתמיכה לסנכרון הנתונים.',
+  ) {
+    super(message)
+  }
+}
