@@ -25,6 +25,7 @@ export {
   moveModuleInCourse,
   reorderModules,
   updateModule,
+  updateModuleMetadata,
 } from './module-service'
 
 export {

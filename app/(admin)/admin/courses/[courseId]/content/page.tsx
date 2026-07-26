@@ -62,13 +62,19 @@ export default async function AdminCourseContentPage({ params }: AdminCourseCont
 
       <CourseAdminNav courseId={course.id} activeTab="content" />
 
+      <div className={styles.headerActions}>
+        <Button href={`/admin/courses/${course.id}/content/new`} variant="primary">
+          יצירת פרק חדש
+        </Button>
+      </div>
+
       <p className={styles.summary}>
         {moduleList.totalItems === 0
           ? 'אין פרקים בקורס זה'
           : `מציג ${moduleList.totalItems} פרקים`}
       </p>
 
-      <ModuleList items={moduleList.items} />
+      <ModuleList courseId={course.id} items={moduleList.items} />
     </div>
   )
 }

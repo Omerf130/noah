@@ -18,6 +18,19 @@ describe('admin course content layout', () => {
       join(ROOT, 'app', '(admin)', 'admin', 'courses', '[courseId]', 'content', 'page.tsx'),
       'utf8',
     )
+    const moduleRowSource = readFileSync(
+      join(
+        ROOT,
+        'app',
+        'components',
+        'admin',
+        'courses',
+        'modules',
+        'ModuleList',
+        'ModuleRow.tsx',
+      ),
+      'utf8',
+    )
 
     expect(navSource).toContain('פרקי הקורס')
     expect(navSource).toContain('פרטי הקורס')
@@ -26,5 +39,8 @@ describe('admin course content layout', () => {
     expect(detailsSource).toContain('ניהול פרקי הקורס')
     expect(contentSource).toContain('CourseAdminNav')
     expect(contentSource).toContain('ModuleList')
+    expect(contentSource).toContain('יצירת פרק חדש')
+    expect(moduleRowSource).toContain('עריכה')
+    expect(moduleRowSource).toContain('/content/')
   })
 })

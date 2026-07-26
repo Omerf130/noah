@@ -24,7 +24,7 @@ describe('admin module list item DTO', () => {
     expect(dto.description).toBe('תיאור')
     expect(dto.positionLabel).toBe('1')
     expect(dto.publicationStatus).toBe('published')
-    expect(dto.publicationStatusLabel).toBe('מפורסם')
+    expect(dto.publicationStatusLabel).toBe('מוצג לתלמידים')
     expect(dto.lessonCount).toBe(3)
     expect(dto.lessonCountLabel).toBe('3')
   })

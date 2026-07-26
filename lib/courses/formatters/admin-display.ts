@@ -43,7 +43,7 @@ const difficultyLabels: Record<CourseDifficulty, string> = {
 
 const publicationStatusLabels: Record<PublicationStatus, string> = {
   draft: 'מוסתר',
-  published: 'מפורסם',
+  published: 'מוצג לתלמידים',
 }
 
 const adminDateFormatter = new Intl.DateTimeFormat('he-IL', {

@@ -10,6 +10,7 @@ import {
   type UpdateModuleInput,
 } from '../validators/module'
 import { parseModuleIdParam } from '../validators/module-id'
+import type { AdminModuleMetadataTrustedInput } from '../validators/admin-module-metadata-fields'
 import { normalizeSlug } from '../validators/shared'
 import {
   CourseDuplicateKeyError,
@@ -192,6 +193,85 @@ export async function updateModule(moduleId: string, input: unknown, courseId?: 
     }
 
     return courseModule
+  } catch (error) {
+    if (isDuplicateKeyError(error)) {
+      throw new CourseDuplicateKeyError('unknown', MODULE_DUPLICATE_SLUG_MESSAGE)
+    }
+
+    throw error
+  }
+}
+
+function normalizeModuleDescription(value: string | undefined | null): string {
+  return value?.trim() ?? ''
+}
+
+function isTrustedMetadataEqualToModule(
+  trustedInput: AdminModuleMetadataTrustedInput,
+  courseModule: {
+    title: string
+    description?: string | null
+    publicationStatus?: string
+  },
+): boolean {
+  return (
+    trustedInput.title === courseModule.title &&
+    normalizeModuleDescription(trustedInput.description) ===
+      normalizeModuleDescription(courseModule.description) &&
+    trustedInput.publicationStatus === (courseModule.publicationStatus ?? 'draft')
+  )
+}
+
+export type UpdateModuleMetadataResult = {
+  updated: boolean
+  module: Awaited<ReturnType<typeof getModuleById>>
+}
+
+export async function updateModuleMetadata(
+  courseId: string,
+  moduleId: string,
+  trustedInput: AdminModuleMetadataTrustedInput,
+): Promise<UpdateModuleMetadataResult> {
+  await connectDb()
+
+  const existingModule = await assertModuleBelongsToCourse(courseId, moduleId)
+
+  if (isTrustedMetadataEqualToModule(trustedInput, existingModule)) {
+    return { updated: false, module: existingModule }
+  }
+
+  const setPayload: Record<string, unknown> = {
+    title: trustedInput.title,
+    publicationStatus: trustedInput.publicationStatus,
+  }
+  const unsetPayload: Record<string, 1> = {}
+  const normalizedDescription = normalizeModuleDescription(trustedInput.description)
+
+  if (normalizedDescription) {
+    setPayload.description = normalizedDescription
+  } else {
+    unsetPayload.description = 1
+  }
+
+  try {
+    const courseModule = await CourseModule.findByIdAndUpdate(
+      moduleId,
+      {
+        $set: setPayload,
+        ...(Object.keys(unsetPayload).length > 0 ? { $unset: unsetPayload } : {}),
+      },
+      { returnDocument: 'after', runValidators: true },
+    ).lean()
+
+    if (!courseModule) {
+      throw new CourseModuleNotFoundError(MODULE_NOT_FOUND_MESSAGE)
+    }
+
+    if (String(courseModule.courseId) !== courseId) {
+      throw new CourseModuleNotFoundError(MODULE_NOT_FOUND_MESSAGE)
+    }
+
+    return { updated: true, module: courseModule }
   } catch (error) {
     if (isDuplicateKeyError(error)) {
       throw new CourseDuplicateKeyError('unknown', MODULE_DUPLICATE_SLUG_MESSAGE)

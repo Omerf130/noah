@@ -1,12 +1,14 @@
 import type { AdminModuleListItemDto } from '../../../../../../lib/courses/mappers/to-admin-module-list-item-dto'
+import Button from '../../../../ui/Button/Button'
 import ModulePublicationBadge from '../ModulePublicationBadge/ModulePublicationBadge'
 import styles from '../ModuleContent.module.scss'
 
 type ModuleRowProps = {
+  courseId: string
   module: AdminModuleListItemDto
 }
 
-export default function ModuleRow({ module }: ModuleRowProps) {
+export default function ModuleRow({ courseId, module }: ModuleRowProps) {
   return (
     <article className={styles.moduleRow} aria-labelledby={`module-title-${module.id}`}>
       <div className={styles.moduleHeader}>
@@ -34,6 +36,15 @@ export default function ModuleRow({ module }: ModuleRowProps) {
           <dd className={styles.metaValue}>{module.lessonCountLabel}</dd>
         </div>
       </dl>
+
+      <div className={styles.moduleRowActions}>
+        <Button
+          href={`/admin/courses/${courseId}/content/${module.id}/edit`}
+          variant="secondary"
+        >
+          עריכה
+        </Button>
+      </div>
     </article>
   )
 }
