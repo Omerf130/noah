@@ -114,6 +114,19 @@ describe('parseCreateModuleInput', () => {
 
     expect(result.success).toBe(true)
   })
+
+  it('accepts module input without slug and with publicationStatus', () => {
+    const result = parseCreateModuleInput({
+      title: 'Module 2',
+      publicationStatus: 'published',
+    })
+
+    expect(result.success).toBe(true)
+    if (result.success) {
+      expect(result.data.slug).toBeUndefined()
+      expect(result.data.publicationStatus).toBe('published')
+    }
+  })
 })
 
 describe('parseReorderModulesInput', () => {

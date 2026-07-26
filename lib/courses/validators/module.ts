@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { RELEASE_RULE_TYPES } from '../constants'
+import { PUBLICATION_STATUSES, RELEASE_RULE_TYPES } from '../constants'
 import { normalizeSlug, slugSchema } from './shared'
 
 const releaseRuleSchema = z.object({
@@ -9,9 +9,10 @@ const releaseRuleSchema = z.object({
 
 export const createModuleSchema = z.object({
   title: z.string().trim().min(1, 'Module title is required'),
-  slug: slugSchema.transform(normalizeSlug),
+  slug: slugSchema.transform(normalizeSlug).optional(),
   description: z.string().trim().optional(),
   order: z.number().int().min(0).optional(),
+  publicationStatus: z.enum(PUBLICATION_STATUSES).optional(),
   releaseRule: releaseRuleSchema.optional(),
   isLockedByDefault: z.boolean().optional(),
 })

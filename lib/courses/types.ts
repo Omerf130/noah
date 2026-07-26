@@ -3,6 +3,7 @@ import type {
   COURSE_DIFFICULTIES,
   COURSE_STATUSES,
   COURSE_VISIBILITIES,
+  PUBLICATION_STATUSES,
   DRIP_RELEASE_STRATEGIES,
   LESSON_STATUSES,
   LOCK_STRATEGIES,
@@ -13,6 +14,7 @@ import type {
   VIDEO_STATUSES,
 } from './constants'
 
+export type PublicationStatus = (typeof PUBLICATION_STATUSES)[number]
 export type CourseStatus = (typeof COURSE_STATUSES)[number]
 export type CourseVisibility = (typeof COURSE_VISIBILITIES)[number]
 export type CourseDifficulty = (typeof COURSE_DIFFICULTIES)[number]

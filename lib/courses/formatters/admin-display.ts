@@ -3,6 +3,7 @@ import type {
   CourseDifficulty,
   CourseStatus,
   CourseVisibility,
+  PublicationStatus,
 } from '../types'
 
 const statusLabels: Record<CourseStatus, string> = {
@@ -40,6 +41,11 @@ const difficultyLabels: Record<CourseDifficulty, string> = {
   advanced: 'מתקדמים',
 }
 
+const publicationStatusLabels: Record<PublicationStatus, string> = {
+  draft: 'מוסתר',
+  published: 'מפורסם',
+}
+
 const adminDateFormatter = new Intl.DateTimeFormat('he-IL', {
   dateStyle: 'medium',
   timeStyle: 'short',
@@ -73,6 +79,10 @@ export function getCourseDifficultyLabel(
   }
 
   return difficultyLabels[difficulty]
+}
+
+export function getPublicationStatusLabel(status: PublicationStatus): string {
+  return publicationStatusLabels[status]
 }
 
 export function formatAdminDate(value: Date | string): string {

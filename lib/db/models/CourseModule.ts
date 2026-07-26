@@ -1,5 +1,5 @@
 import mongoose, { Schema, type InferSchemaType, type Model } from 'mongoose'
-import { RELEASE_RULE_TYPES } from '../../courses/constants'
+import { PUBLICATION_STATUSES, RELEASE_RULE_TYPES } from '../../courses/constants'
 
 const releaseRuleSchema = new Schema(
   {
@@ -40,6 +40,12 @@ const courseModuleSchema = new Schema(
       type: Number,
       required: true,
       min: 0,
+    },
+    publicationStatus: {
+      type: String,
+      enum: PUBLICATION_STATUSES,
+      default: 'draft',
+      required: true,
     },
     releaseRule: releaseRuleSchema,
     isLockedByDefault: {

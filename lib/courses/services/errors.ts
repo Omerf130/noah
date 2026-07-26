@@ -17,7 +17,7 @@ export class CourseNotFoundError extends Error {
 export class CourseModuleNotFoundError extends Error {
   readonly name = 'CourseModuleNotFoundError'
 
-  constructor(message = 'Course module not found') {
+  constructor(message = 'הפרק המבוקש לא נמצא.') {
     super(message)
   }
 }

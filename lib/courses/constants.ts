@@ -1,3 +1,5 @@
+export const PUBLICATION_STATUSES = ['draft', 'published'] as const
+
 export const COURSE_STATUSES = ['draft', 'published', 'archived'] as const
 export const COURSE_VISIBILITIES = ['public', 'unlisted', 'private', 'members'] as const
 export const COURSE_DIFFICULTIES = ['beginner', 'intermediate', 'advanced'] as const

@@ -16,10 +16,13 @@ export {
 } from './course-service'
 
 export {
+  assertModuleBelongsToCourse,
   createModule,
   deleteModule,
+  generateModuleSlug,
   getModuleById,
   listModulesByCourse,
+  moveModuleInCourse,
   reorderModules,
   updateModule,
 } from './module-service'

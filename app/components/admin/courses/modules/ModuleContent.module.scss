@@ -1,0 +1,177 @@
+@use 'variables' as *;
+@use 'breakpoints' as *;
+
+.page {
+  max-width: 56rem;
+}
+
+.header {
+  margin-bottom: $space-6;
+}
+
+.backLink {
+  display: inline-flex;
+  margin-bottom: $space-4;
+}
+
+.title {
+  margin: 0 0 $space-3;
+  color: $color-primary;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: $font-weight-black;
+}
+
+.lead {
+  margin: 0;
+  color: $color-text-muted;
+  line-height: 1.8;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  margin-bottom: $space-6;
+  padding-bottom: $space-4;
+  border-bottom: 1px solid $color-border-light;
+}
+
+.navLink,
+.navLinkActive {
+  display: inline-flex;
+  align-items: center;
+  padding: $space-2 $space-4;
+  border-radius: $radius-pill;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.navLink {
+  color: $color-text-muted;
+  background: transparent;
+
+  &:hover {
+    color: $color-primary;
+    background: rgba(80, 8, 137, 0.06);
+  }
+}
+
+.navLinkActive {
+  color: $color-primary;
+  background: rgba(80, 8, 137, 0.1);
+}
+
+.summary {
+  margin: 0 0 $space-5;
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+}
+
+.emptyState {
+  padding: $space-8 $space-6;
+  border: 1px dashed $color-border-light;
+  border-radius: $radius-lg;
+  background: $color-surface;
+  text-align: center;
+}
+
+.emptyTitle {
+  margin: 0 0 $space-3;
+  color: $color-primary;
+  font-size: 1.125rem;
+  font-weight: $font-weight-black;
+}
+
+.emptyText {
+  margin: 0;
+  color: $color-text-muted;
+  line-height: 1.7;
+}
+
+.moduleList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.moduleRow {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  padding: $space-5;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-lg;
+  background: $color-surface;
+}
+
+.moduleHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-3;
+}
+
+.moduleTitleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  min-width: 0;
+}
+
+.moduleTitle {
+  margin: 0;
+  color: $color-primary;
+  font-size: 1.125rem;
+  font-weight: $font-weight-black;
+}
+
+.moduleDescription {
+  margin: 0;
+  color: $color-text-muted;
+  line-height: 1.7;
+}
+
+.moduleMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-4;
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+}
+
+.metaLabel {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  color: $color-text-muted;
+}
+
+.metaValue {
+  color: $color-text;
+  font-weight: $font-weight-bold;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: $space-1 $space-3;
+  border-radius: $radius-pill;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+}
+
+.statusDraft {
+  background: rgba(80, 8, 137, 0.08);
+  color: $color-primary;
+}
+
+.statusPublished {
+  background: rgba(212, 160, 23, 0.16);
+  color: $color-amber-dark;
+}
