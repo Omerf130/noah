@@ -18,6 +18,7 @@ import {
   CourseNotFoundError,
   CourseValidationError,
   LessonCountSyncError,
+  LessonDeletionFailedError,
   LessonDuplicateSlugError,
   LessonNotFoundError,
   formatZodError,
@@ -35,7 +36,57 @@ import { assertModuleBelongsToCourse } from './module-service'
 import { parseLessonIdParam } from '../validators/lesson-id'
 
 const LESSON_NOT_FOUND_MESSAGE = 'השיעור המבוקש לא נמצא.'
+const LESSON_DELETE_WITH_BLOCKS_MESSAGE =
+  'לא ניתן למחוק את השיעור משום שקיימים בו בלוקי תוכן. יש להסיר את התוכן תחילה.'
+const LESSON_MOVE_TO_SAME_MODULE_MESSAGE = 'השיעור כבר נמצא בפרק זה.'
 const MAX_LESSON_CREATE_ATTEMPTS = 5
+
+function assertSingleDocumentMatched(matchedCount: number) {
+  if (matchedCount !== 1) {
+    throw new LessonCountSyncError()
+  }
+}
+
+async function getOrderedLessonIdsInModule(
+  moduleId: string,
+  session?: ClientSession,
+): Promise<string[]> {
+  const lessons = await Lesson.find({ moduleId })
+    .sort({ order: 1 })
+    .select('_id')
+    .session(session ?? null)
+    .lean()
+
+  return lessons.map((lesson) => String(lesson._id))
+}
+
+async function reorderLessonsInModule(
+  moduleId: string,
+  orderedIds: string[],
+  session?: ClientSession,
+) {
+  if (orderedIds.length === 0) {
+    return
+  }
+
+  const query = Lesson.find({ moduleId }).select('_id')
+  if (session) {
+    query.session(session)
+  }
+
+  const lessons = await query.lean()
+  const existingIds = new Set(lessons.map((lesson) => String(lesson._id)))
+
+  validateScopedReorderIds(orderedIds, existingIds, 'lesson')
+
+  const scopedModuleId = new mongoose.Types.ObjectId(moduleId)
+  const bulkResult = await Lesson.bulkWrite(
+    buildScopedOrderUpdates({ moduleId: scopedModuleId }, orderedIds, LESSON_ORDER_GAP),
+    session ? { session } : undefined,
+  )
+
+  assertBulkWriteMatchedAll(bulkResult.matchedCount, orderedIds.length, 'lesson')
+}
 
 async function assertModuleExists(moduleId: string) {
   if (!mongoose.Types.ObjectId.isValid(moduleId)) {
@@ -245,20 +296,177 @@ export async function reorderLessons(moduleId: string, input: unknown) {
     throw new CourseValidationError(formatZodError(parsed.error))
   }
 
-  const lessons = await Lesson.find({ moduleId }).select('_id order').lean()
-  const existingIds = new Set(lessons.map((lesson) => String(lesson._id)))
-  const orderedIds = parsed.data.orderedLessonIds
+  await reorderLessonsInModule(moduleId, parsed.data.orderedLessonIds)
 
-  validateScopedReorderIds(orderedIds, existingIds, 'lesson')
+  return Lesson.find({ moduleId }).sort({ order: 1 }).lean()
+}
 
-  const scopedModuleId = new mongoose.Types.ObjectId(moduleId)
-  const bulkResult = await Lesson.bulkWrite(
-    buildScopedOrderUpdates({ moduleId: scopedModuleId }, orderedIds, LESSON_ORDER_GAP),
+export async function moveLessonInModule(
+  courseId: string,
+  moduleId: string,
+  lessonId: string,
+  direction: 'up' | 'down',
+) {
+  await connectDb()
+  await assertLessonBelongsToModule(courseId, moduleId, lessonId)
+
+  const orderedIds = await getOrderedLessonIdsInModule(moduleId)
+  const currentIndex = orderedIds.indexOf(lessonId)
+
+  if (currentIndex === -1) {
+    throw new LessonNotFoundError(LESSON_NOT_FOUND_MESSAGE)
+  }
+
+  if (
+    (direction === 'up' && currentIndex === 0) ||
+    (direction === 'down' && currentIndex === orderedIds.length - 1)
+  ) {
+    return Lesson.find({ moduleId }).sort({ order: 1 }).lean()
+  }
+
+  const targetIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1
+  const reorderedIds = [...orderedIds]
+  ;[reorderedIds[currentIndex], reorderedIds[targetIndex]] = [
+    reorderedIds[targetIndex],
+    reorderedIds[currentIndex],
+  ]
+
+  return reorderLessons(moduleId, { orderedLessonIds: reorderedIds })
+}
+
+export async function moveLessonToModule(
+  courseId: string,
+  lessonId: string,
+  targetModuleId: string,
+) {
+  await connectDb()
+
+  const parsedLessonId = parseLessonIdParam(lessonId)
+  if (!parsedLessonId.success) {
+    throw new LessonNotFoundError(LESSON_NOT_FOUND_MESSAGE)
+  }
+
+  const lesson = await Lesson.findById(parsedLessonId.lessonId).lean()
+  if (!lesson || String(lesson.courseId) !== courseId) {
+    throw new LessonNotFoundError(LESSON_NOT_FOUND_MESSAGE)
+  }
+
+  const sourceModuleId = String(lesson.moduleId)
+
+  await assertModuleBelongsToCourse(courseId, targetModuleId)
+
+  if (sourceModuleId === targetModuleId) {
+    throw new CourseValidationError(LESSON_MOVE_TO_SAME_MODULE_MESSAGE)
+  }
+
+  const sourceOrderedAfter = (await getOrderedLessonIdsInModule(sourceModuleId)).filter(
+    (id) => id !== parsedLessonId.lessonId,
+  )
+  const targetOrderedAfter = [
+    ...(await getOrderedLessonIdsInModule(targetModuleId)),
+    parsedLessonId.lessonId,
+  ]
+
+  return runInTransaction(async (session) => {
+    const lessonUpdate = await Lesson.updateOne(
+      { _id: parsedLessonId.lessonId, courseId, moduleId: sourceModuleId },
+      { $set: { moduleId: targetModuleId } },
+      { session },
+    )
+    assertSingleDocumentMatched(lessonUpdate.matchedCount)
+
+    await reorderLessonsInModule(sourceModuleId, sourceOrderedAfter, session)
+    await reorderLessonsInModule(targetModuleId, targetOrderedAfter, session)
+
+    const sourceModuleUpdate = await CourseModule.updateOne(
+      { _id: sourceModuleId, courseId, lessonCount: { $gte: 1 } },
+      { $inc: { lessonCount: -1 } },
+      { session },
+    )
+    assertSingleDocumentMatched(sourceModuleUpdate.matchedCount)
+
+    const targetModuleUpdate = await CourseModule.updateOne(
+      { _id: targetModuleId, courseId },
+      { $inc: { lessonCount: 1 } },
+      { session },
+    )
+    assertSingleDocumentMatched(targetModuleUpdate.matchedCount)
+
+    return {
+      lessonId: parsedLessonId.lessonId,
+      sourceModuleId,
+      targetModuleId,
+    }
+  })
+}
+
+export async function deleteLessonFromModule(
+  courseId: string,
+  moduleId: string,
+  lessonId: string,
+) {
+  await connectDb()
+  await assertLessonBelongsToModule(courseId, moduleId, lessonId)
+
+  const parsedLessonId = parseLessonIdParam(lessonId)
+  if (!parsedLessonId.success) {
+    throw new LessonNotFoundError(LESSON_NOT_FOUND_MESSAGE)
+  }
+
+  const lessonWithBlocks = await Lesson.findOne({
+    _id: parsedLessonId.lessonId,
+    courseId,
+    moduleId,
+  })
+    .select('blocks')
+    .lean()
+
+  if (!lessonWithBlocks) {
+    throw new LessonNotFoundError(LESSON_NOT_FOUND_MESSAGE)
+  }
+
+  // TODO (Checkpoint G): Replace the lesson.blocks.length === 0 gate below with
+  // ContentBlock.exists({ lessonId }) once Content Blocks become standalone documents.
+  //
+  // Future TODO (no implementation): Investigate a soft-delete / trash capability
+  // for lessons before permanent deletion.
+
+  if ((lessonWithBlocks.blocks?.length ?? 0) > 0) {
+    throw new CourseValidationError(LESSON_DELETE_WITH_BLOCKS_MESSAGE)
+  }
+
+  const remainingOrderedIds = (await getOrderedLessonIdsInModule(moduleId)).filter(
+    (id) => id !== parsedLessonId.lessonId,
   )
 
-  assertBulkWriteMatchedAll(bulkResult.matchedCount, orderedIds.length, 'lesson')
+  return runInTransaction(async (session) => {
+    const deleteResult = await Lesson.deleteOne(
+      { _id: parsedLessonId.lessonId, courseId, moduleId },
+      { session },
+    )
 
-  return Lesson.find({ moduleId: scopedModuleId }).sort({ order: 1 }).lean()
+    if (deleteResult.deletedCount !== 1) {
+      throw new LessonDeletionFailedError()
+    }
+
+    const moduleUpdate = await CourseModule.updateOne(
+      { _id: moduleId, courseId, lessonCount: { $gte: 1 } },
+      { $inc: { lessonCount: -1 } },
+      { session },
+    )
+    assertSingleDocumentMatched(moduleUpdate.matchedCount)
+
+    const courseUpdate = await Course.updateOne(
+      { _id: courseId, lessonCount: { $gte: 1 } },
+      { $inc: { lessonCount: -1 } },
+      { session },
+    )
+    assertSingleDocumentMatched(courseUpdate.matchedCount)
+
+    await reorderLessonsInModule(moduleId, remainingOrderedIds, session)
+
+    return { deleted: true, lessonId: parsedLessonId.lessonId }
+  })
 }
 
 export async function listLessonsByCourse(courseId: string) {

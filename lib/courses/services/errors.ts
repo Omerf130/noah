@@ -50,6 +50,14 @@ export class LessonCountSyncError extends Error {
   }
 }
 
+export class LessonDeletionFailedError extends Error {
+  readonly name = 'LessonDeletionFailedError'
+
+  constructor(message = 'מחיקת השיעור נכשלה. נסו שוב מאוחר יותר.') {
+    super(message)
+  }
+}
+
 export type CourseDuplicateKeyField = 'internalName' | 'slug' | 'unknown'
 
 export class CourseDuplicateKeyError extends Error {

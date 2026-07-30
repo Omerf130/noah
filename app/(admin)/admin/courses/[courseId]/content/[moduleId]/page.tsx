@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { requireAdmin } from '../../../../../../../lib/auth/current-user'
 import { getAdminModuleLessonContext } from '../../../../../../../lib/courses/queries/admin-module-lesson-context-query'
 import { listAdminModuleLessons } from '../../../../../../../lib/courses/queries/admin-lesson-list-query'
+import { listAdminCourseModules } from '../../../../../../../lib/courses/queries/admin-module-list-query'
 import { buildPageMetadata } from '../../../../../../../lib/seo'
 import CourseAdminNav from '../../../../../../components/admin/courses/CourseAdminNav/CourseAdminNav'
 import ModuleAdminNav from '../../../../../../components/admin/courses/ModuleAdminNav/ModuleAdminNav'
@@ -42,14 +43,22 @@ export default async function AdminModuleLessonsPage({ params }: AdminModuleLess
     returnTo: `/admin/courses/${courseId}/content/${moduleId}`,
   })
 
-  const [context, lessonList] = await Promise.all([
+  const [context, lessonList, moduleList] = await Promise.all([
     getAdminModuleLessonContext(courseId, moduleId),
     listAdminModuleLessons(courseId, moduleId),
+    listAdminCourseModules(courseId),
   ])
 
-  if (!context || !lessonList) {
+  if (!context || !lessonList || !moduleList) {
     notFound()
   }
+
+  const siblingModules = moduleList.items
+    .filter((courseModule) => courseModule.id !== context.moduleId)
+    .map((courseModule) => ({
+      id: courseModule.id,
+      title: courseModule.title,
+    }))
 
   return (
     <div className={styles.page}>
@@ -90,6 +99,7 @@ export default async function AdminModuleLessonsPage({ params }: AdminModuleLess
         courseId={context.courseId}
         moduleId={context.moduleId}
         items={lessonList.items}
+        siblingModules={siblingModules}
       />
     </div>
   )
