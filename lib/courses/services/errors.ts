@@ -25,7 +25,27 @@ export class CourseModuleNotFoundError extends Error {
 export class LessonNotFoundError extends Error {
   readonly name = 'LessonNotFoundError'
 
-  constructor(message = 'Lesson not found') {
+  constructor(message = 'השיעור המבוקש לא נמצא.') {
+    super(message)
+  }
+}
+
+export class LessonDuplicateSlugError extends Error {
+  readonly name = 'LessonDuplicateSlugError'
+
+  constructor(message = 'כבר קיים שיעור עם מזהה מערכת זה בקורס.') {
+    super(message)
+  }
+}
+
+/**
+ * Raised when a lesson insert transaction cannot increment parent lessonCount on exactly one document.
+ * The surrounding transaction aborts so no partial lesson or count update remains.
+ */
+export class LessonCountSyncError extends Error {
+  readonly name = 'LessonCountSyncError'
+
+  constructor(message = 'יצירת השיעור נכשלה בעדכון ספירת השיעורים. נסו שוב מאוחר יותר.') {
     super(message)
   }
 }

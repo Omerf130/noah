@@ -1,7 +1,9 @@
 import mongoose from 'mongoose'
+import type { ClientSession } from 'mongoose'
 import { connectDb } from '../../db/connect'
 import { Course, CourseModule, Lesson, isDuplicateKeyError } from '../../db/models'
 import { LESSON_ORDER_GAP } from '../constants'
+import type { AdminLessonMetadataTrustedInput } from '../validators/admin-lesson-metadata-fields'
 import {
   parseCreateLessonInput,
   parseReorderLessonsInput,
@@ -15,14 +17,25 @@ import {
   CourseModuleNotFoundError,
   CourseNotFoundError,
   CourseValidationError,
+  LessonCountSyncError,
+  LessonDuplicateSlugError,
   LessonNotFoundError,
   formatZodError,
 } from './errors'
+import {
+  generateLessonSlugWithSuffixAttempt,
+} from './lesson-slug-service'
+import { runInTransaction } from './transaction-utils'
 import {
   assertBulkWriteMatchedAll,
   buildScopedOrderUpdates,
   validateScopedReorderIds,
 } from './reorder-utils'
+import { assertModuleBelongsToCourse } from './module-service'
+import { parseLessonIdParam } from '../validators/lesson-id'
+
+const LESSON_NOT_FOUND_MESSAGE = 'השיעור המבוקש לא נמצא.'
+const MAX_LESSON_CREATE_ATTEMPTS = 5
 
 async function assertModuleExists(moduleId: string) {
   if (!mongoose.Types.ObjectId.isValid(moduleId)) {
@@ -37,10 +50,11 @@ async function assertModuleExists(moduleId: string) {
   return courseModule
 }
 
-async function getNextLessonOrder(moduleId: string): Promise<number> {
+async function getNextLessonOrder(moduleId: string, session?: ClientSession): Promise<number> {
   const lastLesson = await Lesson.findOne({ moduleId })
     .sort({ order: -1 })
     .select('order')
+    .session(session ?? null)
     .lean()
 
   if (!lastLesson) {
@@ -109,12 +123,37 @@ export async function getLessonById(lessonId: string) {
   await connectDb()
 
   if (!mongoose.Types.ObjectId.isValid(lessonId)) {
-    throw new LessonNotFoundError()
+    throw new LessonNotFoundError(LESSON_NOT_FOUND_MESSAGE)
   }
 
   const lesson = await Lesson.findById(lessonId).lean()
   if (!lesson) {
-    throw new LessonNotFoundError()
+    throw new LessonNotFoundError(LESSON_NOT_FOUND_MESSAGE)
+  }
+
+  return lesson
+}
+
+export async function assertLessonBelongsToModule(
+  courseId: string,
+  moduleId: string,
+  lessonId: string,
+) {
+  await connectDb()
+  await assertModuleBelongsToCourse(courseId, moduleId)
+
+  const parsedLessonId = parseLessonIdParam(lessonId)
+  if (!parsedLessonId.success) {
+    throw new LessonNotFoundError(LESSON_NOT_FOUND_MESSAGE)
+  }
+
+  const lesson = await Lesson.findById(parsedLessonId.lessonId).lean()
+  if (
+    !lesson ||
+    String(lesson.courseId) !== courseId ||
+    String(lesson.moduleId) !== moduleId
+  ) {
+    throw new LessonNotFoundError(LESSON_NOT_FOUND_MESSAGE)
   }
 
   return lesson
@@ -145,7 +184,7 @@ export async function updateLesson(lessonId: string, input: unknown) {
     ).lean()
 
     if (!lesson) {
-      throw new LessonNotFoundError()
+      throw new LessonNotFoundError(LESSON_NOT_FOUND_MESSAGE)
     }
 
     return lesson
@@ -176,7 +215,7 @@ export async function updateLessonBlocks(lessonId: string, input: unknown) {
   ).lean()
 
   if (!lesson) {
-    throw new LessonNotFoundError()
+    throw new LessonNotFoundError(LESSON_NOT_FOUND_MESSAGE)
   }
 
   return lesson
@@ -187,7 +226,7 @@ export async function deleteLesson(lessonId: string) {
 
   const lesson = await Lesson.findById(lessonId).lean()
   if (!lesson) {
-    throw new LessonNotFoundError()
+    throw new LessonNotFoundError(LESSON_NOT_FOUND_MESSAGE)
   }
 
   await Lesson.findByIdAndDelete(lessonId)
@@ -230,4 +269,176 @@ export async function listLessonsByCourse(courseId: string) {
   }
 
   return Lesson.find({ courseId }).sort({ order: 1 }).lean()
+}
+
+function normalizeLessonDescription(value: string | undefined | null): string {
+  return value?.trim() ?? ''
+}
+
+function mapTrustedInputToLessonDocument(
+  courseId: string,
+  moduleId: string,
+  trustedInput: AdminLessonMetadataTrustedInput,
+  slug: string,
+  order: number,
+) {
+  const normalizedDescription = normalizeLessonDescription(trustedInput.description)
+
+  return {
+    courseId,
+    moduleId,
+    title: trustedInput.title,
+    slug,
+    order,
+    status: trustedInput.publicationStatus,
+    blocks: [] as [],
+    ...(normalizedDescription ? { summary: normalizedDescription } : {}),
+  }
+}
+
+function isTrustedMetadataEqualToLesson(
+  trustedInput: AdminLessonMetadataTrustedInput,
+  lesson: {
+    title: string
+    summary?: string | null
+    status?: string
+  },
+): boolean {
+  return (
+    trustedInput.title === lesson.title &&
+    normalizeLessonDescription(trustedInput.description) ===
+      normalizeLessonDescription(lesson.summary) &&
+    trustedInput.publicationStatus === (lesson.status ?? 'draft')
+  )
+}
+
+async function createLessonInModuleTransactional(
+  courseId: string,
+  moduleId: string,
+  trustedInput: AdminLessonMetadataTrustedInput,
+  slug: string,
+) {
+  return runInTransaction(async (session) => {
+    await assertModuleBelongsToCourse(courseId, moduleId)
+
+    const order = await getNextLessonOrder(moduleId, session)
+    const payload = mapTrustedInputToLessonDocument(
+      courseId,
+      moduleId,
+      trustedInput,
+      slug,
+      order,
+    )
+
+    const [lesson] = await Lesson.create([payload], { session })
+
+    const moduleUpdate = await CourseModule.updateOne(
+      { _id: moduleId, courseId },
+      { $inc: { lessonCount: 1 } },
+      { session },
+    )
+
+    if (moduleUpdate.matchedCount !== 1) {
+      throw new LessonCountSyncError()
+    }
+
+    const courseUpdate = await Course.updateOne(
+      { _id: courseId },
+      { $inc: { lessonCount: 1 } },
+      { session },
+    )
+
+    if (courseUpdate.matchedCount !== 1) {
+      throw new LessonCountSyncError()
+    }
+
+    return lesson.toObject()
+  })
+}
+
+export async function createLessonInModule(
+  courseId: string,
+  moduleId: string,
+  trustedInput: AdminLessonMetadataTrustedInput,
+) {
+  await connectDb()
+  await assertModuleBelongsToCourse(courseId, moduleId)
+
+  let lastError: unknown
+
+  for (let attempt = 0; attempt < MAX_LESSON_CREATE_ATTEMPTS; attempt += 1) {
+    const slug = await generateLessonSlugWithSuffixAttempt(
+      courseId,
+      trustedInput.title,
+      attempt,
+    )
+
+    try {
+      return await createLessonInModuleTransactional(courseId, moduleId, trustedInput, slug)
+    } catch (error) {
+      lastError = error
+
+      if (isDuplicateKeyError(error)) {
+        continue
+      }
+
+      throw error
+    }
+  }
+
+  if (isDuplicateKeyError(lastError)) {
+    throw new LessonDuplicateSlugError()
+  }
+
+  throw lastError
+}
+
+export { generateLessonSlug, lessonSlugExists } from './lesson-slug-service'
+
+export type UpdateLessonMetadataResult = {
+  updated: boolean
+  lesson: Awaited<ReturnType<typeof getLessonById>>
+}
+
+export async function updateLessonMetadata(
+  courseId: string,
+  moduleId: string,
+  lessonId: string,
+  trustedInput: AdminLessonMetadataTrustedInput,
+): Promise<UpdateLessonMetadataResult> {
+  await connectDb()
+
+  const existingLesson = await assertLessonBelongsToModule(courseId, moduleId, lessonId)
+
+  if (isTrustedMetadataEqualToLesson(trustedInput, existingLesson)) {
+    return { updated: false, lesson: existingLesson }
+  }
+
+  const setPayload: Record<string, unknown> = {
+    title: trustedInput.title,
+    status: trustedInput.publicationStatus,
+  }
+  const unsetPayload: Record<string, 1> = {}
+  const normalizedDescription = normalizeLessonDescription(trustedInput.description)
+
+  if (normalizedDescription) {
+    setPayload.summary = normalizedDescription
+  } else {
+    unsetPayload.summary = 1
+  }
+
+  const lesson = await Lesson.findOneAndUpdate(
+    { _id: lessonId, courseId, moduleId },
+    {
+      $set: setPayload,
+      ...(Object.keys(unsetPayload).length > 0 ? { $unset: unsetPayload } : {}),
+    },
+    { returnDocument: 'after', runValidators: true },
+  ).lean()
+
+  if (!lesson) {
+    throw new LessonNotFoundError(LESSON_NOT_FOUND_MESSAGE)
+  }
+
+  return { updated: true, lesson }
 }

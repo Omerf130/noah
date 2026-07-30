@@ -71,8 +71,16 @@ export default function ModuleRowActions({
     <>
       <div className={styles.moduleRowActions}>
         <Button
+          href={`/admin/courses/${courseId}/content/${moduleId}`}
+          variant="primary"
+          className={styles.moduleRowPrimaryAction}
+        >
+          ניהול שיעורים
+        </Button>
+
+        <Button
           href={`/admin/courses/${courseId}/content/${moduleId}/edit`}
-          variant="secondary"
+          variant="ghost"
         >
           עריכה
         </Button>

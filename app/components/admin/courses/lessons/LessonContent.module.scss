@@ -2,7 +2,8 @@
 @use 'breakpoints' as *;
 
 .page {
-  max-width: 56rem;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .header {
@@ -27,40 +28,10 @@
   line-height: 1.8;
 }
 
-.nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: $space-2;
-  margin-bottom: $space-6;
-  padding-bottom: $space-4;
-  border-bottom: 1px solid $color-border-light;
-}
-
-.navLink,
-.navLinkActive {
-  display: inline-flex;
-  align-items: center;
-  padding: $space-2 $space-4;
-  border-radius: $radius-pill;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-bold;
-  text-decoration: none;
-  transition: background-color 0.15s ease, color 0.15s ease;
-}
-
-.navLink {
+.context {
+  margin: 0 0 $space-2;
   color: $color-text-muted;
-  background: transparent;
-
-  &:hover {
-    color: $color-primary;
-    background: rgba(80, 8, 137, 0.06);
-  }
-}
-
-.navLinkActive {
-  color: $color-primary;
-  background: rgba(80, 8, 137, 0.1);
+  font-size: $font-size-sm;
 }
 
 .summary {
@@ -69,28 +40,7 @@
   font-size: $font-size-sm;
 }
 
-.emptyState {
-  padding: $space-8 $space-6;
-  border: 1px dashed $color-border-light;
-  border-radius: $radius-lg;
-  background: $color-surface;
-  text-align: center;
-}
-
-.emptyTitle {
-  margin: 0 0 $space-3;
-  color: $color-primary;
-  font-size: 1.125rem;
-  font-weight: $font-weight-black;
-}
-
-.emptyText {
-  margin: 0;
-  color: $color-text-muted;
-  line-height: 1.7;
-}
-
-.moduleList {
+.lessonList {
   display: flex;
   flex-direction: column;
   gap: $space-4;
@@ -98,7 +48,7 @@
   overflow-x: hidden;
 }
 
-.moduleRow {
+.lessonRow {
   display: flex;
   flex-direction: column;
   gap: $space-4;
@@ -108,7 +58,7 @@
   background: $color-surface;
 }
 
-.moduleHeader {
+.lessonHeader {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -116,27 +66,27 @@
   gap: $space-3;
 }
 
-.moduleTitleBlock {
+.lessonTitleBlock {
   display: flex;
   flex-direction: column;
   gap: $space-2;
   min-width: 0;
 }
 
-.moduleTitle {
+.lessonTitle {
   margin: 0;
   color: $color-primary;
   font-size: 1.125rem;
   font-weight: $font-weight-black;
 }
 
-.moduleDescription {
+.lessonDescription {
   margin: 0;
   color: $color-text-muted;
   line-height: 1.7;
 }
 
-.moduleMeta {
+.lessonMeta {
   display: flex;
   flex-wrap: wrap;
   gap: $space-4;
@@ -178,6 +128,27 @@
   color: $color-amber-dark;
 }
 
+.emptyState {
+  padding: $space-8 $space-6;
+  border: 1px dashed $color-border-light;
+  border-radius: $radius-lg;
+  background: $color-surface;
+  text-align: center;
+}
+
+.emptyTitle {
+  margin: 0 0 $space-3;
+  color: $color-primary;
+  font-size: 1.125rem;
+  font-weight: $font-weight-black;
+}
+
+.emptyText {
+  margin: 0;
+  color: $color-text-muted;
+  line-height: 1.7;
+}
+
 .headerActions {
   display: flex;
   flex-wrap: wrap;
@@ -185,17 +156,9 @@
   margin-bottom: $space-5;
 }
 
-.moduleRowActions {
+.lessonRowActions {
   display: flex;
   flex-wrap: wrap;
   gap: $space-3;
   align-items: center;
-}
-
-.moduleRowPrimaryAction {
-  flex-shrink: 0;
-}
-
-.emptyAction {
-  margin-top: $space-5;
 }

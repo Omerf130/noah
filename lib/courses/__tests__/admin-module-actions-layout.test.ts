@@ -51,7 +51,12 @@ describe('admin module row actions layout', () => {
     )
 
     expect(rowSource).toContain('ModuleRowActions')
+    expect(rowSource).toContain('courseId={courseId}')
+    expect(rowSource).toContain('moduleId={module.id}')
     expect(rowSource).not.toContain('עריכה')
+    expect(actionsSource).toContain('ניהול שיעורים')
+    expect(actionsSource).toContain('variant="primary"')
+    expect(actionsSource).toContain('/admin/courses/${courseId}/content/${moduleId}`')
     expect(actionsSource).toContain('עריכה')
     expect(actionsSource).toContain('העבר למעלה')
     expect(actionsSource).toContain('העבר למטה')

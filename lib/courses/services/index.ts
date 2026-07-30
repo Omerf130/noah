@@ -30,14 +30,19 @@ export {
 } from './module-service'
 
 export {
+  assertLessonBelongsToModule,
   createLesson,
+  createLessonInModule,
   deleteLesson,
+  generateLessonSlug,
   getLessonById,
+  lessonSlugExists,
   listLessonsByCourse,
   listLessonsByModule,
   reorderLessons,
   updateLesson,
   updateLessonBlocks,
+  updateLessonMetadata,
 } from './lesson-service'
 
 export {
@@ -64,6 +69,8 @@ export {
   CourseModuleNotFoundError,
   CourseNotFoundError,
   CourseValidationError,
+  LessonCountSyncError,
+  LessonDuplicateSlugError,
   LessonNotFoundError,
   ModuleCountSyncError,
   ModuleDeletionFailedError,

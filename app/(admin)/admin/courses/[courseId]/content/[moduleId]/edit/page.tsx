@@ -4,6 +4,7 @@ import { getAdminCourseContentContext } from '../../../../../../../../lib/course
 import { getAdminModuleEdit } from '../../../../../../../../lib/courses/queries/admin-module-edit-query'
 import { buildPageMetadata } from '../../../../../../../../lib/seo'
 import CourseAdminNav from '../../../../../../../components/admin/courses/CourseAdminNav/CourseAdminNav'
+import ModuleAdminNav from '../../../../../../../components/admin/courses/ModuleAdminNav/ModuleAdminNav'
 import EditModuleForm from '../../../../../../../components/admin/courses/modules/EditModuleForm/EditModuleForm'
 import Button from '../../../../../../../components/ui/Button/Button'
 import styles from '../../../../../../../components/admin/courses/CreateCourseForm/CreateCourseForm.module.scss'
@@ -63,6 +64,7 @@ export default async function AdminEditModulePage({ params }: AdminEditModulePag
       </header>
 
       <CourseAdminNav courseId={course.id} activeTab="content" />
+      <ModuleAdminNav courseId={course.id} moduleId={moduleId} activeTab="details" />
 
       <EditModuleForm module={moduleEdit} />
     </div>
