@@ -73,5 +73,3 @@ export interface CloudflareProviderData {
 }
 
 export type VideoProviderData = PendingProviderData | BunnyProviderData | CloudflareProviderData
-
-export type { LessonBlock, BlockType } from './types/blocks'

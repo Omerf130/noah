@@ -42,6 +42,10 @@ export default function ContentBlockRowActions({
   const isPending = isMovePending || isDeletePending
 
   const handleMove = (direction: 'up' | 'down') => {
+    if (isPending) {
+      return
+    }
+
     setErrorMessage(null)
 
     startMoveTransition(async () => {
@@ -63,6 +67,10 @@ export default function ContentBlockRowActions({
   }
 
   const handleDeleteConfirm = () => {
+    if (isDeletePending) {
+      return
+    }
+
     setErrorMessage(null)
 
     startDeleteTransition(async () => {
@@ -80,8 +88,12 @@ export default function ContentBlockRowActions({
 
   return (
     <>
-      <div className={styles.rowActions}>
-        <Link href={editHref} className={styles.editLink}>
+      <div
+        className={styles.rowActions}
+        aria-busy={isPending || undefined}
+        aria-label={`פעולות עבור ${blockLabel}`}
+      >
+        <Link href={editHref} className={styles.editLink} aria-label={`עריכה: ${blockLabel}`}>
           עריכה
         </Link>
 
@@ -93,13 +105,14 @@ export default function ContentBlockRowActions({
             disabled={isPending}
             aria-label={`העבר למעלה: ${blockLabel}`}
           >
-            העבר למעלה
+            {isMovePending ? 'מעדכן...' : 'העבר למעלה'}
           </button>
         ) : (
           <button
             type="button"
             className={[listStyles.actionButton, styles.disabledAction].join(' ')}
             disabled
+            aria-disabled="true"
             aria-label={`העבר למעלה: ${blockLabel} (לא זמין)`}
           >
             העבר למעלה
@@ -114,13 +127,14 @@ export default function ContentBlockRowActions({
             disabled={isPending}
             aria-label={`העבר למטה: ${blockLabel}`}
           >
-            העבר למטה
+            {isMovePending ? 'מעדכן...' : 'העבר למטה'}
           </button>
         ) : (
           <button
             type="button"
             className={[listStyles.actionButton, styles.disabledAction].join(' ')}
             disabled
+            aria-disabled="true"
             aria-label={`העבר למטה: ${blockLabel} (לא זמין)`}
           >
             העבר למטה
@@ -139,6 +153,11 @@ export default function ContentBlockRowActions({
         >
           מחיקה
         </button>
+      </div>
+
+      <div className={styles.srOnly} aria-live="polite" aria-atomic="true">
+        {isMovePending ? `מעדכן את סדר ${blockLabel}` : null}
+        {isDeletePending ? `מוחק את ${blockLabel}` : null}
       </div>
 
       {errorMessage && !deleteOpen ? (
@@ -162,6 +181,9 @@ export default function ContentBlockRowActions({
         isPending={isDeletePending}
         destructive
       >
+        <p className={styles.deleteHint}>
+          המחיקה היא לצמיתות. לא ניתן לשחזר את בלוק התוכן לאחר האישור.
+        </p>
         {errorMessage ? (
           <p className={listStyles.actionError} role="alert">
             {errorMessage}

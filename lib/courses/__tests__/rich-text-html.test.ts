@@ -35,4 +35,31 @@ describe('rich text html rendering', () => {
 
     expect(rendered.success).toBe(false)
   })
+
+  it('rejects raw html input and never renders script content', () => {
+    const rawHtml = renderRichTextDocumentHtml('<img src=x onerror=alert(1)>')
+    expect(rawHtml.success).toBe(false)
+
+    const safeRendered = renderRichTextDocumentHtml({
+      type: 'doc',
+      content: [
+        {
+          type: 'paragraph',
+          content: [
+            {
+              type: 'text',
+              text: 'safe',
+              marks: [{ type: 'link', attrs: { href: 'https://example.com/long/path/that/should/wrap/safely/in/preview' } }],
+            },
+          ],
+        },
+      ],
+    })
+
+    expect(safeRendered.success).toBe(true)
+    if (safeRendered.success) {
+      expect(safeRendered.html).not.toContain('<script')
+      expect(safeRendered.html).not.toContain('onerror')
+    }
+  })
 })

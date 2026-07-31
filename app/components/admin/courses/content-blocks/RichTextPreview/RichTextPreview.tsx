@@ -8,7 +8,7 @@ type RichTextPreviewProps = {
 export default function RichTextPreview({ html, unavailableMessage }: RichTextPreviewProps) {
   if (!html) {
     return (
-      <p className={styles.previewUnavailable}>
+      <p className={styles.previewUnavailable} role="status">
         {unavailableMessage ?? 'לא ניתן להציג תצוגה מקדימה.'}
       </p>
     )
@@ -18,6 +18,8 @@ export default function RichTextPreview({ html, unavailableMessage }: RichTextPr
     <div
       className={styles.preview}
       dir="rtl"
+      role="region"
+      aria-label="תצוגה מקדימה של התוכן"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   )

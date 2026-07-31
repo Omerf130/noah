@@ -60,3 +60,7 @@ Static content lives in [`lib/content/`](../lib/content/) (`courses.ts`, `produc
 ## Out of scope (Phase 1)
 
 MongoDB, auth, admin, store, APIs, email, payments.
+
+## Checkpoint G (admin content blocks)
+
+See [`docs/checkpoint-g-content-blocks.md`](checkpoint-g-content-blocks.md) for the Rich Text admin content block system, transitional legacy rules, and deferred features (video, student rendering, additional block types).

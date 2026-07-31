@@ -36,9 +36,16 @@
 }
 
 .toolbarButton:hover,
-.toolbarButton:focus-visible {
+.toolbarButton:focus-visible,
+.toolbarButtonActive:focus-visible {
   border-color: $color-border-light;
   background: rgba(80, 8, 137, 0.06);
+  outline: 2px solid rgba(80, 8, 137, 0.35);
+  outline-offset: 2px;
+}
+
+.toolbarButton:hover,
+.toolbarButtonActive:hover {
   outline: none;
 }
 
@@ -111,6 +118,7 @@
 .linkInput {
   flex: 1 1 12rem;
   min-width: 0;
+  max-width: 100%;
   padding: $space-2 $space-3;
   border: 1px solid $color-border-light;
   border-radius: $radius-sm;
@@ -153,6 +161,8 @@
 .preview :global(a) {
   color: $color-primary;
   text-decoration: underline;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .previewUnavailable {

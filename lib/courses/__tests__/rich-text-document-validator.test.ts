@@ -161,6 +161,41 @@ describe('rich text document validator', () => {
     expect(parseRichTextDocument(manyParagraphs).message).toBe(CONTENT_TOO_COMPLEX_MESSAGE)
   })
 
+  it('rejects raw HTML strings and unsupported nested payloads', () => {
+    expect(parseRichTextDocument('<p>hello</p>').success).toBe(false)
+    expect(parseRichTextDocument('<script>alert(1)</script>').success).toBe(false)
+
+    expect(
+      parseRichTextDocument({
+        type: 'doc',
+        content: [
+          {
+            type: 'paragraph',
+            content: [{ type: 'text', text: 'x', marks: [{ type: 'link', attrs: { href: 'https://example.com', target: '_blank' } }] }],
+          },
+        ],
+      }).success,
+    ).toBe(false)
+
+    expect(
+      parseRichTextDocument({
+        type: 'doc',
+        content: [
+          {
+            type: 'paragraph',
+            content: [
+              {
+                type: 'text',
+                text: 'cred',
+                marks: [{ type: 'link', attrs: { href: 'https://user:pass@example.com' } }],
+              },
+            ],
+          },
+        ],
+      }).success,
+    ).toBe(false)
+  })
+
   it('parses JSON strings and compares documents', () => {
     const parsed = parseRichTextDocument(JSON.stringify(validParagraph))
     expect(parsed.success).toBe(true)

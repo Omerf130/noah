@@ -16,6 +16,7 @@
   border: 1px solid $color-border-light;
   border-radius: $radius-lg;
   background: $color-surface;
+  min-width: 0;
 }
 
 .blockHeader {

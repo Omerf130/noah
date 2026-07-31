@@ -2,6 +2,13 @@ import mongoose from 'mongoose'
 import { connectDb } from '../../db/connect'
 import { ContentBlock, Lesson } from '../../db/models'
 
+/**
+ * Transitional content counting (Checkpoint G):
+ * - Prefer ContentBlock document counts when any exist for a lesson.
+ * - Otherwise fall back to legacy embedded Lesson.blocks length.
+ * - Never add both counts together for the same lesson.
+ * - Lesson deletion remains blocked if either source has content.
+ */
 export type LessonBlockCountSource = 'contentBlock' | 'legacyEmbedded'
 
 export function resolveTransitionalBlockCount(input: {
