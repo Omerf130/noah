@@ -46,9 +46,9 @@ function mapLessonStatusToPublicationStatus(status: string | undefined): Publica
 export function mapToAdminLessonListItemDto(
   lesson: AdminLessonListItemLeanLesson,
   position: number,
+  blockCount = lesson.blocks?.length ?? 0,
 ): AdminLessonListItemDto {
   const publicationStatus = mapLessonStatusToPublicationStatus(lesson.status)
-  const blockCount = lesson.blocks?.length ?? 0
 
   return {
     id: lesson._id.toString(),

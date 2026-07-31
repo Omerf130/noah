@@ -1,0 +1,161 @@
+@use 'variables' as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  padding: $space-2;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-md;
+  background: $color-surface;
+}
+
+.toolbarButton,
+.toolbarButtonActive {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  padding: $space-1 $space-2;
+  border: 1px solid transparent;
+  border-radius: $radius-sm;
+  background: transparent;
+  color: $color-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+}
+
+.toolbarButton:hover,
+.toolbarButton:focus-visible {
+  border-color: $color-border-light;
+  background: rgba(80, 8, 137, 0.06);
+  outline: none;
+}
+
+.toolbarButtonActive {
+  border-color: rgba(80, 8, 137, 0.24);
+  background: rgba(80, 8, 137, 0.1);
+}
+
+.toolbarButton:disabled,
+.toolbarButtonActive:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.editorShell {
+  border: 1px solid $color-border-light;
+  border-radius: $radius-md;
+  background: $color-surface;
+  overflow: hidden;
+}
+
+.editorContent {
+  min-height: 16rem;
+  padding: $space-4;
+  color: $color-text;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.editorContent :global(.ProseMirror) {
+  min-height: 14rem;
+  outline: none;
+}
+
+.editorContent :global(.ProseMirror p) {
+  margin: 0 0 $space-3;
+}
+
+.editorContent :global(.ProseMirror h2),
+.editorContent :global(.ProseMirror h3) {
+  margin: 0 0 $space-3;
+  color: $color-primary;
+}
+
+.editorContent :global(.ProseMirror ul),
+.editorContent :global(.ProseMirror ol) {
+  margin: 0 0 $space-3;
+  padding-inline-start: $space-5;
+}
+
+.editorContent :global(.ProseMirror blockquote) {
+  margin: 0 0 $space-3;
+  padding-inline-start: $space-4;
+  border-inline-start: 3px solid rgba(80, 8, 137, 0.24);
+  color: $color-text-muted;
+}
+
+.editorContent :global(.ProseMirror a) {
+  color: $color-primary;
+  text-decoration: underline;
+}
+
+.linkControls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  align-items: center;
+}
+
+.linkInput {
+  flex: 1 1 12rem;
+  min-width: 0;
+  padding: $space-2 $space-3;
+  border: 1px solid $color-border-light;
+  border-radius: $radius-sm;
+  font: inherit;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.preview {
+  color: $color-text;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.preview :global(h2),
+.preview :global(h3) {
+  margin: 0 0 $space-3;
+  color: $color-primary;
+}
+
+.preview :global(p) {
+  margin: 0 0 $space-3;
+}
+
+.preview :global(ul),
+.preview :global(ol) {
+  margin: 0 0 $space-3;
+  padding-inline-start: $space-5;
+}
+
+.preview :global(blockquote) {
+  margin: 0 0 $space-3;
+  padding-inline-start: $space-4;
+  border-inline-start: 3px solid rgba(80, 8, 137, 0.24);
+  color: $color-text-muted;
+}
+
+.preview :global(a) {
+  color: $color-primary;
+  text-decoration: underline;
+}
+
+.previewUnavailable {
+  margin: 0;
+  color: $color-text-muted;
+}

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import { connectDb } from '../../db/connect'
-import { CourseModule, Lesson } from '../../db/models'
+import { ContentBlock, CourseModule, Lesson } from '../../db/models'
 import {
   mapToAdminLessonEditDto,
   type AdminLessonEditDto,
@@ -52,7 +52,55 @@ export async function getAdminLessonEdit(
         updatedAt: 1,
         courseId: 1,
         moduleId: 1,
-        blockCount: { $size: { $ifNull: ['$blocks', []] } },
+        legacyBlockCount: { $size: { $ifNull: ['$blocks', []] } },
+      },
+    },
+    {
+      $lookup: {
+        from: ContentBlock.collection.name,
+        let: { lessonId: '$_id' },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $and: [
+                  { $eq: ['$lessonId', '$$lessonId'] },
+                  { $eq: ['$courseId', new mongoose.Types.ObjectId(parsedCourseId.courseId)] },
+                  { $eq: ['$moduleId', new mongoose.Types.ObjectId(parsedModuleId.moduleId)] },
+                ],
+              },
+            },
+          },
+          { $count: 'count' },
+        ],
+        as: 'contentBlockStats',
+      },
+    },
+    {
+      $addFields: {
+        contentBlockCount: {
+          $ifNull: [{ $arrayElemAt: ['$contentBlockStats.count', 0] }, 0],
+        },
+      },
+    },
+    {
+      $project: {
+        title: 1,
+        slug: 1,
+        summary: 1,
+        order: 1,
+        status: 1,
+        createdAt: 1,
+        updatedAt: 1,
+        courseId: 1,
+        moduleId: 1,
+        blockCount: {
+          $cond: {
+            if: { $gt: ['$contentBlockCount', 0] },
+            then: '$contentBlockCount',
+            else: '$legacyBlockCount',
+          },
+        },
       },
     },
   ])

@@ -4,6 +4,7 @@ import { getAdminModuleLessonContext } from '../../../../../../../../../../lib/c
 import { getAdminLessonEdit } from '../../../../../../../../../../lib/courses/queries/admin-lesson-edit-query'
 import { buildPageMetadata } from '../../../../../../../../../../lib/seo'
 import CourseAdminNav from '../../../../../../../../../components/admin/courses/CourseAdminNav/CourseAdminNav'
+import LessonAdminNav from '../../../../../../../../../components/admin/courses/lessons/LessonAdminNav/LessonAdminNav'
 import ModuleAdminNav from '../../../../../../../../../components/admin/courses/ModuleAdminNav/ModuleAdminNav'
 import EditLessonForm from '../../../../../../../../../components/admin/courses/lessons/EditLessonForm/EditLessonForm'
 import Button from '../../../../../../../../../components/ui/Button/Button'
@@ -71,6 +72,12 @@ export default async function AdminEditLessonPage({ params }: AdminEditLessonPag
         courseId={context.courseId}
         moduleId={context.moduleId}
         activeTab="lessons"
+      />
+      <LessonAdminNav
+        courseId={context.courseId}
+        moduleId={context.moduleId}
+        lessonId={lessonId}
+        activeTab="details"
       />
 
       <EditLessonForm lesson={lessonEdit} />

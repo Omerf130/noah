@@ -1,5 +1,5 @@
 import { connectDb } from '../../db/connect'
-import { Course, CourseModule, Lesson } from '../../db/models'
+import { ContentBlock, Course, CourseModule, Lesson } from '../../db/models'
 import { matchesCourseDeleteConfirmation } from '../validators/course-delete-confirmation'
 import { parseCourseIdParam } from '../validators/course-id'
 import {
@@ -89,6 +89,11 @@ export async function determineCourseDeletionEligibility(
 
   const lessonExists = await Lesson.exists({ courseId: parsedCourseId.courseId })
   if (lessonExists) {
+    reasons.push(RELATED_LESSON_MESSAGE)
+  }
+
+  const contentBlockExists = await ContentBlock.exists({ courseId: parsedCourseId.courseId })
+  if (contentBlockExists) {
     reasons.push(RELATED_LESSON_MESSAGE)
   }
 

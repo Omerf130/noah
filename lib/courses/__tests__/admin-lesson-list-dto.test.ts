@@ -17,6 +17,7 @@ describe('admin lesson list item DTO', () => {
         blocks: [{ id: '1' }, { id: '2' }],
       },
       1,
+      2,
     )
 
     expect(dto.id).toBe('507f1f77bcf86cd799439011')
@@ -39,6 +40,7 @@ describe('admin lesson list item DTO', () => {
         blocks: [],
       },
       2,
+      0,
     )
 
     expect(dto.publicationStatus).toBe('draft')
@@ -47,7 +49,7 @@ describe('admin lesson list item DTO', () => {
     expect(dto.blockCount).toBe(0)
   })
 
-  it('computes blockCount only from blocks.length', () => {
+  it('uses explicit blockCount from query instead of embedded blocks length', () => {
     const dto = mapToAdminLessonListItemDto(
       {
         _id: { toString: () => '507f1f77bcf86cd799439013' },
@@ -57,10 +59,26 @@ describe('admin lesson list item DTO', () => {
         blocks: [{ id: 'a' }],
       },
       1,
+      3,
     )
 
-    expect(dto.blockCount).toBe(1)
-    expect(dto.blockCountLabel).toBe('1')
+    expect(dto.blockCount).toBe(3)
+    expect(dto.blockCountLabel).toBe('3')
+  })
+
+  it('falls back to blocks.length when blockCount is not supplied', () => {
+    const dto = mapToAdminLessonListItemDto(
+      {
+        _id: { toString: () => '507f1f77bcf86cd799439015' },
+        title: 'Legacy Fallback',
+        order: 100,
+        status: 'draft',
+        blocks: [{ id: 'a' }, { id: 'b' }],
+      },
+      1,
+    )
+
+    expect(dto.blockCount).toBe(2)
   })
 
   it('exposes only safe DTO keys without estimatedDurationMinutes or raw blocks', () => {

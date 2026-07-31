@@ -5,6 +5,7 @@ import {
   type AdminLessonListItemDto,
   type AdminLessonListItemLeanLesson,
 } from '../mappers/to-admin-lesson-list-item-dto'
+import { getTransitionalBlockCountsForModuleLessons } from '../services/content-block-counts'
 import { parseCourseIdParam } from '../validators/course-id'
 import { parseModuleIdParam } from '../validators/module-id'
 
@@ -49,10 +50,22 @@ export async function listAdminModuleLessons(
     .sort({ order: 1 })
     .lean()) as AdminLessonListItemLeanLesson[]
 
+  const blockCountsByLessonId = await getTransitionalBlockCountsForModuleLessons(
+    parsedCourseId.courseId,
+    parsedModuleId.moduleId,
+    lessons,
+  )
+
   return {
     courseId: parsedCourseId.courseId,
     moduleId: parsedModuleId.moduleId,
-    items: lessons.map((lesson, index) => mapToAdminLessonListItemDto(lesson, index + 1)),
+    items: lessons.map((lesson, index) =>
+      mapToAdminLessonListItemDto(
+        lesson,
+        index + 1,
+        blockCountsByLessonId.get(lesson._id.toString()) ?? 0,
+      ),
+    ),
     totalItems: lessons.length,
   }
 }

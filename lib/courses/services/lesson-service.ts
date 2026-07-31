@@ -23,6 +23,7 @@ import {
   LessonNotFoundError,
   formatZodError,
 } from './errors'
+import { lessonHasTransitionalContent } from './content-block-counts'
 import {
   generateLessonSlugWithSuffixAttempt,
 } from './lesson-slug-service'
@@ -252,6 +253,8 @@ export async function updateLesson(lessonId: string, input: unknown) {
 }
 
 export async function updateLessonBlocks(lessonId: string, input: unknown) {
+  // @deprecated Checkpoint G — replaced by ContentBlock collection (Internal G2+).
+  // Legacy embedded Lesson.blocks writes remain for backward compatibility until removal.
   await connectDb()
 
   const parsed = parseUpdateLessonBlocksInput(input)
@@ -425,13 +428,17 @@ export async function deleteLessonFromModule(
     throw new LessonNotFoundError(LESSON_NOT_FOUND_MESSAGE)
   }
 
-  // TODO (Checkpoint G): Replace the lesson.blocks.length === 0 gate below with
-  // ContentBlock.exists({ lessonId }) once Content Blocks become standalone documents.
-  //
-  // Future TODO (no implementation): Investigate a soft-delete / trash capability
+  // TODO (no implementation): Investigate a soft-delete / trash capability
   // for lessons before permanent deletion.
 
-  if ((lessonWithBlocks.blocks?.length ?? 0) > 0) {
+  const hasContent = await lessonHasTransitionalContent({
+    courseId,
+    moduleId,
+    lessonId: parsedLessonId.lessonId,
+    legacyBlocks: lessonWithBlocks.blocks,
+  })
+
+  if (hasContent) {
     throw new CourseValidationError(LESSON_DELETE_WITH_BLOCKS_MESSAGE)
   }
 

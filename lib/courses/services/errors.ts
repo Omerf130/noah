@@ -58,6 +58,14 @@ export class LessonDeletionFailedError extends Error {
   }
 }
 
+export class ContentBlockNotFoundError extends Error {
+  readonly name = 'ContentBlockNotFoundError'
+
+  constructor(message = 'בלוק התוכן המבוקש לא נמצא.') {
+    super(message)
+  }
+}
+
 export type CourseDuplicateKeyField = 'internalName' | 'slug' | 'unknown'
 
 export class CourseDuplicateKeyError extends Error {

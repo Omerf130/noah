@@ -1,0 +1,24 @@
+@use 'variables' as *;
+
+.rowActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3;
+  max-width: 100%;
+}
+
+.editLink {
+  color: $color-primary;
+  font-weight: $font-weight-bold;
+  text-decoration: underline;
+}
+
+.editLink:hover,
+.editLink:focus-visible {
+  text-decoration: none;
+}
+
+.disabledAction {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

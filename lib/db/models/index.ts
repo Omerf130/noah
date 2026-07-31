@@ -5,6 +5,8 @@ export type {
   AuthAttemptModel,
   AuthAttemptScope,
 } from './AuthAttempt'
+export { ContentBlock } from './ContentBlock'
+export type { ContentBlockDocument, ContentBlockModel } from './ContentBlock'
 export { Course } from './Course'
 export type { CourseDocument, CourseModel } from './Course'
 export { CourseModule } from './CourseModule'

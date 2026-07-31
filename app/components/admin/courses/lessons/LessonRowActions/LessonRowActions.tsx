@@ -102,6 +102,13 @@ export default function LessonRowActions({
     <>
       <div className={styles.lessonRowActions}>
         <Button
+          href={`/admin/courses/${courseId}/content/${moduleId}/lessons/${lessonId}/content`}
+          variant="ghost"
+        >
+          ניהול תוכן
+        </Button>
+
+        <Button
           href={`/admin/courses/${courseId}/content/${moduleId}/lessons/${lessonId}/edit`}
           variant="ghost"
         >

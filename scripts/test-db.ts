@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import { connectDb, disconnectDb } from '../lib/db/connect'
 import { getDatabaseName } from '../lib/db/env'
 import { AuthAttempt } from '../lib/db/models/AuthAttempt'
+import { ContentBlock } from '../lib/db/models/ContentBlock'
 import { Course } from '../lib/db/models/Course'
 import { CourseModule } from '../lib/db/models/CourseModule'
 import { Lesson } from '../lib/db/models/Lesson'
@@ -58,6 +59,7 @@ async function main() {
     await syncModelIndexes(Course)
     await syncModelIndexes(CourseModule)
     await syncModelIndexes(Lesson)
+    await syncModelIndexes(ContentBlock)
     await syncModelIndexes(MediaAsset)
     await syncModelIndexes(VideoAsset)
 
@@ -68,6 +70,7 @@ async function main() {
       courseIndexes,
       courseModuleIndexes,
       lessonIndexes,
+      contentBlockIndexes,
       mediaAssetIndexes,
       videoAssetIndexes,
     ] = await Promise.all([
@@ -77,6 +80,7 @@ async function main() {
       Course.collection.indexes(),
       CourseModule.collection.indexes(),
       Lesson.collection.indexes(),
+      ContentBlock.collection.indexes(),
       MediaAsset.collection.indexes(),
       VideoAsset.collection.indexes(),
     ])
@@ -98,6 +102,7 @@ async function main() {
     console.log(`Course indexes synchronized: ${courseIndexes.length}`)
     console.log(`CourseModule indexes synchronized: ${courseModuleIndexes.length}`)
     console.log(`Lesson indexes synchronized: ${lessonIndexes.length}`)
+    console.log(`ContentBlock indexes synchronized: ${contentBlockIndexes.length}`)
     console.log(`MediaAsset indexes synchronized: ${mediaAssetIndexes.length}`)
     console.log(`VideoAsset indexes synchronized: ${videoAssetIndexes.length}`)
     console.log('Session TTL index on expiresAt: confirmed')

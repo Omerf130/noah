@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 import { connectDb } from '../../db/connect'
 import { Course, Lesson } from '../../db/models'
 import { CourseNotFoundError } from './errors'
+import { courseHasTransitionalLessonContent } from './content-block-counts'
 import { getCourseOutline } from './outline-service'
 
 export type PublishValidationIssue = {
@@ -53,8 +54,8 @@ export async function validateCourseForPublish(courseId: string): Promise<Publis
     issues.push({ code: 'lessons_missing', message: 'At least one lesson is required' })
   }
 
-  const lessonsWithBlocks = lessons.filter((lesson) => lesson.blocks.length > 0)
-  if (lessonsWithBlocks.length === 0) {
+  const hasLessonContent = await courseHasTransitionalLessonContent(courseId)
+  if (!hasLessonContent) {
     issues.push({
       code: 'lesson_blocks_missing',
       message: 'At least one lesson must contain content blocks',

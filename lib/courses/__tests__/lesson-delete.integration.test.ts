@@ -1,8 +1,9 @@
 import mongoose from 'mongoose'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { connectDb, disconnectDb } from '../../db/connect'
-import { Course, CourseModule, Lesson, User } from '../../db/models'
+import { ContentBlock, Course, CourseModule, Lesson, User } from '../../db/models'
 import { LESSON_ORDER_GAP } from '../constants'
+import { createRichTextContentBlock } from '../services/content-block-service'
 import { createCourse } from '../services/course-service'
 import { createModule } from '../services/module-service'
 import {
@@ -19,12 +20,18 @@ const runId = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
 const BLOCKS_MESSAGE =
   'לא ניתן למחוק את השיעור משום שקיימים בו בלוקי תוכן. יש להסיר את התוכן תחילה.'
 
+const validDocument = {
+  type: 'doc',
+  content: [{ type: 'paragraph', content: [{ type: 'text', text: 'content' }] }],
+} as const
+
 describeIfDb('delete lesson from module integration', () => {
   let actorUserId: string
   let courseId: string
   let moduleId: string
   let emptyLessonId: string
   let blockedLessonId: string
+  let contentBlockLessonId: string
   let middleLessonId: string
   let lastLessonId: string
 
@@ -92,9 +99,18 @@ describeIfDb('delete lesson from module integration', () => {
         blocks: [{ id: 'block-1', type: 'richText', order: 0, data: { body: 'content' } }],
       },
     })
+
+    const contentBlocked = await createLessonInModule(courseId, moduleId, {
+      title: 'ContentBlock Lesson',
+      publicationStatus: 'draft',
+    })
+    contentBlockLessonId = String(contentBlocked._id)
+
+    await createRichTextContentBlock(courseId, moduleId, contentBlockLessonId, validDocument)
   }, INTEGRATION_TIMEOUT_MS)
 
   afterAll(async () => {
+    await ContentBlock.deleteMany({ courseId: { $in: createdCourseIds } })
     await Lesson.deleteMany({ courseId: { $in: createdCourseIds } })
     await CourseModule.deleteMany({ courseId: { $in: createdCourseIds } })
 
@@ -111,10 +127,20 @@ describeIfDb('delete lesson from module integration', () => {
   }, INTEGRATION_TIMEOUT_MS)
 
   it(
-    'rejects deleting a lesson with blocks',
+    'rejects deleting a lesson with legacy embedded blocks',
     async () => {
       await expect(
         deleteLessonFromModule(courseId, moduleId, blockedLessonId),
+      ).rejects.toThrow(BLOCKS_MESSAGE)
+    },
+    INTEGRATION_TIMEOUT_MS,
+  )
+
+  it(
+    'rejects deleting a lesson with ContentBlock documents',
+    async () => {
+      await expect(
+        deleteLessonFromModule(courseId, moduleId, contentBlockLessonId),
       ).rejects.toThrow(BLOCKS_MESSAGE)
     },
     INTEGRATION_TIMEOUT_MS,

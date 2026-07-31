@@ -1,7 +1,8 @@
 import mongoose from 'mongoose'
 import { connectDb } from '../../db/connect'
-import { Course, Lesson } from '../../db/models'
+import { Course } from '../../db/models'
 import { CourseNotFoundError } from './errors'
+import { countTransitionalLessonBlocksForCourse } from './content-block-counts'
 import { listLessonsByModule } from './lesson-service'
 import { listModulesByCourse } from './module-service'
 
@@ -53,8 +54,5 @@ export async function getPublishedCourseOutlineBySlug(slug: string) {
 }
 
 export async function countLessonBlocks(courseId: string) {
-  await connectDb()
-
-  const lessons = await Lesson.find({ courseId }).select('blocks').lean()
-  return lessons.reduce((total, lesson) => total + lesson.blocks.length, 0)
+  return countTransitionalLessonBlocksForCourse(courseId)
 }
